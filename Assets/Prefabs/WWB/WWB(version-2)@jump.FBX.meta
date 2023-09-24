@@ -1,0 +1,238 @@
+fileFormatVersion: 2
+guid: 4bb2536bd33df5047ad1b51f3d40f8a7
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Body
+    100002: Box001
+    100004: Box002
+    100006: chest
+    100008: f_index.01.R.001
+    100010: f_index.01.R.002
+    100012: f_index.02.R.001
+    100014: f_index.02.R.002
+    100016: f_index.03.R.001
+    100018: f_index.03.R.002
+    100020: f_middle.01.R.001
+    100022: f_middle.01.R.002
+    100024: f_middle.02.R.001
+    100026: f_middle.02.R.002
+    100028: f_middle.03.R.001
+    100030: f_middle.03.R.002
+    100032: f_pinky.01.R.001
+    100034: f_pinky.01.R.002
+    100036: f_pinky.02.R.001
+    100038: f_pinky.02.R.002
+    100040: f_pinky.03.R.001
+    100042: f_pinky.03.R.002
+    100044: f_ring.01.R.001
+    100046: f_ring.01.R.002
+    100048: f_ring.02.R.001
+    100050: f_ring.02.R.002
+    100052: f_ring.03.R.001
+    100054: f_ring.03.R.002
+    100056: foot.L
+    100058: foot.R
+    100060: forearm.R.001
+    100062: forearm.R.002
+    100064: hand.R.001
+    100066: hand.R.002
+    100068: Head
+    100070: head
+    100072: head.001
+    100074: head.002
+    100076: hips
+    100078: Left Arm
+    100080: Left-Leg
+    100082: metarig.002
+    100084: neck
+    100086: palm.01.R.001
+    100088: palm.01.R.002
+    100090: palm.02.R.001
+    100092: palm.02.R.002
+    100094: palm.03.R.001
+    100096: palm.03.R.002
+    100098: palm.04.R.001
+    100100: palm.04.R.002
+    100102: Right Arm
+    100104: Right-Leg
+    100106: shin.L
+    100108: shin.R
+    100110: shoulder.R.001
+    100112: shoulder.R.002
+    100114: spine
+    100116: thigh.L
+    100118: thigh.R
+    100120: thumb.01.R.001
+    100122: thumb.01.R.002
+    100124: thumb.02.R.001
+    100126: thumb.02.R.002
+    100128: thumb.03.R.001
+    100130: thumb.03.R.002
+    100132: toe.L
+    100134: toe.R
+    100136: upper_arm.R.001
+    100138: upper_arm.R.002
+    100140: //RootNode
+    400000: Body
+    400002: Box001
+    400004: Box002
+    400006: chest
+    400008: f_index.01.R.001
+    400010: f_index.01.R.002
+    400012: f_index.02.R.001
+    400014: f_index.02.R.002
+    400016: f_index.03.R.001
+    400018: f_index.03.R.002
+    400020: f_middle.01.R.001
+    400022: f_middle.01.R.002
+    400024: f_middle.02.R.001
+    400026: f_middle.02.R.002
+    400028: f_middle.03.R.001
+    400030: f_middle.03.R.002
+    400032: f_pinky.01.R.001
+    400034: f_pinky.01.R.002
+    400036: f_pinky.02.R.001
+    400038: f_pinky.02.R.002
+    400040: f_pinky.03.R.001
+    400042: f_pinky.03.R.002
+    400044: f_ring.01.R.001
+    400046: f_ring.01.R.002
+    400048: f_ring.02.R.001
+    400050: f_ring.02.R.002
+    400052: f_ring.03.R.001
+    400054: f_ring.03.R.002
+    400056: foot.L
+    400058: foot.R
+    400060: forearm.R.001
+    400062: forearm.R.002
+    400064: hand.R.001
+    400066: hand.R.002
+    400068: Head
+    400070: head
+    400072: head.001
+    400074: head.002
+    400076: hips
+    400078: Left Arm
+    400080: Left-Leg
+    400082: metarig.002
+    400084: neck
+    400086: palm.01.R.001
+    400088: palm.01.R.002
+    400090: palm.02.R.001
+    400092: palm.02.R.002
+    400094: palm.03.R.001
+    400096: palm.03.R.002
+    400098: palm.04.R.001
+    400100: palm.04.R.002
+    400102: Right Arm
+    400104: Right-Leg
+    400106: shin.L
+    400108: shin.R
+    400110: shoulder.R.001
+    400112: shoulder.R.002
+    400114: spine
+    400116: thigh.L
+    400118: thigh.R
+    400120: thumb.01.R.001
+    400122: thumb.01.R.002
+    400124: thumb.02.R.001
+    400126: thumb.02.R.002
+    400128: thumb.03.R.001
+    400130: thumb.03.R.002
+    400132: toe.L
+    400134: toe.R
+    400136: upper_arm.R.001
+    400138: upper_arm.R.002
+    400140: //RootNode
+    4300000: Box001
+    4300002: Box002
+    4300004: Body
+    4300006: Right Arm
+    4300008: Head
+    4300010: Left-Leg
+    4300012: Right-Leg
+    4300014: Left Arm
+    7400000: metarig.002|basemesh002|Take 001|BaseLayer
+    7400002: metarig.002|metarig.002Action
+    7400004: metarig.002|metarig.002Action.001
+    7400006: metarig.002|PoseLib
+    7400008: Box001|basemesh002|Take 001|BaseLayer
+    7400010: Box001|metarig.002Action
+    7400012: Box002|basemesh002|Take 001|BaseLayer
+    7400014: Box002|metarig.002Action
+    7400016: Body|basemesh002|Take 001|BaseLayer
+    7400018: Body|metarig.002Action
+    7400020: Right Arm|basemesh002|Take 001|BaseLayer
+    7400022: Right Arm|metarig.002Action
+    7400024: Head|basemesh002|Take 001|BaseLayer
+    7400026: Head|metarig.002Action
+    7400028: Left-Leg|basemesh002|Take 001|BaseLayer
+    7400030: Left-Leg|metarig.002Action
+    7400032: Right-Leg|basemesh002|Take 001|BaseLayer
+    7400034: Right-Leg|metarig.002Action
+    7400036: Left Arm|basemesh002|Take 001|BaseLayer
+    7400038: Left Arm|metarig.002Action
+    7400040: Scene
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Body
+    13700002: Box001
+    13700004: Box002
+    13700006: Head
+    13700008: Left Arm
+    13700010: Left-Leg
+    13700012: Right Arm
+    13700014: Right-Leg
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 

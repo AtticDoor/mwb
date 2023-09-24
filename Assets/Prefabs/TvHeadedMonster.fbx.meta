@@ -1,0 +1,246 @@
+fileFormatVersion: 2
+guid: 0d1e9dacbf4660e4b81db1dde0951eb7
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Cube
+    100002: Cylinder001
+    100004: Cylinder002
+    100006: Cylinder003
+    100008: Cylinder004
+    100010: Screen
+    100012: //RootNode
+    100014: Arm1
+    100016: Arm1.1
+    100018: Arm1.2
+    100020: Arm2
+    100022: Arm2.1
+    100024: Arm2.2
+    100026: Arm3
+    100028: Arm3.1
+    100030: Arm3.2
+    100032: Armature
+    100034: Camera
+    100036: Empty
+    100038: Lamp
+    100040: Neck
+    100042: Plane
+    400000: Cube
+    400002: Cylinder001
+    400004: Cylinder002
+    400006: Cylinder003
+    400008: Cylinder004
+    400010: Screen
+    400012: //RootNode
+    400014: Arm1
+    400016: Arm1.1
+    400018: Arm1.2
+    400020: Arm2
+    400022: Arm2.1
+    400024: Arm2.2
+    400026: Arm3
+    400028: Arm3.1
+    400030: Arm3.2
+    400032: Armature
+    400034: Camera
+    400036: Empty
+    400038: Lamp
+    400040: Neck
+    400042: Plane
+    2300000: Cube
+    2300002: Cylinder001
+    2300004: Cylinder002
+    2300006: Cylinder003
+    2300008: Cylinder004
+    2300010: Screen
+    2300012: Plane
+    3300000: Cube
+    3300002: Cylinder001
+    3300004: Cylinder002
+    3300006: Cylinder003
+    3300008: Cylinder004
+    3300010: Screen
+    3300012: Plane
+    4300000: Cube
+    4300002: Screen
+    4300004: Cylinder001
+    4300006: Cylinder002
+    4300008: Cylinder003
+    4300010: Cylinder004
+    4300012: Plane
+    7400000: Armature|ArmatureAction
+    7400002: Armature|ArmatureAction0
+    9500000: //RootNode
+    13700000: Screen
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|ArmatureAction
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Arm1
+        weight: 1
+      - path: Armature/Arm1/Arm1.1
+        weight: 1
+      - path: Armature/Arm1/Arm1.1/Arm1.2
+        weight: 1
+      - path: Armature/Arm2
+        weight: 1
+      - path: Armature/Arm2/Arm2.1
+        weight: 1
+      - path: Armature/Arm2/Arm2.1/Arm2.2
+        weight: 1
+      - path: Armature/Arm3
+        weight: 1
+      - path: Armature/Arm3/Arm3.1
+        weight: 1
+      - path: Armature/Arm3/Arm3.1/Arm3.2
+        weight: 1
+      - path: Armature/Neck
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Empty
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Plane
+        weight: 1
+      - path: Screen
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Armature|ArmatureAction0
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Arm1
+        weight: 1
+      - path: Armature/Arm1/Arm1.1
+        weight: 1
+      - path: Armature/Arm1/Arm1.1/Arm1.2
+        weight: 1
+      - path: Armature/Arm2
+        weight: 1
+      - path: Armature/Arm2/Arm2.1
+        weight: 1
+      - path: Armature/Arm2/Arm2.1/Arm2.2
+        weight: 1
+      - path: Armature/Arm3
+        weight: 1
+      - path: Armature/Arm3/Arm3.1
+        weight: 1
+      - path: Armature/Arm3/Arm3.1/Arm3.2
+        weight: 1
+      - path: Armature/Neck
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Empty
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Plane
+        weight: 1
+      - path: Screen
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .300000012
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 

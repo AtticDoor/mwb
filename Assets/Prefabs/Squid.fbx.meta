@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: 89b711bbe51dc2f4997e20bd00d2a968
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Head
+    100002: //RootNode
+    100004: Tentacle1
+    100006: Tentacle1 1
+    100008: Tentacle1 2
+    100010: Tentacle1 3
+    100012: Cube
+    100014: Cube.004
+    100016: Cube.010
+    400000: Head
+    400002: //RootNode
+    400004: Tentacle1
+    400006: Tentacle1 1
+    400008: Tentacle1 2
+    400010: Tentacle1 3
+    400012: Cube
+    400014: Cube.004
+    400016: Cube.010
+    2300000: Head
+    2300002: Tentacle1
+    2300004: Tentacle1 1
+    2300006: Tentacle1 2
+    2300008: Tentacle1 3
+    2300010: Cube
+    2300012: Cube.004
+    2300014: Cube.010
+    3300000: Head
+    3300002: Tentacle1
+    3300004: Tentacle1 1
+    3300006: Tentacle1 2
+    3300008: Tentacle1 3
+    3300010: Cube
+    3300012: Cube.004
+    3300014: Cube.010
+    4300000: Head
+    4300002: Tentacle1
+    4300004: Tentacle1
+    4300006: Tentacle1
+    4300008: Tentacle1
+    4300010: Cube.010
+    4300012: Cube
+    4300014: Cube.004
+    7400000: Cube.010|Cube.001|Cube.010|Cube.001Action.001|Cube.010|Cube.001Action.00
+    7400002: Cube.010|Cube.001|Cube.010|Cube.001Action|Cube.010|Cube.001Action
+    7400004: Cube.010|Cube.001|Cube.010|Cube.002Action.001|Cube.010|Cube.002Action.00
+    7400006: Cube.010|Cube.001|Cube.010|Cube.002Action|Cube.010|Cube.002Action
+    7400008: Cube.010|Cube.001|Cube.010|Cube.003Action.001|Cube.010|Cube.003Action.00
+    7400010: Cube.010|Cube.001|Cube.010|Cube.003Action.002|Cube.010|Cube.003Action.00
+    7400012: Cube.010|Cube.001|Cube.010|Cube.003Action.003|Cube.010|Cube.003Action.00
+    7400014: Cube.010|Cube.001|Cube.010|Cube.003Action|Cube.010|Cube.003Action
+    7400016: Cube.010|Cube.002|Cube|Cube.001Action.001|Cube|Cube.001Action.001
+    7400018: Cube.010|Cube.002|Cube|Cube.001Action|Cube|Cube.001Action
+    7400020: Cube.010|Cube.002|Cube|Cube.002Action.001|Cube|Cube.002Action.001
+    7400022: Cube.010|Cube.002|Cube|Cube.002Action|Cube|Cube.002Action
+    7400024: Cube.010|Cube.002|Cube|Cube.003Action.001|Cube|Cube.003Action.001
+    7400026: Cube.010|Cube.002|Cube|Cube.003Action.002|Cube|Cube.003Action.002
+    7400028: Cube.010|Cube.002|Cube|Cube.003Action.003|Cube|Cube.003Action.003
+    7400030: Cube.010|Cube.002|Cube|Cube.003Action|Cube|Cube.003Action
+    7400032: Cube.010|Cube.003Action.001
+    7400034: Cube.010|Cube.003|Cube.004|Cube.001Action.001|Cube.004|Cube.001Action.00
+    7400036: Cube.010|Cube.003|Cube.004|Cube.001Action|Cube.004|Cube.001Action
+    7400038: Cube.010|Cube.003|Cube.004|Cube.002Action.001|Cube.004|Cube.002Action.00
+    7400040: Cube.010|Cube.003|Cube.004|Cube.002Action|Cube.004|Cube.002Action
+    7400042: Cube.010|Cube.003|Cube.004|Cube.003Action.001|Cube.004|Cube.003Action.00
+    7400044: Cube.010|Cube.003|Cube.004|Cube.003Action.002|Cube.004|Cube.003Action.00
+    7400046: Cube.010|Cube.003|Cube.004|Cube.003Action.003|Cube.004|Cube.003Action.00
+    7400048: Cube.010|Cube.003|Cube.004|Cube.003Action|Cube.004|Cube.003Action
+    7400050: Cube.010|Lamp.001|Lamp|Cube.001Action.001|Lamp|Cube.001Action.001
+    7400052: Cube.010|Lamp.001|Lamp|Cube.001Action|Lamp|Cube.001Action
+    7400054: Cube.010|Lamp.001|Lamp|Cube.002Action.001|Lamp|Cube.002Action.001
+    7400056: Cube.010|Lamp.001|Lamp|Cube.002Action|Lamp|Cube.002Action
+    7400058: Cube.010|Lamp.001|Lamp|Cube.003Action.001|Lamp|Cube.003Action.001
+    7400060: Cube.010|Lamp.001|Lamp|Cube.003Action.002|Lamp|Cube.003Action.002
+    7400062: Cube.010|Lamp.001|Lamp|Cube.003Action.003|Lamp|Cube.003Action.003
+    7400064: Cube.010|Lamp.001|Lamp|Cube.003Action|Lamp|Cube.003Action
+    7400066: Cube|Cube.001|Cube.010|Cube.001Action.001|Cube.010|Cube.001Action.00
+    7400068: Cube|Cube.001|Cube.010|Cube.001Action|Cube.010|Cube.001Action
+    7400070: Cube|Cube.001|Cube.010|Cube.002Action.001|Cube.010|Cube.002Action.00
+    7400072: Cube|Cube.001|Cube.010|Cube.002Action|Cube.010|Cube.002Action
+    7400074: Cube|Cube.001|Cube.010|Cube.003Action.001|Cube.010|Cube.003Action.00
+    7400076: Cube|Cube.001|Cube.010|Cube.003Action.002|Cube.010|Cube.003Action.00
+    7400078: Cube|Cube.001|Cube.010|Cube.003Action.003|Cube.010|Cube.003Action.00
+    7400080: Cube|Cube.001|Cube.010|Cube.003Action|Cube.010|Cube.003Action
+    7400082: Cube|Cube.002|Cube|Cube.001Action.001|Cube|Cube.001Action.001
+    7400084: Cube|Cube.002|Cube|Cube.001Action|Cube|Cube.001Action
+    7400086: Cube|Cube.002|Cube|Cube.002Action.001|Cube|Cube.002Action.001
+    7400088: Cube|Cube.002|Cube|Cube.002Action|Cube|Cube.002Action
+    7400090: Cube|Cube.002|Cube|Cube.003Action.001|Cube|Cube.003Action.001
+    7400092: Cube|Cube.002|Cube|Cube.003Action.002|Cube|Cube.003Action.002
+    7400094: Cube|Cube.002|Cube|Cube.003Action.003|Cube|Cube.003Action.003
+    7400096: Cube|Cube.002|Cube|Cube.003Action|Cube|Cube.003Action
+    7400098: Cube|Cube.003Action.001
+    7400100: Cube|Cube.003|Cube.004|Cube.001Action.001|Cube.004|Cube.001Action.00
+    7400102: Cube|Cube.003|Cube.004|Cube.001Action|Cube.004|Cube.001Action
+    7400104: Cube|Cube.003|Cube.004|Cube.002Action.001|Cube.004|Cube.002Action.00
+    7400106: Cube|Cube.003|Cube.004|Cube.002Action|Cube.004|Cube.002Action
+    7400108: Cube|Cube.003|Cube.004|Cube.003Action.001|Cube.004|Cube.003Action.00
+    7400110: Cube|Cube.003|Cube.004|Cube.003Action.002|Cube.004|Cube.003Action.00
+    7400112: Cube|Cube.003|Cube.004|Cube.003Action.003|Cube.004|Cube.003Action.00
+    7400114: Cube|Cube.003|Cube.004|Cube.003Action|Cube.004|Cube.003Action
+    7400116: Cube|Lamp.001|Lamp|Cube.001Action.001|Lamp|Cube.001Action.001
+    7400118: Cube|Lamp.001|Lamp|Cube.001Action|Lamp|Cube.001Action
+    7400120: Cube|Lamp.001|Lamp|Cube.002Action.001|Lamp|Cube.002Action.001
+    7400122: Cube|Lamp.001|Lamp|Cube.002Action|Lamp|Cube.002Action
+    7400124: Cube|Lamp.001|Lamp|Cube.003Action.001|Lamp|Cube.003Action.001
+    7400126: Cube|Lamp.001|Lamp|Cube.003Action.002|Lamp|Cube.003Action.002
+    7400128: Cube|Lamp.001|Lamp|Cube.003Action.003|Lamp|Cube.003Action.003
+    7400130: Cube|Lamp.001|Lamp|Cube.003Action|Lamp|Cube.003Action
+    7400132: Cube.004|Cube.001|Cube.010|Cube.001Action.001|Cube.010|Cube.001Action.00
+    7400134: Cube.004|Cube.001|Cube.010|Cube.001Action|Cube.010|Cube.001Action
+    7400136: Cube.004|Cube.001|Cube.010|Cube.002Action.001|Cube.010|Cube.002Action.00
+    7400138: Cube.004|Cube.001|Cube.010|Cube.002Action|Cube.010|Cube.002Action
+    7400140: Cube.004|Cube.001|Cube.010|Cube.003Action.001|Cube.010|Cube.003Action.00
+    7400142: Cube.004|Cube.001|Cube.010|Cube.003Action.002|Cube.010|Cube.003Action.00
+    7400144: Cube.004|Cube.001|Cube.010|Cube.003Action.003|Cube.010|Cube.003Action.00
+    7400146: Cube.004|Cube.001|Cube.010|Cube.003Action|Cube.010|Cube.003Action
+    7400148: Cube.004|Cube.002|Cube|Cube.001Action.001|Cube|Cube.001Action.001
+    7400150: Cube.004|Cube.002|Cube|Cube.001Action|Cube|Cube.001Action
+    7400152: Cube.004|Cube.002|Cube|Cube.002Action.001|Cube|Cube.002Action.001
+    7400154: Cube.004|Cube.002|Cube|Cube.002Action|Cube|Cube.002Action
+    7400156: Cube.004|Cube.002|Cube|Cube.003Action.001|Cube|Cube.003Action.001
+    7400158: Cube.004|Cube.002|Cube|Cube.003Action.002|Cube|Cube.003Action.002
+    7400160: Cube.004|Cube.002|Cube|Cube.003Action.003|Cube|Cube.003Action.003
+    7400162: Cube.004|Cube.002|Cube|Cube.003Action|Cube|Cube.003Action
+    7400164: Cube.004|Cube.003Action.001
+    7400166: Cube.004|Cube.003|Cube.004|Cube.001Action.001|Cube.004|Cube.001Action.00
+    7400168: Cube.004|Cube.003|Cube.004|Cube.001Action|Cube.004|Cube.001Action
+    7400170: Cube.004|Cube.003|Cube.004|Cube.002Action.001|Cube.004|Cube.002Action.00
+    7400172: Cube.004|Cube.003|Cube.004|Cube.002Action|Cube.004|Cube.002Action
+    7400174: Cube.004|Cube.003|Cube.004|Cube.003Action.001|Cube.004|Cube.003Action.00
+    7400176: Cube.004|Cube.003|Cube.004|Cube.003Action.002|Cube.004|Cube.003Action.00
+    7400178: Cube.004|Cube.003|Cube.004|Cube.003Action.003|Cube.004|Cube.003Action.00
+    7400180: Cube.004|Cube.003|Cube.004|Cube.003Action|Cube.004|Cube.003Action
+    7400182: Cube.004|Lamp.001|Lamp|Cube.001Action.001|Lamp|Cube.001Action.001
+    7400184: Cube.004|Lamp.001|Lamp|Cube.001Action|Lamp|Cube.001Action
+    7400186: Cube.004|Lamp.001|Lamp|Cube.002Action.001|Lamp|Cube.002Action.001
+    7400188: Cube.004|Lamp.001|Lamp|Cube.002Action|Lamp|Cube.002Action
+    7400190: Cube.004|Lamp.001|Lamp|Cube.003Action.001|Lamp|Cube.003Action.001
+    7400192: Cube.004|Lamp.001|Lamp|Cube.003Action.002|Lamp|Cube.003Action.002
+    7400194: Cube.004|Lamp.001|Lamp|Cube.003Action.003|Lamp|Cube.003Action.003
+    7400196: Cube.004|Lamp.001|Lamp|Cube.003Action|Lamp|Cube.003Action
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .0399999991
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
