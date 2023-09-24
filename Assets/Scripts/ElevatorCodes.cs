@@ -17,9 +17,9 @@ public partial class ElevatorCodes : MonoBehaviour
 
     public static void InitCodes()
     {
-        ElevatorCodes.Codes = (bool[]) new object[100].ToBuiltin(typeof(bool));//[false,false];
+        ElevatorCodes.Codes = new bool[100];
         ElevatorCodes.initialized = true;
-        ElevatorCodes.TVsDisabled = (bool[]) new object[100].ToBuiltin(typeof(bool));//[false,false];
+        ElevatorCodes.TVsDisabled = new bool[100];
     }
 
     public static void ClearTV(int num)

@@ -13,7 +13,7 @@ public partial class splatterCast : MonoBehaviour
             Ray ray = this.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                theSplat = UnityEngine.Object.Instantiate(this.splat, hit.point + (hit.normal * 2.5f), Quaternion.identity);
+                GameObject theSplat = Instantiate(this.splat, hit.point + (hit.normal * 2.5f), Quaternion.identity);
                 UnityEngine.Object.Destroy(theSplat, 2);
             }
         }

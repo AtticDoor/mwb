@@ -16,7 +16,7 @@ public partial class splatterCore : MonoBehaviour
             Vector3 fwd = this.transform.TransformDirection(Random.onUnitSphere * 5);
             if (Physics.Raycast(this.transform.position, fwd, out this.hit, 10))
             {
-                splatter = UnityEngine.Object.Instantiate(this.drip, this.hit.point + (this.hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, this.hit.normal));
+                GameObject splatter = Instantiate(this.drip, this.hit.point + (this.hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, this.hit.normal));
                 float scaler = Random.value;
 
                 {

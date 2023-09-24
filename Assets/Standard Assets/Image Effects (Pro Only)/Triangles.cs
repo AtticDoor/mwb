@@ -33,7 +33,8 @@ public partial class Triangles : MonoBehaviour
             if (null != m)
             {
                 UnityEngine.Object.DestroyImmediate(m);
-                m = null;
+                //TODO this line fails after js to C# conversion.  May need fixed; probably unused code tho.
+                //m = null;
             }
         }
         Triangles.meshes = null;

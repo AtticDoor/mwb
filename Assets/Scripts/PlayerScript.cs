@@ -45,7 +45,7 @@ public partial class PlayerScript : MonoBehaviour
     {
     }
 
-    public virtual void SetPosition(object px, object py, object pz, object rx, object ry, float rz)
+    public virtual void SetPosition(float px, float py, float pz, float rx, float ry, float rz)
     {
         GameObject FPC = GameObject.Find("First Person Controller");
         FPC.transform.position = new Vector3(px, py, pz);

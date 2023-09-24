@@ -105,7 +105,7 @@ public partial class TVScript : MonoBehaviour
         }
     }
 
-    public Texture2D staticImage;
+    public Texture staticImage;
     public Texture2D brainWashImage;
     public Texture2D BlackTexture;
     public virtual void ToggleBrainWash(bool b)
@@ -126,11 +126,11 @@ public partial class TVScript : MonoBehaviour
         this.TVScreen.GetComponent<Renderer>().material.mainTexture = this.BlackTexture;//[DoorVal];
         if (this.DoorVal > 72)
         {
-            this.Code.GetComponent<Renderer>().material.mainTexture = Resources.Load("_DUMMY");
+            this.Code.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load("_DUMMY");
         }
         else
         {
-            this.Code.GetComponent<Renderer>().material.mainTexture = Resources.Load(this.DoorVal + "");
+            this.Code.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load(this.DoorVal + "");
         }
         this.Code.GetComponent<Renderer>().enabled = true;
         ElevatorCodes.ClearTV(this.DoorVal);
