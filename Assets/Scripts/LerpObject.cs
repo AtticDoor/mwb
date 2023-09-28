@@ -56,4 +56,4 @@ public partial class LerpObject : MonoBehaviour
             yield return null;
         }
     }
-}
+    }
