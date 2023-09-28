@@ -11,11 +11,13 @@ public partial class MainScript : MonoBehaviour
     public static Material blue;
     public static string curLevel;
     public string nonStaticCurLevel;
-    public static string lastLevel;
+    public static string lastLevel="Scene101";
     public static string lastExit;
+
+    public static float timer = -100;
     public virtual void Start()
     {
-        MainScript.curLevel = this.nonStaticCurLevel;
+        curLevel = nonStaticCurLevel;
     }
 
     public virtual void Update()

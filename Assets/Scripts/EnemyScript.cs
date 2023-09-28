@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class EnemyScript : MonoBehaviour
@@ -39,7 +39,7 @@ public partial class EnemyScript : MonoBehaviour
         this.On = true;
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D c)
+    public virtual void OnTriggerEnter(Collider c)
     {
         if (this.On)
         {
@@ -52,10 +52,9 @@ public partial class EnemyScript : MonoBehaviour
                 //c.transform.position=GameObject.Find("PlayerStartPoint").transform.position;
                 //yield WaitForSeconds(2);
                 Time.timeScale = 1f;
-                //c.transform.position.y=300;
-                //c.renderer.enabled=true;
-                //Application.LoadLevel("Scene2");
-                Application.LoadLevel("Scene2WWB");//+MainScript.curLevel);
+
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 TimerGUI.Death();
             }
         }
@@ -67,7 +66,7 @@ public partial class EnemyScript : MonoBehaviour
 
     public virtual void Update()
     {
-        this.ExtraUpdate();
+        ExtraUpdate();
     }
 
     public virtual void ExtraUpdate()

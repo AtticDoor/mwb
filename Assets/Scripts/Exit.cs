@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class Exit : MonoBehaviour
@@ -8,13 +8,10 @@ public partial class Exit : MonoBehaviour
     public virtual void OnTriggerEnter(Collider c)//Application.LoadLevel("Scene"+levelName);
     {
         if (c.transform.name != "Player")
-        {
-            return;
-        }
+            return;        
         MainScript.lastLevel = MainScript.curLevel;
-        MainScript.curLevel = "Scene" + this.levelName;
+        MainScript.curLevel = "Scene" + levelName;
         MainScript.lastExit = "Enter";
-        Application.LoadLevel("Map");
+        SceneManager.LoadScene("Map");
     }
-
 }

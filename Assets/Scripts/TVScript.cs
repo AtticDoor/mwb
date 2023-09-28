@@ -14,19 +14,19 @@ public partial class TVScript : MonoBehaviour
     public virtual void Update()
     {
         //Debug.Log(Input.GetAxis ("Vertical2")+.0f);
-        if (!this.Completed)
+        if (!Completed)
         {
-            if (this.PlayerWithin)
+            if (PlayerWithin)
             {
                 if (Input.GetKeyDown("up") || Input.GetKeyDown("w"))//||(Input.GetAxis ("Vertical2")>0.5))
                 {
-                    this.ToggleBrainWash(false);
+                    ToggleBrainWash(false);
                 }
                 else
                 {
                     if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))//||(Input.GetAxis ("Vertical")<=0.5))
                     {
-                        this.ToggleBrainWash(true);
+                        ToggleBrainWash(true);
                     }
                     else
                     {
@@ -38,38 +38,38 @@ public partial class TVScript : MonoBehaviour
 
                                 {
                                     int _192 = 0;
-                                    Vector3 _193 = this.Meter.transform.localScale;
+                                    Vector3 _193 = Meter.transform.localScale;
                                     _193.x = _192;
-                                    this.Meter.transform.localScale = _193;
+                                    Meter.transform.localScale = _193;
                                 }
                             }
                             //testing
-                            if (this.Meter.transform.localScale.x > 0)
+                            if (Meter.transform.localScale.x > 0)
                             {
 
                                 {
-                                    float _194 = this.Meter.transform.localScale.x - (0.3f * Time.deltaTime);
-                                    Vector3 _195 = this.Meter.transform.localScale;
+                                    float _194 = Meter.transform.localScale.x - (0.3f * Time.deltaTime);
+                                    Vector3 _195 = Meter.transform.localScale;
                                     _195.x = _194;
-                                    this.Meter.transform.localScale = _195;
+                                    Meter.transform.localScale = _195;
                                 }
-                                this.Meter.GetComponent<Renderer>().enabled = true;
+                                Meter.GetComponent<Renderer>().enabled = true;
                             }
                             else
                             {
 
                                 {
                                     int _196 = 0;
-                                    Vector3 _197 = this.Meter.transform.localScale;
+                                    Vector3 _197 = Meter.transform.localScale;
                                     _197.x = _196;
-                                    this.Meter.transform.localScale = _197;
+                                    Meter.transform.localScale = _197;
                                 }
-                                this.Complete();
+                                Complete();
                             }
                         }
                         else
                         {
-                            this.Meter.GetComponent<Renderer>().enabled = false;
+                            Meter.GetComponent<Renderer>().enabled = false;
                         }
                     }
                 }
@@ -77,31 +77,31 @@ public partial class TVScript : MonoBehaviour
         }
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D c)
+    public virtual void OnTriggerEnter(Collider c)
     {
         if (c.gameObject.tag == "Player")
         {
-            this.PlayerWithin = true;
+            PlayerWithin = true;
         }
     }
 
-    public virtual void OnTriggerExit2D(Collider2D c)
+    public virtual void OnTriggerExit(Collider c)
     {
         if (c.gameObject.tag == "Player")
         {
-            this.PlayerWithin = false;
+            PlayerWithin = false;
         }
     }
 
     public AnimatedTexture at;
     public virtual void Start()
     {
-        this.transform.tag = "TV";
-        this.staticImage = this.TVScreen.GetComponent<Renderer>().material.mainTexture;
-        this.at = (AnimatedTexture) this.TVScreen.GetComponent("AnimatedTexture");
-        if (ElevatorCodes.TVCleared(this.DoorVal))
+        transform.tag = "TV";
+        staticImage = TVScreen.GetComponent<Renderer>().material.mainTexture;
+        at = (AnimatedTexture) TVScreen.GetComponent("AnimatedTexture");
+        if (ElevatorCodes.TVCleared(DoorVal))
         {
-            this.Complete();
+            Complete();
         }
     }
 
@@ -111,34 +111,30 @@ public partial class TVScript : MonoBehaviour
     public virtual void ToggleBrainWash(bool b)
     {
         if (b)
-        {
-            this.TVScreen.GetComponent<Renderer>().material.mainTexture = this.staticImage;
-        }
+            TVScreen.GetComponent<Renderer>().material.mainTexture = staticImage;
         else
-        {
-            this.TVScreen.GetComponent<Renderer>().material.mainTexture = this.brainWashImage;
-        }
+            TVScreen.GetComponent<Renderer>().material.mainTexture = brainWashImage;
     }
 
     public virtual void Complete()//ElevatorScript.DoorSwitchOn(DoorVal);
     {
          //TVScreen.renderer.material.mainTexture=Textures[0];//[DoorVal];
-        this.TVScreen.GetComponent<Renderer>().material.mainTexture = this.BlackTexture;//[DoorVal];
-        if (this.DoorVal > 72)
+        TVScreen.GetComponent<Renderer>().material.mainTexture = BlackTexture;//[DoorVal];
+        if (DoorVal > 72)
         {
-            this.Code.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load("_DUMMY");
+            Code.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load("_DUMMY");
         }
         else
         {
-            this.Code.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load(this.DoorVal + "");
+            Code.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load(DoorVal + "");
         }
-        this.Code.GetComponent<Renderer>().enabled = true;
-        ElevatorCodes.ClearTV(this.DoorVal);
-        ((AnimatedTexture) this.TVScreen.GetComponent(typeof(AnimatedTexture))).enabled = false;
-        this.TVScreen.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(1, 1));
+        Code.GetComponent<Renderer>().enabled = true;
+        ElevatorCodes.ClearTV(DoorVal);
+        ((AnimatedTexture) TVScreen.GetComponent(typeof(AnimatedTexture))).enabled = false;
+        TVScreen.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(1, 1));
         //TVScreen.renderer.material.SetTextureOffset(SetTextureScale(Vector2(1,1));
-        this.TVScreen.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0, 0));
-        this.Completed = true;
+        TVScreen.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0, 0));
+        Completed = true;
     }
 
 }

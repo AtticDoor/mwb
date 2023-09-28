@@ -1,5 +1,6 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 [System.Serializable]
 public partial class MenuButtonScript : MonoBehaviour
@@ -14,9 +15,8 @@ public partial class MenuButtonScript : MonoBehaviour
 
     public virtual void OnMouseUp()
     {
-         //set timer
-        TimerGUI.timer = 60 * 20;
-        Application.LoadLevel("Scene101");
+        MainScript.timer = 60 * 20;
+        SceneManager.LoadScene("Scene101");
     }
 
 }

@@ -10,7 +10,7 @@ public class SwitchScript : EnemyScript
         this.EnableColors(this.On);
     }
 
-    public override void OnTriggerEnter2D(Collider2D c)
+    public override void OnTriggerEnter(Collider c)
     {
         if (c.transform.tag == "Player")
         {

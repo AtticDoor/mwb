@@ -36,11 +36,11 @@ public partial class PlayerScript : MonoBehaviour
         this.SetPlayerStart();
     }
 
-    public static void DIE()//	gameObject.GetComponent("Bip001 Pelvis").renderer.active=false;
+ /*   public static void DIE()//	gameObject.GetComponent("Bip001 Pelvis").renderer.active=false;
     {
-        TimerGUI.timer = TimerGUI.timer - 10;
+        MainScript.timer -= 10;
     }
-
+ */
     public virtual void SetPlayerStart()
     {
     }
