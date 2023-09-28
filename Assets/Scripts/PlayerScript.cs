@@ -52,14 +52,6 @@ public partial class PlayerScript : MonoBehaviour
         FPC.transform.eulerAngles = new Vector3(rx, ry, rz);
     }
 
-    /*
-function Update()
-{
-	if (Input.GetKeyUp("escape"))
-		Application.LoadLevel("Menu");
-
-}
-*/
     // FadeInOut
     //
     //--------------------------------------------------------------------

@@ -38,28 +38,28 @@ public partial class ElevatorScript : MonoBehaviour
 
     public virtual void Update()
     {
-        this.Plane1.active = ElevatorScript.static1;
-        this.Plane2.active = ElevatorScript.static2;
-        this.Plane3.active = ElevatorScript.static3;
-        if (!this.DoorOpen.active)
+        Plane1.SetActive(ElevatorScript.static1);
+        Plane2.SetActive(ElevatorScript.static2);
+        Plane3.SetActive(ElevatorScript.static3);
+        if (!DoorOpen.active)
         {
             int i = 0;
             while (i < this.Codes.Length)
             {
                  //Debug.Log(ElevatorCodes.TVCleared(Codes[i])+"   "+Codes.length+" i:"+i+"  CodesI:"+Codes[i]+" ");
-                if (!ElevatorCodes.TVCleared(this.Codes[i]))
+                if (!ElevatorCodes.TVCleared(Codes[i]))
                 {
                     return;
                 }
                 i++;
             }
         }
-        this.OpenDoor();
+        OpenDoor();
     }
 
     public virtual void OpenDoor()
     {
-        this.DoorOpen.active = true;
+        DoorOpen.SetActive(true);
     }
 
 }

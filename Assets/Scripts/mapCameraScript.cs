@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class mapCameraScript : MonoBehaviour
@@ -38,7 +39,7 @@ public partial class mapCameraScript : MonoBehaviour
             Camera.main.orthographicSize = Camera.main.orthographicSize - (Time.deltaTime * 2);
             if (Camera.main.orthographicSize < 0.07f)
             {
-                Application.LoadLevel(MainScript.curLevel);
+                SceneManager.LoadScene(MainScript.curLevel);
             }
         }
     }

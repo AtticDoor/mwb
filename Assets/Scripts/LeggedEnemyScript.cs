@@ -16,7 +16,7 @@ public partial class LeggedEnemyScript : MonoBehaviour
     public GameObject RightBoundary;
     private float left;
     private float right;
-    public virtual void OnTriggerEnter(Collider c)//Application.LoadLevel("Scene2");
+    public virtual void OnTriggerEnter(Collider c)
     {
         //	Debug.Log("FDFDSFDSFSDFDSFSDFDSGDSGSDGDSGDSGDSGDSGDSGDGDSGSGDSGSDGG");
         if (c.gameObject.tag == "Player")

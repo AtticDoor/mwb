@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class TestDevelopmentMenusCRIPT : MonoBehaviour
@@ -20,7 +20,7 @@ public partial class TestDevelopmentMenusCRIPT : MonoBehaviour
         {
             if (GUI.Button(new Rect((i / 10) * 230, (i % 10) * 30, 230, 20), "Scene" + this.list[i]))
             {
-                Application.LoadLevel("Scene" + this.list[i]);
+                SceneManager.LoadScene("Scene" + this.list[i]);
             }
             i++;
         }

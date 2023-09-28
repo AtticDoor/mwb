@@ -8,51 +8,41 @@ public partial class EnemyScript : MonoBehaviour
     public GameObject[] ColoredAssets;
     public virtual void Start()
     {
-        this.ExtraStart();
+        ExtraStart();
         int i = 0;
-        while (i < this.ColoredAssets.Length)
+        while (i < ColoredAssets.Length)
         {
-            if (this.gameObject.tag == "blue")
+            if (gameObject.tag == "blue")
             {
-                this.ColoredAssets[i].GetComponent<Renderer>().material = MainScript.blue;
+                ColoredAssets[i].GetComponent<Renderer>().material = MainScript.blue;
             }
-            else
+            else if (gameObject.tag == "yellow")
             {
-                if (this.gameObject.tag == "yellow")
-                {
-                    this.ColoredAssets[i].GetComponent<Renderer>().material = MainScript.yellow;
-                }
-                else
-                {
-                    if (this.gameObject.tag == "red")
-                    {
-                        this.ColoredAssets[i].GetComponent<Renderer>().material = MainScript.red;
-                    }
-                }
+                ColoredAssets[i].GetComponent<Renderer>().material = MainScript.yellow;
             }
+            else if (gameObject.tag == "red")
+            {
+                ColoredAssets[i].GetComponent<Renderer>().material = MainScript.red;
+            }
+                
             i++;
         }
     }
 
     public virtual void ExtraStart()
     {
-        this.On = true;
+        On = true;
     }
 
     public virtual void OnTriggerEnter(Collider c)
     {
-        if (this.On)
+        if (On)
         {
             if (c.gameObject.tag == "Player")
             {
-                 //Debug.Break();
-                this.Kill(c.gameObject);
-                //fadeOut();	
+                Kill(c.gameObject);
                 Time.timeScale = 0;
-                //c.transform.position=GameObject.Find("PlayerStartPoint").transform.position;
-                //yield WaitForSeconds(2);
                 Time.timeScale = 1f;
-
 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 TimerGUI.Death();

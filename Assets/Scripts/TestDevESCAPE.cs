@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class TestDevESCAPE : MonoBehaviour
@@ -13,7 +13,7 @@ public partial class TestDevESCAPE : MonoBehaviour
     {
         if (Input.GetKeyUp("escape"))
         {
-            Application.LoadLevel("TestDevelopmentMenu");
+            SceneManager.LoadScene("TestDevelopmentMenu");
         }
     }
 

@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class ElevatorDoorOpenScript : MonoBehaviour
@@ -15,7 +15,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
                 MainScript.lastLevel = MainScript.curLevel;
                 MainScript.lastExit = "Elevator";
                 MainScript.curLevel = "Scene" + es.levelName;
-                Application.LoadLevel("Map");//"Scene"+es.levelName);
+                SceneManager.LoadScene("Map");
             }
         }
     }

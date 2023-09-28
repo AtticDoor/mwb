@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public partial class Exit : MonoBehaviour
 {
     public string levelName;
-    public virtual void OnTriggerEnter(Collider c)//Application.LoadLevel("Scene"+levelName);
+    public virtual void OnTriggerEnter(Collider c)
     {
         if (c.transform.name != "Player")
             return;        
