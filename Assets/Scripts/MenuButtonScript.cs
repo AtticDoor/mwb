@@ -7,6 +7,7 @@ public partial class MenuButtonScript : MonoBehaviour
 {
     public string[] SceneList = new string[]
     {
+        "Scene5",
         "SceneBlimp",
         "SceneCentipedeTestLevel",
         "SceneCentipedeTestLevel2",

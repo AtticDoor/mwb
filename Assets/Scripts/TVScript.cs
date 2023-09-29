@@ -12,66 +12,41 @@ public partial class TVScript : MonoBehaviour
     public bool Completed;
     public virtual void Update()
     {
-        //Debug.Log(Input.GetAxis ("Vertical2")+.0f);
-        if (!Completed)
+        if (Completed) 
+            return;
+
+
+        if (PlayerWithin)
         {
-            if (PlayerWithin)
+            //testing purposes, automatically clear the TV
+            if (Input.GetKeyUp("q"))
             {
-                if (Input.GetKeyDown("up") || Input.GetKeyDown("w"))//||(Input.GetAxis ("Vertical2")>0.5))
+                Meter.transform.localScale = new Vector3(0, 0, 0);
+                Complete();
+            }
+
+            if (Input.GetKeyDown("up") || Input.GetKeyDown("w"))
+                ToggleBrainWash(false);
+            else if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))
+                ToggleBrainWash(true);
+
+
+            if (Input.GetKey("up") || Input.GetKey("w"))
+            {
+                if (Meter.transform.localScale.x > 0)
                 {
-                    ToggleBrainWash(false);
+                    Meter.transform.localScale += new Vector3(-(0.3f * Time.deltaTime),0,0);
+                    Meter.GetComponent<Renderer>().enabled = true;
                 }
                 else
                 {
-                    if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))//||(Input.GetAxis ("Vertical")<=0.5))
-                    {
-                        ToggleBrainWash(true);
-                    }
-                    else
-                    {
-                        if (Input.GetKey("up") || Input.GetKey("w"))//||(Input.GetAxis ("Vertical2")>0.5))//||(Input.GetAxis ("Vertical2")>0))
-                        {
-                            //testing
-                            if (Input.GetKey("w"))
-                            {
-
-                                {
-                                    int _192 = 0;
-                                    Vector3 _193 = Meter.transform.localScale;
-                                    _193.x = _192;
-                                    Meter.transform.localScale = _193;
-                                }
-                            }
-                            //testing
-                            if (Meter.transform.localScale.x > 0)
-                            {
-
-                                {
-                                    float _194 = Meter.transform.localScale.x - (0.3f * Time.deltaTime);
-                                    Vector3 _195 = Meter.transform.localScale;
-                                    _195.x = _194;
-                                    Meter.transform.localScale = _195;
-                                }
-                                Meter.GetComponent<Renderer>().enabled = true;
-                            }
-                            else
-                            {
-
-                                {
-                                    int _196 = 0;
-                                    Vector3 _197 = Meter.transform.localScale;
-                                    _197.x = _196;
-                                    Meter.transform.localScale = _197;
-                                }
-                                Complete();
-                            }
-                        }
-                        else
-                        {
-                            Meter.GetComponent<Renderer>().enabled = false;
-                        }
-                    }
+                    Meter.transform.localScale = Vector3.zero;
+                    Complete();
                 }
+            }
+            else
+            {
+                Meter.GetComponent<Renderer>().enabled = false;
             }
         }
     }
