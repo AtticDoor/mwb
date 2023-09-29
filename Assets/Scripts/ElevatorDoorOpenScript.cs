@@ -11,7 +11,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
         {
             if (Input.GetKey("up") || Input.GetKey("w"))
             {
-                ElevatorScript es = (ElevatorScript) this.transform.parent.GetComponent("ElevatorScript");
+                ElevatorScript es = (ElevatorScript)this.transform.parent.GetComponent("ElevatorScript");
                 MainScript.lastLevel = MainScript.curLevel;
                 MainScript.lastExit = "Elevator";
                 MainScript.curLevel = "Scene" + es.levelName;

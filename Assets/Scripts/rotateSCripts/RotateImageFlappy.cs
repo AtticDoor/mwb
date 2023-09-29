@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public class RotateImageFlappy : RotateImage
@@ -74,14 +73,14 @@ public class RotateImageFlappy : RotateImage
     //var frame:int[]	;//=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5];
     public override void ExtraStart()//frame=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5];
     {
-        this.frame = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 4, 5};
+        this.frame = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 4, 5 };
     }
 
     //virtual 
     public override void Update()
     {
-         // Calculate index
-        this.index = (int) ((Time.time - this.StartTime) * this.framesPerSecond);
+        // Calculate index
+        this.index = (int)((Time.time - this.StartTime) * this.framesPerSecond);
         // repeat when exhausting all frames
         this.index = this.index % this.frame.Length;//(uvAnimationTileX * uvAnimationTileY);
         // Size of every tile

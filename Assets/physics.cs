@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class physics : MonoBehaviour
@@ -16,13 +15,13 @@ public partial class physics : MonoBehaviour
     private float lowCap; //Lowest allowed value before rounding to 0
     public virtual void Start()
     {
-        this.control = (CharacterController) this.gameObject.GetComponent(typeof(CharacterController)); //Initailize character controller
+        this.control = (CharacterController)this.gameObject.GetComponent(typeof(CharacterController)); //Initailize character controller
     }
 
     //Update function for physics calculations
     public virtual void calculatePhysics(float xFriction, float yFriction)
     {
-         //Reset velocity when colliding
+        //Reset velocity when colliding
         if (this.control.collisionFlags == CollisionFlags.Sides) //Horizontal collision 
         {
             this.velocity.x = this.velocity.x * 0.5f; //Smooth scale of velocity instead of shear reset

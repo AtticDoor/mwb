@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class BlimpScript : MonoBehaviour
@@ -88,7 +87,7 @@ public partial class BlimpScript : MonoBehaviour
 
     public virtual void UpdatePosition()
     {
-         //target = GameObject.Find ("Player").transform;
+        //target = GameObject.Find ("Player").transform;
         Vector3 targetHeading = this.target.position - this.transform.position;
         Vector3 targetDirection = targetHeading.normalized;
         //rotate to look at the player

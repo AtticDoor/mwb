@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 // pseudo image effect that displays useful info for your image effects
 [System.Serializable]

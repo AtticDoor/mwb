@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -41,9 +40,9 @@ public partial class Vignetting : PostEffectsBase
         float widthOverHeight = (1f * source.width) / (1f * source.height);
         float oneOverBaseSize = 1f / 512f;
         RenderTexture color = RenderTexture.GetTemporary(source.width, source.height, 0);
-        RenderTexture halfRezColor = RenderTexture.GetTemporary((int) (source.width / 2f), (int) (source.height / 2f), 0);
-        RenderTexture quarterRezColor = RenderTexture.GetTemporary((int) (source.width / 4f), (int) (source.height / 4f), 0);
-        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int) (source.width / 4f), (int) (source.height / 4f), 0);
+        RenderTexture halfRezColor = RenderTexture.GetTemporary((int)(source.width / 2f), (int)(source.height / 2f), 0);
+        RenderTexture quarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
+        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
         Graphics.Blit(source, halfRezColor, this.chromAberrationMaterial, 0);
         Graphics.Blit(halfRezColor, quarterRezColor);
         int it = 0;

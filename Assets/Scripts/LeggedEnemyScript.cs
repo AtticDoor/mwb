@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class LeggedEnemyScript : MonoBehaviour
@@ -38,7 +37,8 @@ public partial class LeggedEnemyScript : MonoBehaviour
 	left=LeftBoundary.transform.position.x;
 	right=RightBoundary.transform.position.x;
 	
-	dist=right-left;/*/    public virtual void Start()
+	dist=right-left;/*/
+    public virtual void Start()
     {
         if (this.Stationary)
         {

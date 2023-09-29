@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class GearHeadFollowScript : MonoBehaviour
@@ -18,7 +17,7 @@ public partial class GearHeadFollowScript : MonoBehaviour
 
     public virtual void Update()
     {
-         //target = GameObject.Find ("Player").transform;
+        //target = GameObject.Find ("Player").transform;
         Vector3 targetHeading = this.target.position - this.transform.position;
         Vector3 targetDirection = targetHeading.normalized;
         //rotate to look at the player
@@ -26,7 +25,7 @@ public partial class GearHeadFollowScript : MonoBehaviour
         //transform.eulerAngles = Vector3(0, transform.eulerAngles.y, 0);
         //move towards the player
         //	enemyTransform.position += targetDirection * speed * Time.deltaTime;
-        CharacterController controller = (CharacterController) this.GetComponent(typeof(CharacterController));
+        CharacterController controller = (CharacterController)this.GetComponent(typeof(CharacterController));
         //collisionFlags = 
         controller.Move((targetDirection * this.speed) * Time.deltaTime);
     }

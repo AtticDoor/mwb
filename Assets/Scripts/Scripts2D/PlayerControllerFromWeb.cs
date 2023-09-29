@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerControllerFromWeb : MonoBehaviour
 {
@@ -25,33 +24,34 @@ public class PlayerControllerFromWeb : MonoBehaviour
         //define the animator attached to the player
         animator = this.GetComponent<Animator>();
 
-        walkSpeed = 1*transform.localScale.y; // player left right walk speed
+        walkSpeed = 1 * transform.localScale.y; // player left right walk speed
         runSpeed = 2 * transform.localScale.y;
 
         changeState(STATE_WALK); //fixes a startup bug to transition from walk to idle
         changeState(STATE_IDLE);
     }
     void Update()
-    {   if((Input.GetKeyUp("right")||(Input.GetKeyUp("right")))
-        ||(Input.GetKeyUp("left")||(Input.GetKeyUp("left"))))
+    {
+        if ((Input.GetKeyUp("right") || (Input.GetKeyUp("right")))
+        || (Input.GetKeyUp("left") || (Input.GetKeyUp("left"))))
             transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     // FixedUpdate is used insead of Update to better handle the physics based jump
     void FixedUpdate()
     {
-        if (Input.GetKey("space") )
+        if (Input.GetKey("space"))
         {
             if (_isGrounded)
             {
                 _isGrounded = false;
                 //simple jump code using unity physics
-      //          if ((_currentDirection == "right")  || (_currentDirection == "left"))
-                    transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//(_momentum) * 60, 
-                                                                                    0,80));//(_momentum+2) * 20));
-            //    else if (_currentDirection == "left")
-            //        transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//-_momentum * 60, 
-            //                                                                        0,(_momentum +2) * 20));
+                //          if ((_currentDirection == "right")  || (_currentDirection == "left"))
+                transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//(_momentum) * 60, 
+                                                                                0, 80));//(_momentum+2) * 20));
+                                                                                        //    else if (_currentDirection == "left")
+                                                                                        //        transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//-_momentum * 60, 
+                                                                                        //                                                                        0,(_momentum +2) * 20));
                 changeState(STATE_JUMP);
             }
         }
@@ -60,17 +60,17 @@ public class PlayerControllerFromWeb : MonoBehaviour
             if (_isGrounded)
                 changeDirection("right");
 
-            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.right*_momentum);
+            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.right * _momentum);
 
             transform.Translate(-Vector3.left * walkSpeed * Time.deltaTime);
-         //   transform.GetComponent<Rigidbody2D>().AddForce(new Vector2( 10 , 0));
+            //   transform.GetComponent<Rigidbody2D>().AddForce(new Vector2( 10 , 0));
 
             _momentum = walkSpeed;
             if (Input.GetKey(KeyCode.LeftShift))
             {
-               // transform.GetComponent<Rigidbody2D>().AddForce(new Vector2( 10,0));
+                // transform.GetComponent<Rigidbody2D>().AddForce(new Vector2( 10,0));
                 transform.GetComponent<Rigidbody2D>().AddForce(Vector2.right * _momentum);
-         //       transform.Translate(-Vector3.left * runSpeed * Time.deltaTime);
+                //       transform.Translate(-Vector3.left * runSpeed * Time.deltaTime);
                 _momentum = runSpeed + walkSpeed;
             }
 
@@ -80,7 +80,7 @@ public class PlayerControllerFromWeb : MonoBehaviour
         else if (Input.GetKey("left"))
         {
             if (_isGrounded)
-            changeDirection("left");
+                changeDirection("left");
             transform.Translate(Vector3.left * walkSpeed * Time.deltaTime);
             _momentum = walkSpeed;
             if (Input.GetKey(KeyCode.LeftShift))
@@ -153,24 +153,24 @@ public class PlayerControllerFromWeb : MonoBehaviour
     //--------------------------------------
     void changeDirection(string direction)
     {
-       // float tempY = transform.localScale.y * -1;
-        Vector3 tempY = new Vector3( -1, 1,1);
-        
-       // transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
+        // float tempY = transform.localScale.y * -1;
+        Vector3 tempY = new Vector3(-1, 1, 1);
+
+        // transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
 
         if (_currentDirection != direction)
         {
             if (direction == "right")
             {
-             //   transform.localScale.y*=-1;//(0, 180, 0);
+                //   transform.localScale.y*=-1;//(0, 180, 0);
                 transform.localScale = Vector3.Scale(tempY, transform.localScale);
                 _currentDirection = "right";
             }
             else if (direction == "left")
             {
-              //  tempY = transform.localScale.y *= -1;
+                //  tempY = transform.localScale.y *= -1;
 
-              //  transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
+                //  transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
                 transform.localScale = Vector3.Scale(tempY, transform.localScale);
                 _currentDirection = "left";
             }

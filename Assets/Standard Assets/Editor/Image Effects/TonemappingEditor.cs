@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 [UnityEditor.CustomEditor(typeof(Tonemapping))]
@@ -31,7 +30,7 @@ public class TonemappingEditor : Editor
     public override void OnInspectorGUI()
     {
         this.serObj.Update();
-        GUILayout.Label("Mapping HDR to LDR ranges since 1982", EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
+        GUILayout.Label("Mapping HDR to LDR ranges since 1982", EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
         Camera cam = (this.target as Tonemapping).GetComponent<Camera>();
         if (cam != null)
         {
@@ -47,51 +46,51 @@ public class TonemappingEditor : Editor
                 }
             }
         }
-        EditorGUILayout.PropertyField(this.type, new GUIContent("Technique"), new GUILayoutOption[] {});
-        if (((Tonemapping.TonemapperType) this.type.enumValueIndex) == Tonemapping.TonemapperType.UserCurve)
+        EditorGUILayout.PropertyField(this.type, new GUIContent("Technique"), new GUILayoutOption[] { });
+        if (((Tonemapping.TonemapperType)this.type.enumValueIndex) == Tonemapping.TonemapperType.UserCurve)
         {
-            EditorGUILayout.PropertyField(this.remapCurve, new GUIContent("Remap curve", "Specify the mapping of luminances yourself"), new GUILayoutOption[] {});
+            EditorGUILayout.PropertyField(this.remapCurve, new GUIContent("Remap curve", "Specify the mapping of luminances yourself"), new GUILayoutOption[] { });
         }
         else
         {
-            if (((Tonemapping.TonemapperType) this.type.enumValueIndex) == Tonemapping.TonemapperType.SimpleReinhard)
+            if (((Tonemapping.TonemapperType)this.type.enumValueIndex) == Tonemapping.TonemapperType.SimpleReinhard)
             {
-                EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] {});
+                EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] { });
             }
             else
             {
-                if (((Tonemapping.TonemapperType) this.type.enumValueIndex) == Tonemapping.TonemapperType.Hable)
+                if (((Tonemapping.TonemapperType)this.type.enumValueIndex) == Tonemapping.TonemapperType.Hable)
                 {
-                    EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] {});
+                    EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] { });
                 }
                 else
                 {
-                    if (((Tonemapping.TonemapperType) this.type.enumValueIndex) == Tonemapping.TonemapperType.Photographic)
+                    if (((Tonemapping.TonemapperType)this.type.enumValueIndex) == Tonemapping.TonemapperType.Photographic)
                     {
-                        EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] {});
+                        EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] { });
                     }
                     else
                     {
-                        if (((Tonemapping.TonemapperType) this.type.enumValueIndex) == Tonemapping.TonemapperType.OptimizedHejiDawson)
+                        if (((Tonemapping.TonemapperType)this.type.enumValueIndex) == Tonemapping.TonemapperType.OptimizedHejiDawson)
                         {
-                            EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] {});
+                            EditorGUILayout.PropertyField(this.exposureAdjustment, new GUIContent("Exposure", "Exposure adjustment"), new GUILayoutOption[] { });
                         }
                         else
                         {
-                            if (((Tonemapping.TonemapperType) this.type.enumValueIndex) == Tonemapping.TonemapperType.AdaptiveReinhard)
+                            if (((Tonemapping.TonemapperType)this.type.enumValueIndex) == Tonemapping.TonemapperType.AdaptiveReinhard)
                             {
-                                EditorGUILayout.PropertyField(this.middleGrey, new GUIContent("Middle grey", "Middle grey defines the average luminance thus brightening or darkening the entire image."), new GUILayoutOption[] {});
-                                EditorGUILayout.PropertyField(this.white, new GUIContent("White", "Smallest luminance value that will be mapped to white"), new GUILayoutOption[] {});
-                                EditorGUILayout.PropertyField(this.adaptionSpeed, new GUIContent("Adaption Speed", "Speed modifier for the automatic adaption"), new GUILayoutOption[] {});
-                                EditorGUILayout.PropertyField(this.adaptiveTextureSize, new GUIContent("Texture size", "Defines the amount of downsamples needed."), new GUILayoutOption[] {});
+                                EditorGUILayout.PropertyField(this.middleGrey, new GUIContent("Middle grey", "Middle grey defines the average luminance thus brightening or darkening the entire image."), new GUILayoutOption[] { });
+                                EditorGUILayout.PropertyField(this.white, new GUIContent("White", "Smallest luminance value that will be mapped to white"), new GUILayoutOption[] { });
+                                EditorGUILayout.PropertyField(this.adaptionSpeed, new GUIContent("Adaption Speed", "Speed modifier for the automatic adaption"), new GUILayoutOption[] { });
+                                EditorGUILayout.PropertyField(this.adaptiveTextureSize, new GUIContent("Texture size", "Defines the amount of downsamples needed."), new GUILayoutOption[] { });
                             }
                             else
                             {
-                                if (((Tonemapping.TonemapperType) this.type.enumValueIndex) == Tonemapping.TonemapperType.AdaptiveReinhardAutoWhite)
+                                if (((Tonemapping.TonemapperType)this.type.enumValueIndex) == Tonemapping.TonemapperType.AdaptiveReinhardAutoWhite)
                                 {
-                                    EditorGUILayout.PropertyField(this.middleGrey, new GUIContent("Middle grey", "Middle grey defines the average luminance thus brightening or darkening the entire image."), new GUILayoutOption[] {});
-                                    EditorGUILayout.PropertyField(this.adaptionSpeed, new GUIContent("Adaption Speed", "Speed modifier for the automatic adaption"), new GUILayoutOption[] {});
-                                    EditorGUILayout.PropertyField(this.adaptiveTextureSize, new GUIContent("Texture size", "Defines the amount of downsamples needed."), new GUILayoutOption[] {});
+                                    EditorGUILayout.PropertyField(this.middleGrey, new GUIContent("Middle grey", "Middle grey defines the average luminance thus brightening or darkening the entire image."), new GUILayoutOption[] { });
+                                    EditorGUILayout.PropertyField(this.adaptionSpeed, new GUIContent("Adaption Speed", "Speed modifier for the automatic adaption"), new GUILayoutOption[] { });
+                                    EditorGUILayout.PropertyField(this.adaptiveTextureSize, new GUIContent("Texture size", "Defines the amount of downsamples needed."), new GUILayoutOption[] { });
                                 }
                             }
                         }
@@ -99,7 +98,7 @@ public class TonemappingEditor : Editor
                 }
             }
         }
-        GUILayout.Label("All following effects will use LDR color buffers", EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
+        GUILayout.Label("All following effects will use LDR color buffers", EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
         this.serObj.ApplyModifiedProperties();
     }
 

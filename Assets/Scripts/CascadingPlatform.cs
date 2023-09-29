@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class CascadingPlatform : MonoBehaviour
@@ -34,7 +33,7 @@ public partial class CascadingPlatform : MonoBehaviour
 
     public virtual void FadeOut()//FadeLevel=1;
     {
-         //collider.enabled=false;
+        //collider.enabled=false;
         this.fadingOut = true;
     }
 

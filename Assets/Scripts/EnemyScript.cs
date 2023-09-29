@@ -24,7 +24,7 @@ public partial class EnemyScript : MonoBehaviour
             {
                 ColoredAssets[i].GetComponent<Renderer>().material = MainScript.red;
             }
-                
+
             i++;
         }
     }

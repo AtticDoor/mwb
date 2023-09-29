@@ -1,18 +1,17 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class AnimatedTexture : MonoBehaviour
 {
     public int uvAnimationTileX; //Here you can place the number of columns of your sheet. 
-     //The above sheet has 24
+                                 //The above sheet has 24
     public int uvAnimationTileY; //Here you can place the number of rows of your sheet. 
-     //The above sheet has 1
+                                 //The above sheet has 1
     public float framesPerSecond;
     public virtual void Update()
     {
         // Calculate index
-        int index = (int) (Time.time * this.framesPerSecond);
+        int index = (int)(Time.time * this.framesPerSecond);
         // repeat when exhausting all frames
         index = index % (this.uvAnimationTileX * this.uvAnimationTileY);
         // Size of every tile

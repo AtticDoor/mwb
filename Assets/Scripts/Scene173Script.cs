@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class Scene173Script : MonoBehaviour
@@ -12,8 +11,8 @@ public partial class Scene173Script : MonoBehaviour
         this.index = 0;
         while (this.index < 10)
         {
-            this.Spikes[this.index].active = false;
-            ((TextMesh) this.Texts[this.index].GetComponent(typeof(TextMesh))).text = this.Spikes[this.index].name;
+            this.Spikes[this.index].SetActive(false);
+            ((TextMesh)this.Texts[this.index].GetComponent(typeof(TextMesh))).text = this.Spikes[this.index].name;
             this.index++;
         }
         this.index = 0;
@@ -23,7 +22,7 @@ public partial class Scene173Script : MonoBehaviour
     public virtual void EnableSpike()
     {
         this.Texts[this.index].GetComponent<Renderer>().material.color = Color.black;
-        this.Spikes[this.index].active = true;
+        this.Spikes[this.index].SetActive(true);
         this.index++;
         if (this.index >= 10)
         {
@@ -38,9 +37,9 @@ public partial class Scene173Script : MonoBehaviour
     public virtual void SlideshowSpike()
     {
         this.Texts[this.index].GetComponent<Renderer>().material.color = Color.magenta;
-        this.Spikes[this.index].active = false;
+        this.Spikes[this.index].SetActive(false);
         this.Texts[this.lastIndex].GetComponent<Renderer>().material.color = Color.black;
-        this.Spikes[this.lastIndex].active = true;
+        this.Spikes[this.lastIndex].SetActive(true);
         this.lastIndex = this.index;
         this.index++;
         if (this.index == 10)

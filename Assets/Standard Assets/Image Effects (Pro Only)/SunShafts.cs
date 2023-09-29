@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum SunShaftsResolution
 {
@@ -79,8 +78,8 @@ public partial class SunShafts : PostEffectsBase
         {
             v = new Vector3(0.5f, 0.5f, 0f);
         }
-        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int) (source.width / divider), (int) (source.height / divider), 0);
-        RenderTexture lrDepthBuffer = RenderTexture.GetTemporary((int) (source.width / divider), (int) (source.height / divider), 0);
+        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int)(source.width / divider), (int)(source.height / divider), 0);
+        RenderTexture lrDepthBuffer = RenderTexture.GetTemporary((int)(source.width / divider), (int)(source.height / divider), 0);
         // mask out everything except the skybox
         // we have 2 methods, one of which requires depth buffer support, the other one is just comparing images
         this.sunShaftsMaterial.SetVector("_BlurRadius4", new Vector4(1f, 1f, 0f, 0f) * this.sunShaftBlurRadius);

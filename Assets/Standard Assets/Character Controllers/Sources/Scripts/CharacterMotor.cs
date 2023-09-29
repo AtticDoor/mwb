@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 // Does this script currently respond to input?
 // For the next variables, @System.NonSerialized tells Unity to not serialize the variable or show it in the inspector view.
@@ -42,7 +42,7 @@ public class CharacterMotorMovement : object
         this.maxForwardSpeed = 10f;
         this.maxSidewaysSpeed = 10f;
         this.maxBackwardsSpeed = 10f;
-        this.slopeSpeedMultiplier = new AnimationCurve(new Keyframe[] {new Keyframe(-90, 1), new Keyframe(0, 1), new Keyframe(90, 0)});
+        this.slopeSpeedMultiplier = new AnimationCurve(new Keyframe[] { new Keyframe(-90, 1), new Keyframe(0, 1), new Keyframe(90, 0) });
         this.maxGroundAcceleration = 30f;
         this.maxAirAcceleration = 20f;
         this.gravity = 10f;
@@ -212,8 +212,8 @@ public class CharacterMotorSliding : object
 // Apply inertia from platform
 // When landing, subtract the velocity of the new ground from the character's velocity
 // since movement in ground is relative to the movement of the ground.
- // If we landed on a new platform, we have to wait for two FixedUpdates
- // before we know the velocity of the platform under the character
+// If we landed on a new platform, we have to wait for two FixedUpdates
+// before we know the velocity of the platform under the character
 // Find desired velocity
 // Modify max speed on slopes based on slope speed multiplier curve
 // Maximum acceleration on ground and in air
@@ -245,7 +245,7 @@ public partial class CharacterMotor : MonoBehaviour
     private CharacterController controller;
     public virtual void Awake()
     {
-        this.controller = (CharacterController) this.GetComponent(typeof(CharacterController));
+        this.controller = (CharacterController)this.GetComponent(typeof(CharacterController));
         this.tr = this.transform;
     }
 
@@ -580,7 +580,7 @@ public partial class CharacterMotor : MonoBehaviour
 
     public virtual bool IsTouchingCeiling()
     {
-        return (this.movement.collisionFlags & CollisionFlags.CollidedAbove) != (CollisionFlags) 0;
+        return (this.movement.collisionFlags & CollisionFlags.CollidedAbove) != (CollisionFlags)0;
     }
 
     public virtual bool IsGrounded()

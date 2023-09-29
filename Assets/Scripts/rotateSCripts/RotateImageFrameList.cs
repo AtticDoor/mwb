@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public class RotateImageFrameList : RotateImage
@@ -17,7 +16,7 @@ public class RotateImageFrameList : RotateImage
             return;
         }
         // Calculate index
-        this.index = (int) ((Time.time - this.StartTime) * this.framesPerSecond);
+        this.index = (int)((Time.time - this.StartTime) * this.framesPerSecond);
         //   Debug.Log(index);
         //   Debug.Log(frame.length);	
         // repeat when exhausting all frames

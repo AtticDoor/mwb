@@ -1,7 +1,5 @@
-using System;
 using System.IO;
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class EditModeScript : MonoBehaviour
@@ -41,14 +39,14 @@ public partial class EditModeScript : MonoBehaviour
         //sr.WriteLine ("This is my file.");
         //sr.WriteLine ("I can write ints {0} or floats {1}, and so on.",
         //  gameObject.transform.position.x, 4.2999f);
-        GameObject[] gameObjs = ((GameObject[]) UnityEngine.Object.FindObjectsOfType(typeof(GameObject))) as GameObject[];
+        GameObject[] gameObjs = ((GameObject[])UnityEngine.Object.FindObjectsOfType(typeof(GameObject))) as GameObject[];
         //find all Walls            
         while (i < gameObjs.Length)
         {
             //if (gameObjs[i].name=="WALLS")
             if (gameObjs[i].transform.parent != null)//=="WALLS")
             {
-                sr.WriteLine("{0},{1},{2},{3}", new object[] {gameObjs[i].name, gameObjs[i].transform.position.x, gameObjs[i].transform.position.y, gameObjs[i].transform.position.z});
+                sr.WriteLine("{0},{1},{2},{3}", new object[] { gameObjs[i].name, gameObjs[i].transform.position.x, gameObjs[i].transform.position.y, gameObjs[i].transform.position.z });
             }
             i++;
         }
@@ -61,7 +59,7 @@ public partial class EditModeScript : MonoBehaviour
         StreamReader sr = new StreamReader(f);
         string fileContents = sr.ReadToEnd();
         sr.Close();
-        string[] lines = fileContents.Split(new char[] {"\n"[0]});
+        string[] lines = fileContents.Split(new char[] { "\n"[0] });
         foreach (string line in lines)
         {
             MonoBehaviour.print(line);

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -33,9 +32,9 @@ public partial class ContrastEnhance : PostEffectsBase
             Graphics.Blit(source, destination);
             return;
         }
-        RenderTexture halfRezColor = RenderTexture.GetTemporary((int) (source.width / 2f), (int) (source.height / 2f), 0);
-        RenderTexture quarterRezColor = RenderTexture.GetTemporary((int) (source.width / 4f), (int) (source.height / 4f), 0);
-        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int) (source.width / 4f), (int) (source.height / 4f), 0);
+        RenderTexture halfRezColor = RenderTexture.GetTemporary((int)(source.width / 2f), (int)(source.height / 2f), 0);
+        RenderTexture quarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
+        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
         // ddownsample
         Graphics.Blit(source, halfRezColor);
         Graphics.Blit(halfRezColor, quarterRezColor);

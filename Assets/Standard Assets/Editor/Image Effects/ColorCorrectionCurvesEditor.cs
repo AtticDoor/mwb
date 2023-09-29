@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 [UnityEditor.CustomEditor(typeof(ColorCorrectionCurves))]
@@ -34,31 +33,31 @@ public class ColorCorrectionCurvesEditor : Editor
         this.depthBlueChannel = this.serObj.FindProperty("depthBlueChannel");
         if (this.redChannel.animationCurveValue.length == 0)
         {
-            this.redChannel.animationCurveValue = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f)});
+            this.redChannel.animationCurveValue = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f) });
         }
         if (this.greenChannel.animationCurveValue.length == 0)
         {
-            this.greenChannel.animationCurveValue = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f)});
+            this.greenChannel.animationCurveValue = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f) });
         }
         if (this.blueChannel.animationCurveValue.length == 0)
         {
-            this.blueChannel.animationCurveValue = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f)});
+            this.blueChannel.animationCurveValue = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f) });
         }
         if (this.depthRedChannel.animationCurveValue.length == 0)
         {
-            this.depthRedChannel.animationCurveValue = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f)});
+            this.depthRedChannel.animationCurveValue = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f) });
         }
         if (this.depthGreenChannel.animationCurveValue.length == 0)
         {
-            this.depthGreenChannel.animationCurveValue = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f)});
+            this.depthGreenChannel.animationCurveValue = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f) });
         }
         if (this.depthBlueChannel.animationCurveValue.length == 0)
         {
-            this.depthBlueChannel.animationCurveValue = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f)});
+            this.depthBlueChannel.animationCurveValue = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f) });
         }
         if (this.zCurveChannel.animationCurveValue.length == 0)
         {
-            this.zCurveChannel.animationCurveValue = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f)});
+            this.zCurveChannel.animationCurveValue = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0f, 1f, 1f), new Keyframe(1, 1f, 1f, 1f) });
         }
         this.serObj.ApplyModifiedProperties();
         this.selectiveCc = this.serObj.FindProperty("selectiveCc");
@@ -70,7 +69,7 @@ public class ColorCorrectionCurvesEditor : Editor
     {
         // @NOTE: EditorGUILayout.CurveField is buggy and flickers, using PropertyField for now
         //animationCurve.animationCurveValue = EditorGUILayout.CurveField (GUIContent (name), animationCurve.animationCurveValue, color, Rect (0.0,0.0,1.0,1.0));
-        EditorGUILayout.PropertyField(animationCurve, new GUIContent(name), new GUILayoutOption[] {});
+        EditorGUILayout.PropertyField(animationCurve, new GUIContent(name), new GUILayoutOption[] { });
         if (GUI.changed)
         {
             this.applyCurveChanges = true;
@@ -94,9 +93,9 @@ public class ColorCorrectionCurvesEditor : Editor
     public override void OnInspectorGUI()
     {
         this.serObj.Update();
-        GUILayout.Label("Curves to tweak colors. Advanced separates fore- and background.", EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.mode, new GUIContent("Mode"), new GUILayoutOption[] {});
-        GUILayout.Label("Curves", EditorStyles.boldLabel, new GUILayoutOption[] {});
+        GUILayout.Label("Curves to tweak colors. Advanced separates fore- and background.", EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.mode, new GUIContent("Mode"), new GUILayoutOption[] { });
+        GUILayout.Label("Curves", EditorStyles.boldLabel, new GUILayoutOption[] { });
         this.BeginCurves();
         this.CurveGui("Red", this.redChannel, Color.red);
         this.CurveGui("Blue", this.blueChannel, Color.blue);
@@ -121,12 +120,12 @@ public class ColorCorrectionCurvesEditor : Editor
         if (this.mode.intValue > 0)
         {
             EditorGUILayout.Separator();
-            GUILayout.Label("Selective Color Correction", EditorStyles.boldLabel, new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.selectiveCc, new GUIContent("Enable"), new GUILayoutOption[] {});
+            GUILayout.Label("Selective Color Correction", EditorStyles.boldLabel, new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(this.selectiveCc, new GUIContent("Enable"), new GUILayoutOption[] { });
             if (this.selectiveCc.boolValue)
             {
-                EditorGUILayout.PropertyField(this.selectiveFromColor, new GUIContent("Key"), new GUILayoutOption[] {});
-                EditorGUILayout.PropertyField(this.selectiveToColor, new GUIContent("Target"), new GUILayoutOption[] {});
+                EditorGUILayout.PropertyField(this.selectiveFromColor, new GUIContent("Key"), new GUILayoutOption[] { });
+                EditorGUILayout.PropertyField(this.selectiveToColor, new GUIContent("Target"), new GUILayoutOption[] { });
             }
         }
         this.ApplyCurves();

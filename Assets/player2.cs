@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class player2 : MonoBehaviour
@@ -14,8 +13,8 @@ public partial class player2 : MonoBehaviour
     public GameObject tpc;
     public virtual void Start()
     {
-         //Assign default values
-        this.phys = (physics) this.gameObject.GetComponent(typeof(physics));
+        //Assign default values
+        this.phys = (physics)this.gameObject.GetComponent(typeof(physics));
         this.jumpMaxAirTime = 0.2f;
         this.jumpCurAirTime = 0;
         this.jumpPower = 3;
@@ -39,7 +38,7 @@ public partial class player2 : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) //If jumping
         {
         }
-         //Jump();
+        //Jump();
         if (Input.GetKey(KeyCode.RightArrow)) //If Right key is pressed
         {
 
@@ -84,7 +83,7 @@ public partial class player2 : MonoBehaviour
         }
         else
         {
-             //Otherwise, don't move
+            //Otherwise, don't move
             if (this.phys.control.isGrounded)
             {
                 this.tpc.GetComponent<Animation>().Blend("idle");
@@ -95,7 +94,7 @@ public partial class player2 : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-         //****** Variable Jumping ******//
+        //****** Variable Jumping ******//
         if (this.phys.control.isGrounded) //If standing on a solid
         {
             this.phys.velocity.y = 0; //Reset y velocity
@@ -119,7 +118,7 @@ public partial class player2 : MonoBehaviour
         }
         else
         {
-             //If not jumping
+            //If not jumping
             this.phys.force.y = 0;
             this.jumpCurAirTime = 0; //Reset jump force;
         } //End jump;
@@ -164,7 +163,7 @@ public partial class player2 : MonoBehaviour
             }
             else
             {
-                 //Otherwise, don't move
+                //Otherwise, don't move
                 this.phys.force.x = 0;
                 if (this.phys.control.isGrounded)
                 {

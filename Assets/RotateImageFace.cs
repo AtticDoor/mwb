@@ -1,13 +1,12 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class RotateImageFace : MonoBehaviour
 {
     public int uvAnimationTileX; //Here you can place the number of columns of your sheet. 
-     //The above sheet has 24
+                                 //The above sheet has 24
     public int uvAnimationTileY; //Here you can place the number of rows of your sheet. 
-     //The above sheet has 1
+                                 //The above sheet has 1
     public float framesPerSecond;
     public int numFrames;
     public int startFrame;
@@ -23,7 +22,7 @@ public partial class RotateImageFace : MonoBehaviour
         this.framesPerSecond = Random.Range(1, 10);
         if (this.framesPerSecond < 5)
         {
-            UnityEngine.Object.Destroy((RotateImageFace) this.transform.GetComponent(typeof(RotateImageFace)));
+            UnityEngine.Object.Destroy((RotateImageFace)this.transform.GetComponent(typeof(RotateImageFace)));
         }
         else
         {
@@ -52,7 +51,7 @@ public partial class RotateImageFace : MonoBehaviour
             return;
         }
         // Calculate index
-        this.index = (int) ((Time.time - this.StartTime) * this.framesPerSecond);
+        this.index = (int)((Time.time - this.StartTime) * this.framesPerSecond);
         // repeat when exhausting all frames
         this.index = this.startFrame + (this.index % this.numFrames);//(uvAnimationTileX * uvAnimationTileY);
         this.index = Random.Range(0, 3);

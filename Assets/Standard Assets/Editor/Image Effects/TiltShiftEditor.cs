@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 [UnityEditor.CustomEditor(typeof(TiltShift))]
@@ -40,22 +39,22 @@ public class TiltShiftEditor : Editor
         {
             return;
         }
-        GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + this.focalPoint.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
-        GUILayout.Label("Focal Settings", EditorStyles.boldLabel, new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.visualizeCoc, new GUIContent("Visualize"), new GUILayoutOption[] {});
-        this.focalPoint.floatValue = EditorGUILayout.Slider("Distance", this.focalPoint.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.smoothness, new GUIContent("Smoothness"), new GUILayoutOption[] {});
+        GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + this.focalPoint.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
+        GUILayout.Label("Focal Settings", EditorStyles.boldLabel, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.visualizeCoc, new GUIContent("Visualize"), new GUILayoutOption[] { });
+        this.focalPoint.floatValue = EditorGUILayout.Slider("Distance", this.focalPoint.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.smoothness, new GUIContent("Smoothness"), new GUILayoutOption[] { });
         EditorGUILayout.Separator();
-        GUILayout.Label("Background Blur", EditorStyles.boldLabel, new GUILayoutOption[] {});
-        this.renderTextureDivider.intValue = (int) EditorGUILayout.Slider("Downsample", this.renderTextureDivider.intValue, 1, 3, new GUILayoutOption[] {});
-        this.blurIterations.intValue = (int) EditorGUILayout.Slider("Iterations", this.blurIterations.intValue, 1, 4, new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.maxBlurSpread, new GUIContent("Max blur spread"), new GUILayoutOption[] {});
+        GUILayout.Label("Background Blur", EditorStyles.boldLabel, new GUILayoutOption[] { });
+        this.renderTextureDivider.intValue = (int)EditorGUILayout.Slider("Downsample", this.renderTextureDivider.intValue, 1, 3, new GUILayoutOption[] { });
+        this.blurIterations.intValue = (int)EditorGUILayout.Slider("Iterations", this.blurIterations.intValue, 1, 4, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.maxBlurSpread, new GUIContent("Max blur spread"), new GUILayoutOption[] { });
         EditorGUILayout.Separator();
-        GUILayout.Label("Foreground Blur", EditorStyles.boldLabel, new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.enableForegroundBlur, new GUIContent("Enable"), new GUILayoutOption[] {});
+        GUILayout.Label("Foreground Blur", EditorStyles.boldLabel, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.enableForegroundBlur, new GUIContent("Enable"), new GUILayoutOption[] { });
         if (this.enableForegroundBlur.boolValue)
         {
-            this.foregroundBlurIterations.intValue = (int) EditorGUILayout.Slider("Iterations", this.foregroundBlurIterations.intValue, 1, 4, new GUILayoutOption[] {});
+            this.foregroundBlurIterations.intValue = (int)EditorGUILayout.Slider("Iterations", this.foregroundBlurIterations.intValue, 1, 4, new GUILayoutOption[] { });
         }
         //GUILayout.Label ("Background options");
         //edgesOnly.floatValue = EditorGUILayout.Slider ("Edges only", edgesOnly.floatValue, 0.0, 1.0);

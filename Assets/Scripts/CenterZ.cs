@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class CenterZ : MonoBehaviour
@@ -17,7 +16,7 @@ public partial class CenterZ : MonoBehaviour
 
     public virtual void Update2()
     {
-        CharacterController controller = (CharacterController) this.GetComponent(typeof(CharacterController));
+        CharacterController controller = (CharacterController)this.GetComponent(typeof(CharacterController));
         if (controller.isGrounded)
         {
             MonoBehaviour.print("We are grounded");

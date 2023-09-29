@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 // Require a character controller to be attached to the same game object
 public enum CharacterState
@@ -92,7 +91,7 @@ public partial class ThirdPersonController : MonoBehaviour
         //if(Vector3.forward
         this.moveDirection = new Vector3(0, 0, 1);
         this.moveDirection = this.transform.TransformDirection(Vector3.forward);
-        this._animation = (Animation) this.GetComponent(typeof(Animation));
+        this._animation = (Animation)this.GetComponent(typeof(Animation));
         if (!this._animation)
         {
             Debug.Log("The character you would like to control doesn't have animations. Moving her might look weird.");
@@ -154,16 +153,16 @@ public var jumpPoseAnimation : AnimationClip;
         // Grounded controls
         if (true)
         {
-             // Lock camera for short period when transitioning moving & standing still
+            // Lock camera for short period when transitioning moving & standing still
             //	lockCameraTimer += Time.deltaTime;
             //	if (isMoving != wasMoving)
             //		lockCameraTimer = 0.0;
-             // We store speed and direction seperately,
-             // so that when the character stands still we still have a valid forward direction
-             // moveDirection is always normalized, and we only update it if there is user input.
+            // We store speed and direction seperately,
+            // so that when the character stands still we still have a valid forward direction
+            // moveDirection is always normalized, and we only update it if there is user input.
             if (targetDirection != Vector3.zero)
             {
-                 // If we are really slow, just snap to the target direction
+                // If we are really slow, just snap to the target direction
                 if ((this.moveSpeed < (this.walkSpeed * 0.9f)) && grounded)
                 {
                     this.moveDirection = targetDirection.normalized;
@@ -224,7 +223,7 @@ public var jumpPoseAnimation : AnimationClip;
         else
         {
             // In air controls
-             // Lock camera while in air
+            // Lock camera while in air
             if (this.jumping)
             {
                 ThirdPersonController.lockCameraTimer = 1f;
@@ -254,7 +253,7 @@ public var jumpPoseAnimation : AnimationClip;
     private int JumpCount;
     public virtual void ApplyJumping()
     {
-         // Prevent jumping too fast after each other
+        // Prevent jumping too fast after each other
         if ((this.lastJumpTime + this.jumpRepeatTime) > Time.time)
         {
             return;
@@ -277,9 +276,9 @@ public var jumpPoseAnimation : AnimationClip;
     {
         if (this.isControllable) // don't move player at all if not controllable.
         {
-             // Apply gravity
-             //var jumpButton = Input.GetButton("Jump");
-             // When we reach the apex of the jump we send out a message
+            // Apply gravity
+            //var jumpButton = Input.GetButton("Jump");
+            // When we reach the apex of the jump we send out a message
             if ((this.jumping && !this.jumpingReachedApex) && (this.verticalSpeed <= 0f))
             {
                 this.jumpingReachedApex = true;
@@ -298,8 +297,8 @@ public var jumpPoseAnimation : AnimationClip;
 
     public virtual float CalculateJumpVerticalSpeed(float targetJumpHeight)
     {
-         // From the jump height and gravity we deduce the upwards speed 
-         // for the character to reach at the apex.
+        // From the jump height and gravity we deduce the upwards speed 
+        // for the character to reach at the apex.
         return Mathf.Sqrt((2 * targetJumpHeight) * this.gravity);
     }
 
@@ -317,7 +316,7 @@ public var jumpPoseAnimation : AnimationClip;
     {
         if (!this.isControllable)
         {
-             // kill all inputs if not controllable.
+            // kill all inputs if not controllable.
             Input.ResetInputAxes();
         }
         if (Input.GetButtonDown("Jump"))
@@ -340,7 +339,7 @@ public var jumpPoseAnimation : AnimationClip;
         Vector3 movement = ((this.moveDirection * this.moveSpeed) + new Vector3(0, this.verticalSpeed, 0)) + this.inAirVelocity;
         movement = movement * Time.deltaTime;
         // Move the controller
-        CharacterController controller = (CharacterController) this.GetComponent(typeof(CharacterController));
+        CharacterController controller = (CharacterController)this.GetComponent(typeof(CharacterController));
         this.collisionFlags = controller.Move(movement);
         // ANIMATION sector
         if (this._animation)
@@ -455,12 +454,12 @@ public var jumpPoseAnimation : AnimationClip;
 
     public virtual bool IsGrounded()
     {
-        return (this.collisionFlags & CollisionFlags.CollidedBelow) != (CollisionFlags) 0;
+        return (this.collisionFlags & CollisionFlags.CollidedBelow) != (CollisionFlags)0;
     }
 
     public virtual bool IsHeaded()
     {
-        return (this.collisionFlags & CollisionFlags.CollidedAbove) != (CollisionFlags) 0;
+        return (this.collisionFlags & CollisionFlags.CollidedAbove) != (CollisionFlags)0;
     }
 
     public virtual Vector3 GetDirection()

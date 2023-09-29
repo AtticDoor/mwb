@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -79,7 +78,7 @@ public partial class GlobalFog : PostEffectsBase
         this.fogMaterial.SetVector("_Y", new Vector4(this.height, 1f / this.heightScale));
         this.fogMaterial.SetFloat("_GlobalDensity", this.globalDensity * 0.01f);
         this.fogMaterial.SetColor("_FogColor", this.globalFogColor);
-        GlobalFog.CustomGraphicsBlit(source, destination, this.fogMaterial, (int) this.fogMode);
+        GlobalFog.CustomGraphicsBlit(source, destination, this.fogMaterial, (int)this.fogMode);
     }
 
     public static void CustomGraphicsBlit(RenderTexture source, RenderTexture dest, Material fxMaterial, int passNr)

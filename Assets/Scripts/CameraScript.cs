@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class CameraScript : MonoBehaviour
@@ -45,12 +44,12 @@ public partial class CameraScript : MonoBehaviour
             }
             if (this.Player != null)
             {
-                ThirdPersonController tpc = (ThirdPersonController) this.Player.GetComponent("ThirdPersonController");
+                ThirdPersonController tpc = (ThirdPersonController)this.Player.GetComponent("ThirdPersonController");
                 tpc.enabled = !MainScript.EditMode;
             }
             if (MainScript.EditMode)
             {
-                 //camera controls
+                //camera controls
                 if (Input.GetKey("up"))
                 {
 
@@ -101,7 +100,7 @@ public partial class CameraScript : MonoBehaviour
                 }
                 if (MainScript.Selected != null)
                 {
-                     //delete	
+                    //delete	
                     if (Input.GetKey("x"))
                     {
                         GameObject.Destroy(MainScript.Selected);

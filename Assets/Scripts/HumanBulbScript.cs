@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 public class HumanBulbScript : EnemyScript
@@ -45,7 +45,7 @@ public class HumanBulbScript : EnemyScript
         Objects = GameObject.FindGameObjectsWithTag(color);
         foreach (GameObject o in Objects)
         {
-            ((EnemyScript) o.GetComponent(typeof(EnemyScript))).On = t;
+            ((EnemyScript)o.GetComponent(typeof(EnemyScript))).On = t;
         }
     }
 

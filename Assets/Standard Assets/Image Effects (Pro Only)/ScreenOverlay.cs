@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -42,7 +41,7 @@ public partial class ScreenOverlay : PostEffectsBase
         }
         this.overlayMaterial.SetFloat("_Intensity", this.intensity);
         this.overlayMaterial.SetTexture("_Overlay", this.texture);
-        Graphics.Blit(source, destination, this.overlayMaterial, (int) this.blendMode);
+        Graphics.Blit(source, destination, this.overlayMaterial, (int)this.blendMode);
     }
 
     public ScreenOverlay()

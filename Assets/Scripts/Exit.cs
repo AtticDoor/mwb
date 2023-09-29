@@ -8,7 +8,7 @@ public partial class Exit : MonoBehaviour
     public virtual void OnTriggerEnter(Collider c)
     {
         if (c.transform.name != "Player")
-            return;        
+            return;
         MainScript.lastLevel = MainScript.curLevel;
         MainScript.curLevel = "Scene" + levelName;
         MainScript.lastExit = "Enter";

@@ -1,9 +1,12 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class MainScript : MonoBehaviour
 {
+    public static string GameType; //hacked for Game B to play list of scenes
+    public static string[] SceneList; //hacked for Game B to play list of scenes
+    public static int SceneListNumber; //hacked for Game B to play list of scenes
+
     public static bool EditMode;
     public static GameObject Selected;
     public static Material yellow;
@@ -11,7 +14,7 @@ public partial class MainScript : MonoBehaviour
     public static Material blue;
     public static string curLevel;
     public string nonStaticCurLevel;
-    public static string lastLevel="Scene101";
+    public static string lastLevel = "Scene101";
     public static string lastExit;
 
     public static float timer = -100;

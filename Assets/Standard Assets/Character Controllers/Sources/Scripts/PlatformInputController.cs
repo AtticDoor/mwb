@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 // This makes the character turn to face the current movement speed per default.
@@ -26,7 +25,7 @@ public partial class PlatformInputController : MonoBehaviour
     private CharacterMotor motor;
     public virtual void Awake()
     {
-        this.motor = (CharacterMotor) this.GetComponent(typeof(CharacterMotor));
+        this.motor = (CharacterMotor)this.GetComponent(typeof(CharacterMotor));
     }
 
     public virtual void Update()

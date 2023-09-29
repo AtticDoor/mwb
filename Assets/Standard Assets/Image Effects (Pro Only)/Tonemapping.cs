@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -70,7 +69,7 @@ public partial class Tonemapping : PostEffectsBase
         float range = 1f;
         if (this.remapCurve == null)
         {
-            this.remapCurve = new AnimationCurve(new Keyframe[] {new Keyframe(0, 0), new Keyframe(2, 1)});
+            this.remapCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0), new Keyframe(2, 1) });
         }
         if (this.remapCurve != null)
         {
@@ -82,7 +81,7 @@ public partial class Tonemapping : PostEffectsBase
             while (i <= 1f)
             {
                 float c = this.remapCurve.Evaluate((i * 1f) * range);
-                this.curveTex.SetPixel((int) Mathf.Floor(i * 255f), 0, new Color(c, c, c));
+                this.curveTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(c, c, c));
                 i = i + (1f / 255f);
             }
             this.curveTex.Apply();
@@ -155,9 +154,9 @@ public partial class Tonemapping : PostEffectsBase
         // middle grey and white values (user controlled)
         // AdaptiveReinhardAutoWhite will calculate white value automagically
         bool freshlyBrewedInternalRt = this.CreateInternalRenderTexture();
-        RenderTexture rtSquared = RenderTexture.GetTemporary((int) this.adaptiveTextureSize, (int) this.adaptiveTextureSize, 0, RenderTextureFormat.ARGBHalf);
+        RenderTexture rtSquared = RenderTexture.GetTemporary((int)this.adaptiveTextureSize, (int)this.adaptiveTextureSize, 0, RenderTextureFormat.ARGBHalf);
         Graphics.Blit(source, rtSquared);
-        int downsample = (int) Mathf.Log(rtSquared.width * 1f, 2);
+        int downsample = (int)Mathf.Log(rtSquared.width * 1f, 2);
         int div = 2;
         RenderTexture[] rts = new RenderTexture[downsample];
         int i = 0;

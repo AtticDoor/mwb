@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public class SwitchScript : EnemyScript
@@ -26,8 +25,8 @@ public class SwitchScript : EnemyScript
         Objects = GameObject.FindGameObjectsWithTag(this.gameObject.tag);
         foreach (GameObject o in Objects)
         {
-             //Debug.Log(o.transform.name);
-            ((EnemyScript) o.GetComponent(typeof(EnemyScript))).On = t;
+            //Debug.Log(o.transform.name);
+            ((EnemyScript)o.GetComponent(typeof(EnemyScript))).On = t;
         }
     }
 

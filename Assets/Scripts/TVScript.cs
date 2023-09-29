@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class TVScript : MonoBehaviour
@@ -32,7 +31,7 @@ public partial class TVScript : MonoBehaviour
                     {
                         if (Input.GetKey("up") || Input.GetKey("w"))//||(Input.GetAxis ("Vertical2")>0.5))//||(Input.GetAxis ("Vertical2")>0))
                         {
-                             //testing
+                            //testing
                             if (Input.GetKey("w"))
                             {
 
@@ -98,7 +97,7 @@ public partial class TVScript : MonoBehaviour
     {
         transform.tag = "TV";
         staticImage = TVScreen.GetComponent<Renderer>().material.mainTexture;
-        at = (AnimatedTexture) TVScreen.GetComponent("AnimatedTexture");
+        at = (AnimatedTexture)TVScreen.GetComponent("AnimatedTexture");
         if (ElevatorCodes.TVCleared(DoorVal))
         {
             Complete();
@@ -118,7 +117,7 @@ public partial class TVScript : MonoBehaviour
 
     public virtual void Complete()//ElevatorScript.DoorSwitchOn(DoorVal);
     {
-         //TVScreen.renderer.material.mainTexture=Textures[0];//[DoorVal];
+        //TVScreen.renderer.material.mainTexture=Textures[0];//[DoorVal];
         TVScreen.GetComponent<Renderer>().material.mainTexture = BlackTexture;//[DoorVal];
         if (DoorVal > 72)
         {
@@ -130,9 +129,8 @@ public partial class TVScript : MonoBehaviour
         }
         Code.GetComponent<Renderer>().enabled = true;
         ElevatorCodes.ClearTV(DoorVal);
-        ((AnimatedTexture) TVScreen.GetComponent(typeof(AnimatedTexture))).enabled = false;
+        ((AnimatedTexture)TVScreen.GetComponent(typeof(AnimatedTexture))).enabled = false;
         TVScreen.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(1, 1));
-        //TVScreen.renderer.material.SetTextureOffset(SetTextureScale(Vector2(1,1));
         TVScreen.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0, 0));
         Completed = true;
     }

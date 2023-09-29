@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class SquidTentacleStretchAndSpin : MonoBehaviour
@@ -25,8 +24,8 @@ public partial class SquidTentacleStretchAndSpin : MonoBehaviour
     {
         if (this.Stretch)
         {
-             //if stretching up and passed min
-             //stretch down and redo rate
+            //if stretching up and passed min
+            //stretch down and redo rate
             if (!this.stretching && (this.transform.localScale.z < this.stretchMin))
             {
                 this.stretching = true;

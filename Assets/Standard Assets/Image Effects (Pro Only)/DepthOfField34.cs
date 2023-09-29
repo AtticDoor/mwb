@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum Dof34QualitySetting
 {
@@ -206,7 +205,7 @@ public partial class DepthOfField34 : PostEffectsBase
         // 1.) reduce jitter, noise, aliasing
         // 2.) produce the little-blur buffer used in composition later     	     
         this.Blur(this.mediumRezWorkTexture, this.mediumRezWorkTexture, DofBlurriness.Low, 4, this.maxBlurSpread);
-        if (this.bokeh && ((this.bokehDestination & BokehDestination.Background) != (BokehDestination) 0))
+        if (this.bokeh && ((this.bokehDestination & BokehDestination.Background) != (BokehDestination)0))
         {
             this.dofMaterial.SetVector("_Threshhold", new Vector4(this.bokehThreshholdContrast, this.bokehThreshholdLuminance, 0.95f, 0f));
             // add and mark the parts that should end up as bokeh shapes
@@ -229,7 +228,7 @@ public partial class DepthOfField34 : PostEffectsBase
         this.dofBlurMaterial.SetTexture("_TapMedium", this.mediumRezWorkTexture);
         Graphics.Blit(null, this.finalDefocus, this.dofBlurMaterial, 3);
         // we are only adding bokeh now if the background is the only part we have to deal with
-        if (this.bokeh && ((this.bokehDestination & BokehDestination.Background) != (BokehDestination) 0))
+        if (this.bokeh && ((this.bokehDestination & BokehDestination.Background) != (BokehDestination)0))
         {
             this.AddBokeh(this.bokehSource2, this.bokehSource, this.finalDefocus);
         }
@@ -248,7 +247,7 @@ public partial class DepthOfField34 : PostEffectsBase
             // 1.) reduce jitter, noise, aliasing
             // 2.) produce the little-blur buffer used in composition later   
             this.BlurFg(this.mediumRezWorkTexture, this.mediumRezWorkTexture, DofBlurriness.Low, 2, this.maxBlurSpread);
-            if (this.bokeh && ((this.bokehDestination & BokehDestination.Foreground) != (BokehDestination) 0))
+            if (this.bokeh && ((this.bokehDestination & BokehDestination.Foreground) != (BokehDestination)0))
             {
                 this.dofMaterial.SetVector("_Threshhold", new Vector4(this.bokehThreshholdContrast * 0.5f, this.bokehThreshholdLuminance, 0f, 0f));
                 // add and mark the parts that should end up as bokeh shapes
@@ -268,7 +267,7 @@ public partial class DepthOfField34 : PostEffectsBase
             Graphics.Blit(this.lowRezWorkTexture, this.finalDefocus);
             this.dofMaterial.SetTexture("_TapLowForeground", this.finalDefocus);
             Graphics.Blit(source, destination, this.dofMaterial, this.visualize ? 1 : 4);
-            if (this.bokeh && ((this.bokehDestination & BokehDestination.Foreground) != (BokehDestination) 0))
+            if (this.bokeh && ((this.bokehDestination & BokehDestination.Foreground) != (BokehDestination)0))
             {
                 this.AddBokeh(this.bokehSource2, this.bokehSource, destination);
             }
@@ -279,10 +278,10 @@ public partial class DepthOfField34 : PostEffectsBase
     public virtual void Blur(RenderTexture from, RenderTexture to, DofBlurriness iterations, int blurPass, float spread)
     {
         RenderTexture tmp = RenderTexture.GetTemporary(to.width, to.height);
-        if (iterations > (DofBlurriness) 1)
+        if (iterations > (DofBlurriness)1)
         {
             this.BlurHex(from, to, blurPass, spread, tmp);
-            if (iterations > (DofBlurriness) 2)
+            if (iterations > (DofBlurriness)2)
             {
                 this.dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * this.oneOverBaseSize, 0f, 0f));
                 Graphics.Blit(to, tmp, this.dofBlurMaterial, blurPass);
@@ -305,10 +304,10 @@ public partial class DepthOfField34 : PostEffectsBase
         // we want a nice, big coc, hence we need to tap once from this (higher resolution) texture
         this.dofBlurMaterial.SetTexture("_TapHigh", from);
         RenderTexture tmp = RenderTexture.GetTemporary(to.width, to.height);
-        if (iterations > (DofBlurriness) 1)
+        if (iterations > (DofBlurriness)1)
         {
             this.BlurHex(from, to, blurPass, spread, tmp);
-            if (iterations > (DofBlurriness) 2)
+            if (iterations > (DofBlurriness)2)
             {
                 this.dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * this.oneOverBaseSize, 0f, 0f));
                 Graphics.Blit(to, tmp, this.dofBlurMaterial, blurPass);

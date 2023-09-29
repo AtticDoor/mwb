@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum ColorCorrectionMode
 {
@@ -86,17 +85,17 @@ public partial class ColorCorrectionCurves : PostEffectsBase
                 float rCh = Mathf.Clamp(this.redChannel.Evaluate(i), 0f, 1f);
                 float gCh = Mathf.Clamp(this.greenChannel.Evaluate(i), 0f, 1f);
                 float bCh = Mathf.Clamp(this.blueChannel.Evaluate(i), 0f, 1f);
-                this.rgbChannelTex.SetPixel((int) Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
-                this.rgbChannelTex.SetPixel((int) Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
-                this.rgbChannelTex.SetPixel((int) Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
+                this.rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
+                this.rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
+                this.rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
                 float zC = Mathf.Clamp(this.zCurve.Evaluate(i), 0f, 1f);
-                this.zCurveTex.SetPixel((int) Mathf.Floor(i * 255f), 0, new Color(zC, zC, zC));
+                this.zCurveTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(zC, zC, zC));
                 rCh = Mathf.Clamp(this.depthRedChannel.Evaluate(i), 0f, 1f);
                 gCh = Mathf.Clamp(this.depthGreenChannel.Evaluate(i), 0f, 1f);
                 bCh = Mathf.Clamp(this.depthBlueChannel.Evaluate(i), 0f, 1f);
-                this.rgbDepthChannelTex.SetPixel((int) Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
-                this.rgbDepthChannelTex.SetPixel((int) Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
-                this.rgbDepthChannelTex.SetPixel((int) Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
+                this.rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
+                this.rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
+                this.rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
                 i = i + (1f / 255f);
             }
             this.rgbChannelTex.Apply();

@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 [UnityEditor.CustomEditor(typeof(DepthOfField34))]
@@ -72,54 +71,54 @@ public class DepthOfField34Editor : Editor
         }
         if (this.simpleTweakMode.boolValue)
         {
-            GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + this.focalPoint.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
+            GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + this.focalPoint.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
         }
         else
         {
-            GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + this.focalZDistance.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
+            GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + this.focalZDistance.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
         }
-        EditorGUILayout.PropertyField(this.resolution, new GUIContent("Resolution"), new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.quality, new GUIContent("Quality"), new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.simpleTweakMode, new GUIContent("Simple tweak"), new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.visualizeCoc, new GUIContent("Visualize focus"), new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.bokeh, new GUIContent("Enable bokeh"), new GUILayoutOption[] {});
+        EditorGUILayout.PropertyField(this.resolution, new GUIContent("Resolution"), new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.quality, new GUIContent("Quality"), new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.simpleTweakMode, new GUIContent("Simple tweak"), new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.visualizeCoc, new GUIContent("Visualize focus"), new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.bokeh, new GUIContent("Enable bokeh"), new GUILayoutOption[] { });
         EditorGUILayout.Separator();
-        GUILayout.Label("Focal Settings", EditorStyles.boldLabel, new GUILayoutOption[] {});
+        GUILayout.Label("Focal Settings", EditorStyles.boldLabel, new GUILayoutOption[] { });
         if (this.simpleTweakMode.boolValue)
         {
-            this.focalPoint.floatValue = EditorGUILayout.Slider("Focal distance", this.focalPoint.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.objectFocus, new GUIContent("Transform"), new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.smoothness, new GUIContent("Smoothness"), new GUILayoutOption[] {});
-            this.focalSize.floatValue = EditorGUILayout.Slider("Focal size", this.focalSize.floatValue, 0f, go.GetComponent<Camera>().farClipPlane - go.GetComponent<Camera>().nearClipPlane, new GUILayoutOption[] {});
+            this.focalPoint.floatValue = EditorGUILayout.Slider("Focal distance", this.focalPoint.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(this.objectFocus, new GUIContent("Transform"), new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(this.smoothness, new GUIContent("Smoothness"), new GUILayoutOption[] { });
+            this.focalSize.floatValue = EditorGUILayout.Slider("Focal size", this.focalSize.floatValue, 0f, go.GetComponent<Camera>().farClipPlane - go.GetComponent<Camera>().nearClipPlane, new GUILayoutOption[] { });
         }
         else
         {
-            this.focalZDistance.floatValue = EditorGUILayout.Slider("Distance", this.focalZDistance.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.objectFocus, new GUIContent("Transform"), new GUILayoutOption[] {});
-            this.focalSize.floatValue = EditorGUILayout.Slider("Size", this.focalSize.floatValue, 0f, go.GetComponent<Camera>().farClipPlane - go.GetComponent<Camera>().nearClipPlane, new GUILayoutOption[] {});
-            this.focalStartCurve.floatValue = EditorGUILayout.Slider("Start curve", this.focalStartCurve.floatValue, 0.05f, 20f, new GUILayoutOption[] {});
-            this.focalEndCurve.floatValue = EditorGUILayout.Slider("End curve", this.focalEndCurve.floatValue, 0.05f, 20f, new GUILayoutOption[] {});
+            this.focalZDistance.floatValue = EditorGUILayout.Slider("Distance", this.focalZDistance.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(this.objectFocus, new GUIContent("Transform"), new GUILayoutOption[] { });
+            this.focalSize.floatValue = EditorGUILayout.Slider("Size", this.focalSize.floatValue, 0f, go.GetComponent<Camera>().farClipPlane - go.GetComponent<Camera>().nearClipPlane, new GUILayoutOption[] { });
+            this.focalStartCurve.floatValue = EditorGUILayout.Slider("Start curve", this.focalStartCurve.floatValue, 0.05f, 20f, new GUILayoutOption[] { });
+            this.focalEndCurve.floatValue = EditorGUILayout.Slider("End curve", this.focalEndCurve.floatValue, 0.05f, 20f, new GUILayoutOption[] { });
         }
         EditorGUILayout.Separator();
-        GUILayout.Label("Blur (Fore- and Background)", EditorStyles.boldLabel, new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.bluriness, new GUIContent("Blurriness"), new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.maxBlurSpread, new GUIContent("Blur spread"), new GUILayoutOption[] {});
+        GUILayout.Label("Blur (Fore- and Background)", EditorStyles.boldLabel, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.bluriness, new GUIContent("Blurriness"), new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.maxBlurSpread, new GUIContent("Blur spread"), new GUILayoutOption[] { });
         if (this.quality.enumValueIndex > 0)
         {
-            EditorGUILayout.PropertyField(this.foregroundBlurExtrude, new GUIContent("Foreground size"), new GUILayoutOption[] {});
+            EditorGUILayout.PropertyField(this.foregroundBlurExtrude, new GUIContent("Foreground size"), new GUILayoutOption[] { });
         }
         EditorGUILayout.Separator();
         if (this.bokeh.boolValue)
         {
             EditorGUILayout.Separator();
-            GUILayout.Label("Bokeh Settings", EditorStyles.boldLabel, new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.bokehDestination, new GUIContent("Destination"), new GUILayoutOption[] {});
-            this.bokehIntensity.floatValue = EditorGUILayout.Slider("Intensity", this.bokehIntensity.floatValue, 0f, 1f, new GUILayoutOption[] {});
-            this.bokehThreshholdLuminance.floatValue = EditorGUILayout.Slider("Min luminance", this.bokehThreshholdLuminance.floatValue, 0f, 0.99f, new GUILayoutOption[] {});
-            this.bokehThreshholdContrast.floatValue = EditorGUILayout.Slider("Min contrast", this.bokehThreshholdContrast.floatValue, 0f, 0.25f, new GUILayoutOption[] {});
-            this.bokehDownsample.intValue = EditorGUILayout.IntSlider("Downsample", this.bokehDownsample.intValue, 1, 3, new GUILayoutOption[] {});
-            this.bokehScale.floatValue = EditorGUILayout.Slider("Size scale", this.bokehScale.floatValue, 0f, 20f, new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.bokehTexture, new GUIContent("Texture mask"), new GUILayoutOption[] {});
+            GUILayout.Label("Bokeh Settings", EditorStyles.boldLabel, new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(this.bokehDestination, new GUIContent("Destination"), new GUILayoutOption[] { });
+            this.bokehIntensity.floatValue = EditorGUILayout.Slider("Intensity", this.bokehIntensity.floatValue, 0f, 1f, new GUILayoutOption[] { });
+            this.bokehThreshholdLuminance.floatValue = EditorGUILayout.Slider("Min luminance", this.bokehThreshholdLuminance.floatValue, 0f, 0.99f, new GUILayoutOption[] { });
+            this.bokehThreshholdContrast.floatValue = EditorGUILayout.Slider("Min contrast", this.bokehThreshholdContrast.floatValue, 0f, 0.25f, new GUILayoutOption[] { });
+            this.bokehDownsample.intValue = EditorGUILayout.IntSlider("Downsample", this.bokehDownsample.intValue, 1, 3, new GUILayoutOption[] { });
+            this.bokehScale.floatValue = EditorGUILayout.Slider("Size scale", this.bokehScale.floatValue, 0f, 20f, new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(this.bokehTexture, new GUIContent("Texture mask"), new GUILayoutOption[] { });
         }
         this.serObj.ApplyModifiedProperties();
     }

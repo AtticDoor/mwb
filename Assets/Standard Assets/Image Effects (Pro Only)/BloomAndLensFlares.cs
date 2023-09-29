@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum LensflareStyle34
 {
@@ -139,7 +138,7 @@ public partial class BloomAndLensFlares : PostEffectsBase
         // lens flares: ghosting, anamorphic or a combination 
         if (this.lensflares)
         {
-            if (this.lensflareMode == (LensflareStyle34) 0)
+            if (this.lensflareMode == (LensflareStyle34)0)
             {
                 this.BrightFilter(this.lensflareThreshhold, 0f, quarterRezColor, thirdQuarterRezColor);
                 // smooth a little, this needs to be resolution dependent
@@ -169,7 +168,7 @@ public partial class BloomAndLensFlares : PostEffectsBase
                 Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, this.hollywoodFlaresMaterial, 1);
                 this.hollywoodFlaresMaterial.SetFloat("stretchWidth", this.hollyStretchWidth * 4f);
                 Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, this.hollywoodFlaresMaterial, 1);
-                if (this.lensflareMode == (LensflareStyle34) 1)
+                if (this.lensflareMode == (LensflareStyle34)1)
                 {
                     int itera = 0;
                     while (itera < this.hollywoodFlareBlurIterations)
@@ -203,7 +202,7 @@ public partial class BloomAndLensFlares : PostEffectsBase
         // screen blend bloom results to color buffer
         this.screenBlend.SetFloat("_Intensity", this.bloomIntensity);
         this.screenBlend.SetTexture("_ColorBuffer", source);
-        Graphics.Blit(quarterRezColor, destination, this.screenBlend, (int) realBlendMode);
+        Graphics.Blit(quarterRezColor, destination, this.screenBlend, (int)realBlendMode);
         RenderTexture.ReleaseTemporary(quarterRezColor);
         RenderTexture.ReleaseTemporary(secondQuarterRezColor);
         RenderTexture.ReleaseTemporary(thirdQuarterRezColor);
@@ -262,7 +261,7 @@ public partial class BloomAndLensFlares : PostEffectsBase
         this.bloomThreshhold = 0.5f;
         this.bloomBlurIterations = 2;
         this.hollywoodFlareBlurIterations = 2;
-        this.lensflareMode = (LensflareStyle34) 1;
+        this.lensflareMode = (LensflareStyle34)1;
         this.hollyStretchWidth = 3.5f;
         this.lensflareIntensity = 1f;
         this.lensflareThreshhold = 0.3f;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class CharacterControllerTest : MonoBehaviour
@@ -11,26 +10,26 @@ public partial class CharacterControllerTest : MonoBehaviour
     private Animation _animation;
     public virtual void StartXXXXXXXXXXXXX()
     {
-        this._animation = (Animation) this.GetComponent(typeof(Animation));
+        this._animation = (Animation)this.GetComponent(typeof(Animation));
         this._animation[this.jumpPoseAnimation.name].speed = 1f;
     }
 
-     /// This script moves the character controller forward 
-     /// and sideways based on the arrow keys.
-     /// It also jumps when pressing space.
-     /// Make sure to attach a character controller to the same game object.
-     /// It is recommended that you make only one call to Move or SimpleMove per frame.    
+    /// This script moves the character controller forward 
+    /// and sideways based on the arrow keys.
+    /// It also jumps when pressing space.
+    /// Make sure to attach a character controller to the same game object.
+    /// It is recommended that you make only one call to Move or SimpleMove per frame.    
     public float speed;
     public float jumpSpeed;
     public float gravity;
     private Vector3 moveDirection;
     public virtual void UpdateXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX()
     {
-        CharacterController controller = (CharacterController) this.GetComponent(typeof(CharacterController));
+        CharacterController controller = (CharacterController)this.GetComponent(typeof(CharacterController));
         if (controller.isGrounded)
         {
-             // We are grounded, so recalculate
-             // move direction directly from axes
+            // We are grounded, so recalculate
+            // move direction directly from axes
             this.moveDirection = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
             this.moveDirection = this.transform.TransformDirection(this.moveDirection);
             this.moveDirection = this.moveDirection * this.speed;

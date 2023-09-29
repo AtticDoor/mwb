@@ -1,13 +1,12 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class RotateImageDigitalNumber : MonoBehaviour
 {
     public int uvAnimationTileX; //Here you can place the number of columns of your sheet. 
-     //The above sheet has 24
+                                 //The above sheet has 24
     public int uvAnimationTileY; //Here you can place the number of rows of your sheet. 
-     //The above sheet has 1
+                                 //The above sheet has 1
     public float framesPerSecond;
     public int numFrames;
     public int startFrame;
@@ -43,7 +42,7 @@ public partial class RotateImageDigitalNumber : MonoBehaviour
             return;
         }
         // Calculate index
-        this.index = (int) ((Time.time - this.StartTime) * this.framesPerSecond);
+        this.index = (int)((Time.time - this.StartTime) * this.framesPerSecond);
         // repeat when exhausting all frames
         this.index = this.startFrame + (this.index % this.numFrames);//(uvAnimationTileX * uvAnimationTileY);
         // Size of every tile

@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 [UnityEditor.CustomEditor(typeof(SunShafts))]
@@ -35,12 +34,12 @@ public class SunShaftsEditor : Editor
     public override void OnInspectorGUI()
     {
         this.serObj.Update();
-        EditorGUILayout.BeginHorizontal(new GUILayoutOption[] {});
+        EditorGUILayout.BeginHorizontal(new GUILayoutOption[] { });
         bool oldVal = this.useDepthTexture.boolValue;
-        EditorGUILayout.PropertyField(this.useDepthTexture, new GUIContent("Rely on Z Buffer?"), new GUILayoutOption[] {});
+        EditorGUILayout.PropertyField(this.useDepthTexture, new GUIContent("Rely on Z Buffer?"), new GUILayoutOption[] { });
         if ((this.target as SunShafts).GetComponent<Camera>())
         {
-            GUILayout.Label("Current camera mode: " + (this.target as SunShafts).GetComponent<Camera>().depthTextureMode, EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
+            GUILayout.Label("Current camera mode: " + (this.target as SunShafts).GetComponent<Camera>().depthTextureMode, EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
         }
         EditorGUILayout.EndHorizontal();
         // depth buffer need
@@ -53,14 +52,14 @@ public class SunShaftsEditor : Editor
 				(target as SunShafts).camera.depthTextureMode &= ~DepthTextureMode.Depth;
 		}
 		*/
-        EditorGUILayout.PropertyField(this.resolution, new GUIContent("Resolution"), new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.screenBlendMode, new GUIContent("Blend mode"), new GUILayoutOption[] {});
+        EditorGUILayout.PropertyField(this.resolution, new GUIContent("Resolution"), new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.screenBlendMode, new GUIContent("Blend mode"), new GUILayoutOption[] { });
         EditorGUILayout.Separator();
-        EditorGUILayout.BeginHorizontal(new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.sunTransform, new GUIContent("Shafts caster", "Chose a transform that acts as a root point for the produced sun shafts"), new GUILayoutOption[] {});
+        EditorGUILayout.BeginHorizontal(new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(this.sunTransform, new GUIContent("Shafts caster", "Chose a transform that acts as a root point for the produced sun shafts"), new GUILayoutOption[] { });
         if ((this.target as SunShafts).sunTransform && (this.target as SunShafts).GetComponent<Camera>())
         {
-            if (GUILayout.Button("Center on " + (this.target as SunShafts).GetComponent<Camera>().name, new GUILayoutOption[] {}))
+            if (GUILayout.Button("Center on " + (this.target as SunShafts).GetComponent<Camera>().name, new GUILayoutOption[] { }))
             {
                 if (EditorUtility.DisplayDialog("Move sun shafts source?", ((("The SunShafts caster named " + (this.target as SunShafts).sunTransform.name) + "\n will be centered along ") + (this.target as SunShafts).GetComponent<Camera>().name) + ". Are you sure? ", "Please do", "Don't"))
                 {
@@ -72,14 +71,14 @@ public class SunShaftsEditor : Editor
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.Separator();
-        EditorGUILayout.PropertyField(this.sunColor, new GUIContent("Shafts color"), new GUILayoutOption[] {});
-        this.maxRadius.floatValue = 1f - EditorGUILayout.Slider("Distance falloff", 1f - this.maxRadius.floatValue, 0.1f, 1f, new GUILayoutOption[] {});
+        EditorGUILayout.PropertyField(this.sunColor, new GUIContent("Shafts color"), new GUILayoutOption[] { });
+        this.maxRadius.floatValue = 1f - EditorGUILayout.Slider("Distance falloff", 1f - this.maxRadius.floatValue, 0.1f, 1f, new GUILayoutOption[] { });
         EditorGUILayout.Separator();
-        this.sunShaftBlurRadius.floatValue = EditorGUILayout.Slider("Blur size", this.sunShaftBlurRadius.floatValue, 1f, 10f, new GUILayoutOption[] {});
-        this.radialBlurIterations.intValue = EditorGUILayout.IntSlider("Blur iterations", this.radialBlurIterations.intValue, 1, 3, new GUILayoutOption[] {});
+        this.sunShaftBlurRadius.floatValue = EditorGUILayout.Slider("Blur size", this.sunShaftBlurRadius.floatValue, 1f, 10f, new GUILayoutOption[] { });
+        this.radialBlurIterations.intValue = EditorGUILayout.IntSlider("Blur iterations", this.radialBlurIterations.intValue, 1, 3, new GUILayoutOption[] { });
         EditorGUILayout.Separator();
-        EditorGUILayout.PropertyField(this.sunShaftIntensity, new GUIContent("Intensity"), new GUILayoutOption[] {});
-        this.useSkyBoxAlpha.floatValue = EditorGUILayout.Slider("Use alpha mask", this.useSkyBoxAlpha.floatValue, 0f, 1f, new GUILayoutOption[] {});
+        EditorGUILayout.PropertyField(this.sunShaftIntensity, new GUIContent("Intensity"), new GUILayoutOption[] { });
+        this.useSkyBoxAlpha.floatValue = EditorGUILayout.Slider("Use alpha mask", this.useSkyBoxAlpha.floatValue, 0f, 1f, new GUILayoutOption[] { });
         this.serObj.ApplyModifiedProperties();
     }
 

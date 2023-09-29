@@ -1,9 +1,9 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 public partial class LerpObject : MonoBehaviour
-{   
+{
     public static IEnumerator MoveEnemy(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
     {
         EnemyScript PO = (EnemyScript)thisTransform.GetComponent("EnemyScript");
@@ -28,7 +28,7 @@ public partial class LerpObject : MonoBehaviour
         {
             i += (Time.deltaTime * rate);
             thisTransform.position = Vector3.Lerp(startPos, endPos, i);
-            
+
             yield return null;
         }
     }
@@ -56,4 +56,4 @@ public partial class LerpObject : MonoBehaviour
             yield return null;
         }
     }
-    }
+}

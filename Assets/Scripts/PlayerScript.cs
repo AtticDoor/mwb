@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class PlayerScript : MonoBehaviour
@@ -29,18 +28,19 @@ public partial class PlayerScript : MonoBehaviour
 		case 13: SetPosition(-77.65131, 14.56291, -41.32747,		0, 358.5954, 0); break; //dutton
 		case 14: SetPosition(-55.9055 , 14.56291, -41.32747,		0, 358.5954, 0); break; //burden
 	
-	}*/    public virtual void Start()
+	}*/
+    public virtual void Start()
     {
         this.alpha = 1;
         this.fadeIn();
         this.SetPlayerStart();
     }
 
- /*   public static void DIE()//	gameObject.GetComponent("Bip001 Pelvis").renderer.active=false;
-    {
-        MainScript.timer -= 10;
-    }
- */
+    /*   public static void DIE()//	gameObject.GetComponent("Bip001 Pelvis").renderer.active=false;
+       {
+           MainScript.timer -= 10;
+       }
+    */
     public virtual void SetPlayerStart()
     {
     }

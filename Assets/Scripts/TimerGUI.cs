@@ -31,7 +31,7 @@ public partial class TimerGUI : MonoBehaviour
 
     public static void GameOver()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("SceneMenu");
     }
 
     public static void Death()
