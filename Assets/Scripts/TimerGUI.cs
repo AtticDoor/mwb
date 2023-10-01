@@ -12,10 +12,10 @@ public partial class TimerGUI : MonoBehaviour
         if (MainScript.timer <= 0)
             TimerGUI.GameOver();
     }
-
+    public GUIStyle TimerStyle;
     public virtual void Update()
     {
-        MainScript.timer = MainScript.timer - Time.deltaTime;
+        MainScript.timer -= Time.deltaTime;
     }
 
     public static int minutes;
@@ -26,7 +26,7 @@ public partial class TimerGUI : MonoBehaviour
         TimerGUI.seconds = Mathf.FloorToInt(MainScript.timer - (TimerGUI.minutes * 60));
         string niceTime = string.Format("{0:0}:{1:00}", TimerGUI.minutes, TimerGUI.seconds);
         GUI.depth = 10;
-        GUI.Label(new Rect(10, 10, 250, 100), niceTime);
+        GUI.Label(new Rect(10, 10, 250, 100), niceTime,TimerStyle);
     }
 
     public static void GameOver()

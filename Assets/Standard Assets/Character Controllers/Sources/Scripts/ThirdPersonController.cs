@@ -71,7 +71,7 @@ public partial class ThirdPersonController : MonoBehaviour
     private float lastJumpStartHeight;
     private Vector3 inAirVelocity;
     private float lastGroundedTime;
-    private bool isControllable;
+    public static bool isControllable;
     public virtual void Awake()
     {
         this.walkMaxAnimationSpeed = 0.9f;
@@ -274,7 +274,7 @@ public var jumpPoseAnimation : AnimationClip;
 
     public virtual void ApplyGravity()
     {
-        if (this.isControllable) // don't move player at all if not controllable.
+        if (isControllable) // don't move player at all if not controllable.
         {
             // Apply gravity
             //var jumpButton = Input.GetButton("Jump");
@@ -314,7 +314,7 @@ public var jumpPoseAnimation : AnimationClip;
 
     public virtual void Update()
     {
-        if (!this.isControllable)
+        if (!isControllable)
         {
             // kill all inputs if not controllable.
             Input.ResetInputAxes();
@@ -521,7 +521,22 @@ public var jumpPoseAnimation : AnimationClip;
         this.lastJumpButtonTime = -10f;
         this.lastJumpTime = -1f;
         this.inAirVelocity = Vector3.zero;
-        this.isControllable = true;
+        isControllable = true;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

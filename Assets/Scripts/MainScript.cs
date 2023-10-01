@@ -62,15 +62,6 @@ public partial class MainScript : MonoBehaviour
         int j = 0;
         GUI.depth = 0;
         GUI.Label(new Rect(0, 100, 100, 100), "Scene" + MainScript.curLevel);
-        //test door output	
-        if (false)
-        {
-            while (j < 70)
-            {
-                GUI.Label(new Rect(j * 50, 50, 100, 100), (j + "") + ElevatorCodes.TVCleared(j));
-                j++;
-            }
-        }
         GUI.Label(new Rect(0, 100, 100, 100), "Scene" + MainScript.curLevel);
         if (!MainScript.EditMode)
         {

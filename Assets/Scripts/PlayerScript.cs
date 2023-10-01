@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class PlayerScript : MonoBehaviour
@@ -110,5 +112,63 @@ public partial class PlayerScript : MonoBehaviour
         this.alpha = 1f;
         this.fadeDir = -1;
     }
+
+
+
+    public static void Kill(int killType)
+    {
+        PlayerScript p = GameObject.Find("Player").GetComponent<PlayerScript>(); 
+
+        switch (killType)
+        {
+            case 0: p.KillPlayerElectrocute(); break;
+            case 1: p.KillPlayerElectrocute(); break;
+            case 2: p.KillPlayerDefault(); break;  //saw blade
+            case 3: p.KillPlayerElectrocute(); break;  //spiderattack
+
+        }
+    }
+
+
+    private void KillPlayerDefault()
+    {
+        ThirdPersonController.isControllable = false;
+        Time.timeScale = 0;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        TimerGUI.Death();
+    }
+
+
+    private void KillPlayerElectrocute()
+    {
+        ThirdPersonController.isControllable = false;
+        Time.timeScale = 0;
+        Time.timeScale = 1f;
+        StartCoroutine(WaitToDie());
+        //                StartCoroutine(LerpObject.ChangeTextureScaleY(GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>(), 100, 20, 2.0f));
+        StartCoroutine(LerpObject.ChangeTextureScaleY(GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>(), 0, .9375f, 1.0f));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        TimerGUI.Death();
+    }
+
+    private IEnumerator WaitToDie()
+    {
+        /*  for (int i = 0; 1 < 32; i++)
+          {
+              yield return new WaitForSeconds(.0625f);
+              GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(.0625f * i, 0));
+
+          }
+        */
+        yield return new WaitForSeconds(.99f);
+        GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>().enabled = (false);
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
+
+
 
 }

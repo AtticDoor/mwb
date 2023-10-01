@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,27 +34,17 @@ public partial class EnemyScript : MonoBehaviour
     {
         On = true;
     }
-
+    public int KillType;
     public virtual void OnTriggerEnter(Collider c)
     {
         if (On)
         {
             if (c.gameObject.tag == "Player")
             {
-                Kill(c.gameObject);
-                Time.timeScale = 0;
-                Time.timeScale = 1f;
-
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                TimerGUI.Death();
+                PlayerScript.Kill(KillType);
             }
         }
     }
-
-    public virtual void Kill(GameObject g)//	g.GetComponent("Bip001 Pelvis")
-    {
-    }
-
     public virtual void Update()
     {
         ExtraUpdate();

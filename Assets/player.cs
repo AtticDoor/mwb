@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class player : MonoBehaviour
@@ -13,8 +12,12 @@ public partial class player : MonoBehaviour
     public float airFriction; //Air friction; controls terminal velocity
     public virtual void Start()
     {
-         //Assign default values
-        this.phys = (physics) this.gameObject.GetComponent(typeof(physics));
+        Debug.Log(transform.name + "");
+        Debug.Break();
+
+
+        //Assign default values
+        this.phys = (physics)this.gameObject.GetComponent(typeof(physics));
         this.jumpMaxAirTime = 0.2f;
         this.jumpCurAirTime = 0;
         this.jumpPower = 3;
@@ -25,7 +28,7 @@ public partial class player : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-         //****** Variable Jumping ******//
+        //****** Variable Jumping ******//
         if (this.phys.control.isGrounded) //If standing on a solid
         {
             this.phys.velocity.y = 0; //Reset y velocity
@@ -41,7 +44,7 @@ public partial class player : MonoBehaviour
         }
         else
         {
-             //If not jumping
+            //If not jumping
             this.phys.force.y = 0;
             this.jumpCurAirTime = 0; //Reset jump force;
         } //End jump;
@@ -58,7 +61,7 @@ public partial class player : MonoBehaviour
             }
             else
             {
-                 //Otherwise, don't move
+                //Otherwise, don't move
                 this.phys.force.x = 0;
             }
         }
@@ -86,7 +89,7 @@ public partial class player : MonoBehaviour
 
     public virtual bool headClear()
     {
-         //Projects two raycasts from the top of the player's head, one from the left edge and one from the right edge
+        //Projects two raycasts from the top of the player's head, one from the left edge and one from the right edge
         return !Physics.Raycast(this.transform.position + new Vector3(this.transform.localScale.x / 2, 0, 0), new Vector3(0, 1, 0), 2) && !Physics.Raycast(this.transform.position - new Vector3(this.transform.localScale.x / 2, 0, 0), new Vector3(0, 1, 0), 2);
     }
 
