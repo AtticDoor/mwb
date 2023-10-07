@@ -121,7 +121,7 @@ public partial class PlayerScript : MonoBehaviour
 
         switch (killType)
         {
-            case 0: p.KillPlayerElectrocute(); break;
+            case 0: p.KillPlayerDefault(); break;
             case 1: p.KillPlayerElectrocute(); break;
             case 2: p.KillPlayerDefault(); break;  //saw blade
             case 3: p.KillPlayerElectrocute(); break;  //spiderattack

@@ -3,18 +3,17 @@ using UnityEngine;
 [System.Serializable]
 public partial class TVScript : MonoBehaviour
 {
-    public bool PlayerWithin;
-    public string Name;
+    private bool PlayerWithin;
     public GameObject Meter;
     public GameObject TVScreen;
     public int DoorVal;
     public GameObject Code;
-    public bool Completed;
+    private bool Completed;
+    public float MeterStartPercent = 100f;
     public virtual void Update()
     {
         if (Completed) 
             return;
-
 
         if (PlayerWithin)
         {
@@ -70,6 +69,7 @@ public partial class TVScript : MonoBehaviour
     public AnimatedTexture at;
     public virtual void Start()
     {
+        Meter.transform.localScale = new Vector3(Meter.transform.localScale.x * MeterStartPercent / 100 , Meter.transform.localScale.y, 1);
         transform.tag = "TV";
         staticImage = TVScreen.GetComponent<Renderer>().material.mainTexture;
         at = (AnimatedTexture)TVScreen.GetComponent("AnimatedTexture");

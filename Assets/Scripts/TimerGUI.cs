@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [System.Serializable]
 public partial class TimerGUI : MonoBehaviour
 {
     public virtual void Awake()
     {
+        //txt = (TextMeshPro)GameObject.Find("Timer");
+
         if (MainScript.timer == -100)
             MainScript.timer = 10000;  //only for playing the scene without menu.
 
@@ -16,11 +19,17 @@ public partial class TimerGUI : MonoBehaviour
     public virtual void Update()
     {
         MainScript.timer -= Time.deltaTime;
+        TimerGUI.minutes = Mathf.FloorToInt(MainScript.timer / 60f);
+        TimerGUI.seconds = Mathf.FloorToInt(MainScript.timer - (TimerGUI.minutes * 60));
+        if(txt!=null)
+        txt.text = string.Format("{0:0}:{1:00}", TimerGUI.minutes, TimerGUI.seconds); 
+        //MainScript.timer+"";
     }
 
+    public TextMeshProUGUI txt; 
     public static int minutes;
     public static int seconds;
-    public virtual void OnGUI()
+    public virtual void OnGUIJUNK()
     {
         TimerGUI.minutes = Mathf.FloorToInt(MainScript.timer / 60f);
         TimerGUI.seconds = Mathf.FloorToInt(MainScript.timer - (TimerGUI.minutes * 60));

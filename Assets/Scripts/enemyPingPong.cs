@@ -10,61 +10,46 @@ public class enemyPingPong : EnemyScript
     public float speed;
     public override void ExtraStart()
     {
-        this.left = this.LeftBoundary.transform.position.x;
-        this.right = this.RightBoundary.transform.position.x;
-        this.MovingRight = false;
+        left = LeftBoundary.transform.position.x;
+        right = RightBoundary.transform.position.x;
+        transform.position = new Vector3(left, transform.position.y, transform.position.z);
+        MovingRight = true;
 
-        {
-            float _140 = this.left;
-            Vector3 _141 = this.transform.position;
-            _141.x = _140;
-            this.transform.position = _141;
-        }
     }
 
     private bool MovingRight;
+
+    public float delay=0.0f;
+    private float DelayEndTime=-1;
+
     public override void ExtraUpdate()
     {
-        if (!this.On)
-        {
+        if (!On)
             return;
-        }
-        if (this.transform.position.x < this.left)
-        {
-            this.MovingRight = true;
-        }
-        else
-        {
-            if (this.transform.position.x > this.right)
-            {
-                this.MovingRight = false;
-            }
-        }
-        if (this.MovingRight)
-        {
 
-            {
-                float _142 = this.transform.position.x + (this.speed * Time.deltaTime);
-                Vector3 _143 = this.transform.position;
-                _143.x = _142;
-                this.transform.position = _143;
-            }
-        }
-        else
+        
+        if (MovingRight && transform.position.x > right)
         {
-
-            {
-                float _144 = this.transform.position.x - (this.speed * Time.deltaTime);
-                Vector3 _145 = this.transform.position;
-                _145.x = _144;
-                this.transform.position = _145;
-            }
+            MovingRight = false;
+            DelayEndTime = Time.time + delay;
+        }
+        else if (!MovingRight && transform.position.x < left)
+        {
+            MovingRight = true;
+            DelayEndTime = Time.time + delay;
+        }
+        //don't do anything if the current time is less than the delay ending
+        if (Time.time > DelayEndTime)
+        { 
+            if (MovingRight)
+                transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+            else transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
         }
     }
 
     public enemyPingPong()
     {
-        this.speed = 1;
+        speed = 1;
     }
 
 }
