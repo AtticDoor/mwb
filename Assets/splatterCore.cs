@@ -12,10 +12,10 @@ public partial class splatterCore : MonoBehaviour
         while (x <= drops)
         {
             x++;
-            Vector3 fwd = this.transform.TransformDirection(Random.onUnitSphere * 5);
-            if (Physics.Raycast(this.transform.position, fwd, out this.hit, 10))
+            Vector3 fwd = transform.TransformDirection(Random.onUnitSphere * 5);
+            if (Physics.Raycast(transform.position, fwd, out hit, 10))
             {
-                GameObject splatter = Instantiate(this.drip, this.hit.point + (this.hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, this.hit.normal));
+                GameObject splatter = Instantiate(drip, hit.point + (hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, hit.normal));
                 float scaler = Random.value;
 
                 {
@@ -32,7 +32,7 @@ public partial class splatterCore : MonoBehaviour
                     splatter.transform.localScale = _67;
                 }
                 int rater = Random.Range(0, 359);
-                splatter.transform.RotateAround(this.hit.point, this.hit.normal, rater);
+                splatter.transform.RotateAround(hit.point, hit.normal, rater);
                 UnityEngine.Object.Destroy(splatter, 5);
             }
         }

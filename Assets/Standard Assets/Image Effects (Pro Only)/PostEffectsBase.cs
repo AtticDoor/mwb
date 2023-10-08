@@ -11,8 +11,8 @@ public partial class PostEffectsBase : MonoBehaviour
     {
         if (!s)
         {
-            Debug.Log("Missing shader in " + this.ToString());
-            this.enabled = false;
+            Debug.Log("Missing shader in " + ToString());
+            enabled = false;
             return null;
         }
         if ((s.isSupported && m2Create) && (m2Create.shader == s))
@@ -21,8 +21,8 @@ public partial class PostEffectsBase : MonoBehaviour
         }
         if (!s.isSupported)
         {
-            this.NotSupported();
-            Debug.LogError(((("The shader " + s.ToString()) + " on effect ") + this.ToString()) + " is not supported on this platform!");
+            NotSupported();
+            Debug.LogError(((("The shader " + s.ToString()) + " on effect ") + ToString()) + " is not supported on this platform!");
             return null;
         }
         else
@@ -44,7 +44,7 @@ public partial class PostEffectsBase : MonoBehaviour
     {
         if (!s)
         {
-            Debug.Log("Missing shader in " + this.ToString());
+            Debug.Log("Missing shader in " + ToString());
             return null;
         }
         if ((m2Create && (m2Create.shader == s)) && s.isSupported)
@@ -72,56 +72,56 @@ public partial class PostEffectsBase : MonoBehaviour
 
     public virtual void OnEnable()
     {
-        this.isSupported = true;
+        isSupported = true;
     }
 
     // deprecated but needed for old effects to survive upgrade
     public virtual bool CheckSupport()
     {
-        return this.CheckSupport(false);
+        return CheckSupport(false);
     }
 
     public virtual bool CheckResources()
     {
-        Debug.LogWarning(("CheckResources () for " + this.ToString()) + " should be overwritten.");
-        return this.isSupported;
+        Debug.LogWarning(("CheckResources () for " + ToString()) + " should be overwritten.");
+        return isSupported;
     }
 
     public virtual void Start()
     {
-        this.CheckResources();
+        CheckResources();
     }
 
     public virtual bool CheckSupport(bool needDepth)
     {
-        this.isSupported = true;
-        this.supportHDRTextures = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf);
+        isSupported = true;
+        supportHDRTextures = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf);
         if (!SystemInfo.supportsImageEffects || !SystemInfo.supportsRenderTextures)
         {
-            this.NotSupported();
+            NotSupported();
             return false;
         }
         if (needDepth && !SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth))
         {
-            this.NotSupported();
+            NotSupported();
             return false;
         }
         if (needDepth)
         {
-            this.GetComponent<Camera>().depthTextureMode = this.GetComponent<Camera>().depthTextureMode | DepthTextureMode.Depth;
+            GetComponent<Camera>().depthTextureMode = GetComponent<Camera>().depthTextureMode | DepthTextureMode.Depth;
         }
         return true;
     }
 
     public virtual bool CheckSupport(bool needDepth, bool needHdr)
     {
-        if (!this.CheckSupport(needDepth))
+        if (!CheckSupport(needDepth))
         {
             return false;
         }
-        if (needHdr && !this.supportHDRTextures)
+        if (needHdr && !supportHDRTextures)
         {
-            this.NotSupported();
+            NotSupported();
             return false;
         }
         return true;
@@ -129,16 +129,16 @@ public partial class PostEffectsBase : MonoBehaviour
 
     public virtual void ReportAutoDisable()
     {
-        Debug.LogWarning(("The image effect " + this.ToString()) + " has been disabled as it's not supported on the current platform.");
+        Debug.LogWarning(("The image effect " + ToString()) + " has been disabled as it's not supported on the current platform.");
     }
 
     // deprecated but needed for old effects to survive upgrading
     public virtual bool CheckShader(Shader s)
     {
-        Debug.Log(((("The shader " + s.ToString()) + " on effect ") + this.ToString()) + " is not part of the Unity 3.2+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package.");
+        Debug.Log(((("The shader " + s.ToString()) + " on effect ") + ToString()) + " is not part of the Unity 3.2+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package.");
         if (!s.isSupported)
         {
-            this.NotSupported();
+            NotSupported();
             return false;
         }
         else
@@ -149,8 +149,8 @@ public partial class PostEffectsBase : MonoBehaviour
 
     public virtual void NotSupported()
     {
-        this.enabled = false;
-        this.isSupported = false;
+        enabled = false;
+        isSupported = false;
         return;
     }
 
@@ -242,8 +242,8 @@ public partial class PostEffectsBase : MonoBehaviour
 
     public PostEffectsBase()
     {
-        this.supportHDRTextures = true;
-        this.isSupported = true;
+        supportHDRTextures = true;
+        isSupported = true;
     }
 
 }

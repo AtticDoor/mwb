@@ -9,17 +9,17 @@ public partial class EditModeScript : MonoBehaviour
     {
         if (Input.GetKeyUp("1"))
         {
-            this.SaveX();
+            SaveX();
         }
         if (Input.GetKeyUp("2"))
         {
-            this.LoadGUI = true;
+            LoadGUI = true;
         }
     }
 
     public virtual void Start()
     {
-        this.fileName = "C:\\MWB\\MWB";
+        fileName = "C:\\MWB\\MWB";
     }
 
     public string fileName;
@@ -27,11 +27,11 @@ public partial class EditModeScript : MonoBehaviour
     {
         int i = 0;
         int num = 0;
-        string fileName2 = (this.fileName + num) + ".txt";
+        string fileName2 = (fileName + num) + ".txt";
         while (File.Exists(fileName2))
         {
             num++;
-            fileName2 = (this.fileName + num) + ".txt";
+            fileName2 = (fileName + num) + ".txt";
             Debug.Log(fileName2 + " already exists.");
         }
         //            return;
@@ -68,7 +68,7 @@ public partial class EditModeScript : MonoBehaviour
 
     public virtual void OnGUI()
     {
-        if (!this.LoadGUI)
+        if (!LoadGUI)
         {
             return;
         }
@@ -76,27 +76,27 @@ public partial class EditModeScript : MonoBehaviour
         while (num < 20)
         {
             //var num:int=0;
-            string fileName2 = (this.fileName + num) + ".txt";
+            string fileName2 = (fileName + num) + ".txt";
             Debug.Log(fileName2);
             if (File.Exists(fileName2))
             {
                 if (GUI.Button(new Rect(num * 50, 400, 50, 50), num + ""))
                 {
-                    this.Load(fileName2);
-                    this.LoadGUI = false;
+                    Load(fileName2);
+                    LoadGUI = false;
                 }
             }
             num++;
         }
         if (GUI.Button(new Rect(0, 600, 100, 100), "Cancel"))
         {
-            this.LoadGUI = false;
+            LoadGUI = false;
         }
     }
 
     public EditModeScript()
     {
-        this.fileName = "C:\\MWB\\MWB";
+        fileName = "C:\\MWB\\MWB";
     }
 
 }

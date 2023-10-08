@@ -54,7 +54,7 @@ using UnityEngine;
     // By applying it repeatedly and spreading out sample locations
     // we get a Gaussian blur approximation.
     // The alpha value in _Color would normally be 0.25 (to average 4 samples),
-    // however if we have glow amount larger than 1 then we increase this.
+    // however if we have glow amount larger than 1 then we increase 
 
     public Shader blurShader;    Material m_BlurMaterial = null;
     protected Material blurMaterial

@@ -26,7 +26,6 @@ public class enemyPingPong : EnemyScript
     {
         if (!On)
             return;
-
         
         if (MovingRight && transform.position.x > right)
         {
@@ -46,10 +45,4 @@ public class enemyPingPong : EnemyScript
             else transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
         }
     }
-
-    public enemyPingPong()
-    {
-        speed = 1;
-    }
-
 }

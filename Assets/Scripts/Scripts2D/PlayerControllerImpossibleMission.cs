@@ -23,7 +23,7 @@ public class PlayerControllerImpossibleMission : MonoBehaviour
     void Start()
     {
         //define the animator attached to the player
-        animator = this.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         walkSpeed = 1 * transform.localScale.y; // player left right walk speed
         runSpeed = 2 * transform.localScale.y;

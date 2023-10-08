@@ -19,20 +19,20 @@ public partial class Vignetting : PostEffectsBase
     private Material chromAberrationMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(false);
-        this.vignetteMaterial = this.CheckShaderAndCreateMaterial(this.vignetteShader, this.vignetteMaterial);
-        this.separableBlurMaterial = this.CheckShaderAndCreateMaterial(this.separableBlurShader, this.separableBlurMaterial);
-        this.chromAberrationMaterial = this.CheckShaderAndCreateMaterial(this.chromAberrationShader, this.chromAberrationMaterial);
-        if (!this.isSupported)
+        CheckSupport(false);
+        vignetteMaterial = CheckShaderAndCreateMaterial(vignetteShader, vignetteMaterial);
+        separableBlurMaterial = CheckShaderAndCreateMaterial(separableBlurShader, separableBlurMaterial);
+        chromAberrationMaterial = CheckShaderAndCreateMaterial(chromAberrationShader, chromAberrationMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
@@ -43,23 +43,23 @@ public partial class Vignetting : PostEffectsBase
         RenderTexture halfRezColor = RenderTexture.GetTemporary((int)(source.width / 2f), (int)(source.height / 2f), 0);
         RenderTexture quarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
         RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
-        Graphics.Blit(source, halfRezColor, this.chromAberrationMaterial, 0);
+        Graphics.Blit(source, halfRezColor, chromAberrationMaterial, 0);
         Graphics.Blit(halfRezColor, quarterRezColor);
         int it = 0;
         while (it < 2)
         {
-            this.separableBlurMaterial.SetVector("offsets", new Vector4(0f, this.blurSpread * oneOverBaseSize, 0f, 0f));
-            Graphics.Blit(quarterRezColor, secondQuarterRezColor, this.separableBlurMaterial);
-            this.separableBlurMaterial.SetVector("offsets", new Vector4((this.blurSpread * oneOverBaseSize) / widthOverHeight, 0f, 0f, 0f));
-            Graphics.Blit(secondQuarterRezColor, quarterRezColor, this.separableBlurMaterial);
+            separableBlurMaterial.SetVector("offsets", new Vector4(0f, blurSpread * oneOverBaseSize, 0f, 0f));
+            Graphics.Blit(quarterRezColor, secondQuarterRezColor, separableBlurMaterial);
+            separableBlurMaterial.SetVector("offsets", new Vector4((blurSpread * oneOverBaseSize) / widthOverHeight, 0f, 0f, 0f));
+            Graphics.Blit(secondQuarterRezColor, quarterRezColor, separableBlurMaterial);
             it++;
         }
-        this.vignetteMaterial.SetFloat("_Intensity", this.intensity);
-        this.vignetteMaterial.SetFloat("_Blur", this.blur);
-        this.vignetteMaterial.SetTexture("_VignetteTex", quarterRezColor);
-        Graphics.Blit(source, color, this.vignetteMaterial);
-        this.chromAberrationMaterial.SetFloat("_ChromaticAberration", this.chromaticAberration);
-        Graphics.Blit(color, destination, this.chromAberrationMaterial, 1);
+        vignetteMaterial.SetFloat("_Intensity", intensity);
+        vignetteMaterial.SetFloat("_Blur", blur);
+        vignetteMaterial.SetTexture("_VignetteTex", quarterRezColor);
+        Graphics.Blit(source, color, vignetteMaterial);
+        chromAberrationMaterial.SetFloat("_ChromaticAberration", chromaticAberration);
+        Graphics.Blit(color, destination, chromAberrationMaterial, 1);
         RenderTexture.ReleaseTemporary(color);
         RenderTexture.ReleaseTemporary(halfRezColor);
         RenderTexture.ReleaseTemporary(quarterRezColor);
@@ -68,10 +68,10 @@ public partial class Vignetting : PostEffectsBase
 
     public Vignetting()
     {
-        this.intensity = 0.375f;
-        this.chromaticAberration = 0.2f;
-        this.blur = 0.1f;
-        this.blurSpread = 1.5f;
+        intensity = 0.375f;
+        chromaticAberration = 0.2f;
+        blur = 0.1f;
+        blurSpread = 1.5f;
     }
 
 }

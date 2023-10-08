@@ -13,10 +13,10 @@ public class ContrastStretchEffect : MonoBehaviour
     /// limitMinimum=0, limitMaximum=1 is the same as not applying the effect at all.
     /// limitMinimum=1, limitMaximum=0 is always stretching colors to full range.
 
-    /// The limit on the minimum luminance (0...1) - we won't go above this.
+    /// The limit on the minimum luminance (0...1) - we won't go above 
     public float limitMinimum = 0.2f;
 
-    /// The limit on the maximum luminance (0...1) - we won't go below this.
+    /// The limit on the maximum luminance (0...1) - we won't go below 
     public float limitMaximum = 0.6f;
 
 

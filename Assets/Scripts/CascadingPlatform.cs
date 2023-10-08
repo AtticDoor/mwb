@@ -13,78 +13,78 @@ public partial class CascadingPlatform : MonoBehaviour
     private float FadeLevel;
     public virtual void Start()//OnTriggerEnter (C:Collider) 
     {
-        this.StartTime = Time.time;
-        if (((this.lifeSpan + this.fadeTime) + this.deadTime) == 0)
+        StartTime = Time.time;
+        if (((lifeSpan + fadeTime) + deadTime) == 0)
         {
-            this.lifeSpan = 3;
-            this.fadeTime = 1;
-            this.deadTime = 3;
+            lifeSpan = 3;
+            fadeTime = 1;
+            deadTime = 3;
         }
-        this.StartTime = 0;
-        this.InvokeRepeating("FadeOut", this.StartTime + this.lifeSpan, ((this.lifeSpan + this.fadeTime) + this.fadeTime) + this.deadTime);
-        this.InvokeRepeating("FadeIn", ((this.StartTime + this.lifeSpan) + this.fadeTime) + this.deadTime, ((this.lifeSpan + this.fadeTime) + this.fadeTime) + this.deadTime);
+        StartTime = 0;
+        InvokeRepeating("FadeOut", StartTime + lifeSpan, ((lifeSpan + fadeTime) + fadeTime) + deadTime);
+        InvokeRepeating("FadeIn", ((StartTime + lifeSpan) + fadeTime) + deadTime, ((lifeSpan + fadeTime) + fadeTime) + deadTime);
     }
 
     public virtual void FadeIn()//FadeLevel=0;
     {
-        this.GetComponent<Collider>().enabled = true;
-        this.fadingIn = true;
+        GetComponent<Collider>().enabled = true;
+        fadingIn = true;
     }
 
     public virtual void FadeOut()//FadeLevel=1;
     {
         //collider.enabled=false;
-        this.fadingOut = true;
+        fadingOut = true;
     }
 
     public virtual void Update()
     {
-        if (this.fadingIn)
+        if (fadingIn)
         {
-            this.FadeLevel = this.FadeLevel + Time.deltaTime;
+            FadeLevel = FadeLevel + Time.deltaTime;
 
             {
-                float _128 = this.FadeLevel;
-                Color _129 = this.transform.GetComponent<Renderer>().material.color;
+                float _128 = FadeLevel;
+                Color _129 = transform.GetComponent<Renderer>().material.color;
                 _129.a = _128;
-                this.transform.GetComponent<Renderer>().material.color = _129;
+                transform.GetComponent<Renderer>().material.color = _129;
             }
-            if (this.transform.GetComponent<Renderer>().material.color.a >= 1)
+            if (transform.GetComponent<Renderer>().material.color.a >= 1)
             {
 
                 {
                     int _130 = 1;
-                    Color _131 = this.transform.GetComponent<Renderer>().material.color;
+                    Color _131 = transform.GetComponent<Renderer>().material.color;
                     _131.a = _130;
-                    this.transform.GetComponent<Renderer>().material.color = _131;
+                    transform.GetComponent<Renderer>().material.color = _131;
                 }
                 //collider.enabled=true;
-                this.fadingIn = false;
+                fadingIn = false;
             }
         }
         else
         {
-            if (this.fadingOut)
+            if (fadingOut)
             {
-                this.FadeLevel = this.FadeLevel - Time.deltaTime;
+                FadeLevel = FadeLevel - Time.deltaTime;
 
                 {
-                    float _132 = this.FadeLevel;
-                    Color _133 = this.transform.GetComponent<Renderer>().material.color;
+                    float _132 = FadeLevel;
+                    Color _133 = transform.GetComponent<Renderer>().material.color;
                     _133.a = _132;
-                    this.transform.GetComponent<Renderer>().material.color = _133;
+                    transform.GetComponent<Renderer>().material.color = _133;
                 }
-                if (this.transform.GetComponent<Renderer>().material.color.a <= 0)
+                if (transform.GetComponent<Renderer>().material.color.a <= 0)
                 {
 
                     {
                         int _134 = 0;
-                        Color _135 = this.transform.GetComponent<Renderer>().material.color;
+                        Color _135 = transform.GetComponent<Renderer>().material.color;
                         _135.a = _134;
-                        this.transform.GetComponent<Renderer>().material.color = _135;
+                        transform.GetComponent<Renderer>().material.color = _135;
                     }
-                    this.GetComponent<Collider>().enabled = false;
-                    this.fadingOut = false;
+                    GetComponent<Collider>().enabled = false;
+                    fadingOut = false;
                 }
             }
         }
@@ -124,9 +124,9 @@ function DestroyPlatform()
 */
     public CascadingPlatform()
     {
-        this.lifeSpan = 3;
-        this.fadeTime = 1;
-        this.deadTime = 3;
+        lifeSpan = 3;
+        fadeTime = 1;
+        deadTime = 3;
     }
 
 }

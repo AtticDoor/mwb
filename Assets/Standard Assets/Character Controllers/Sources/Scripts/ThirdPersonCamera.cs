@@ -25,37 +25,37 @@ public partial class ThirdPersonCamera : MonoBehaviour
     private float targetHeight;
     public virtual void Awake()
     {
-        if (!this.cameraTransform && Camera.main)
+        if (!cameraTransform && Camera.main)
         {
-            this.cameraTransform = Camera.main.transform;
+            cameraTransform = Camera.main.transform;
         }
-        if (!this.cameraTransform)
+        if (!cameraTransform)
         {
             Debug.Log("Please assign a camera to the ThirdPersonCamera script.");
-            this.enabled = false;
+            enabled = false;
         }
-        this._target = this.transform;
-        if (this._target)
+        _target = transform;
+        if (_target)
         {
-            this.controller = (ThirdPersonController)this._target.GetComponent(typeof(ThirdPersonController));
+            controller = (ThirdPersonController)_target.GetComponent(typeof(ThirdPersonController));
         }
-        if (this.controller)
+        if (controller)
         {
-            CharacterController characterController = this._target.GetComponent<CharacterController>();
-            this.centerOffset = characterController.bounds.center - this._target.position;
-            this.headOffset = this.centerOffset;
-            this.headOffset.y = characterController.bounds.max.y - this._target.position.y;
+            CharacterController characterController = _target.GetComponent<CharacterController>();
+            centerOffset = characterController.bounds.center - _target.position;
+            headOffset = centerOffset;
+            headOffset.y = characterController.bounds.max.y - _target.position.y;
         }
         else
         {
             Debug.Log("Please assign a target to the camera that has a ThirdPersonController script attached.");
         }
-        this.Cut(this._target, this.centerOffset);
+        Cut(_target, centerOffset);
     }
 
     public virtual void DebugDrawStuff()
     {
-        Debug.DrawLine(this._target.position, this._target.position + this.headOffset);
+        Debug.DrawLine(_target.position, _target.position + headOffset);
     }
 
     public virtual float AngleDistance(float a, float b)
@@ -68,102 +68,102 @@ public partial class ThirdPersonCamera : MonoBehaviour
     public virtual void Apply(Transform dummyTarget, Vector3 dummyCenter)
     {
         // Early out if we don't have a target
-        if (!this.controller)
+        if (!controller)
         {
             return;
         }
-        Vector3 targetCenter = this._target.position + this.centerOffset;
-        Vector3 targetHead = this._target.position + this.headOffset;
+        Vector3 targetCenter = _target.position + centerOffset;
+        Vector3 targetHead = _target.position + headOffset;
         //	DebugDrawStuff();
         // Calculate the current & target rotation angles
-        float originalTargetAngle = this._target.eulerAngles.y;
-        float currentAngle = this.cameraTransform.eulerAngles.y;
+        float originalTargetAngle = _target.eulerAngles.y;
+        float currentAngle = cameraTransform.eulerAngles.y;
         // Adjust real target angle when camera is locked
         float targetAngle = originalTargetAngle;
         // When pressing Fire2 (alt) the camera will snap to the target direction real quick.
         // It will stop snapping when it reaches the target
         if (Input.GetButton("Fire2"))
         {
-            this.snap = true;
+            snap = true;
         }
-        if (this.snap)
+        if (snap)
         {
             // We are close to the target, so we can stop snapping now!
-            if (this.AngleDistance(currentAngle, originalTargetAngle) < 3f)
+            if (AngleDistance(currentAngle, originalTargetAngle) < 3f)
             {
-                this.snap = false;
+                snap = false;
             }
-            currentAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref this.angleVelocity, this.snapSmoothLag, this.snapMaxSpeed);
+            currentAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref angleVelocity, snapSmoothLag, snapMaxSpeed);
         }
         else
         {
             // Normal camera motion
-            if (this.controller.GetLockCameraTimer() < this.lockCameraTimeout)
+            if (controller.GetLockCameraTimer() < lockCameraTimeout)
             {
                 targetAngle = currentAngle;
             }
             // Lock the camera when moving backwards!
             // * It is really confusing to do 180 degree spins when turning around.
-            if ((this.AngleDistance(currentAngle, targetAngle) > 160) && this.controller.IsMovingBackwards())
+            if ((AngleDistance(currentAngle, targetAngle) > 160) && controller.IsMovingBackwards())
             {
                 targetAngle = targetAngle + 180;
             }
-            currentAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref this.angleVelocity, this.angularSmoothLag, this.angularMaxSpeed);
+            currentAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref angleVelocity, angularSmoothLag, angularMaxSpeed);
         }
         // When jumping don't move camera upwards but only down!
-        if (this.controller.IsJumping())
+        if (controller.IsJumping())
         {
             // We'd be moving the camera upwards, do that only if it's really high
-            float newTargetHeight = targetCenter.y + this.height;
-            if ((newTargetHeight < this.targetHeight) || ((newTargetHeight - this.targetHeight) > 5))
+            float newTargetHeight = targetCenter.y + height;
+            if ((newTargetHeight < targetHeight) || ((newTargetHeight - targetHeight) > 5))
             {
-                this.targetHeight = targetCenter.y + this.height;
+                targetHeight = targetCenter.y + height;
             }
         }
         else
         {
             // When walking always update the target height
-            this.targetHeight = targetCenter.y + this.height;
+            targetHeight = targetCenter.y + height;
         }
         // Damp the height
-        float currentHeight = this.cameraTransform.position.y;
-        currentHeight = Mathf.SmoothDamp(currentHeight, this.targetHeight, ref this.heightVelocity, this.heightSmoothLag);
+        float currentHeight = cameraTransform.position.y;
+        currentHeight = Mathf.SmoothDamp(currentHeight, targetHeight, ref heightVelocity, heightSmoothLag);
         // Convert the angle into a rotation, by which we then reposition the camera
         Quaternion currentRotation = Quaternion.Euler(0, currentAngle, 0);
         // Set the position of the camera on the x-z plane to:
         // distance meters behind the target
-        this.cameraTransform.position = targetCenter;
-        this.cameraTransform.position = this.cameraTransform.position + ((currentRotation * Vector3.back) * this.distance);
+        cameraTransform.position = targetCenter;
+        cameraTransform.position = cameraTransform.position + ((currentRotation * Vector3.back) * distance);
 
         {
             float _210 = // Set the height of the camera
             currentHeight;
-            Vector3 _211 = this.cameraTransform.position;
+            Vector3 _211 = cameraTransform.position;
             _211.y = _210;
-            this.cameraTransform.position = _211;
+            cameraTransform.position = _211;
         }
         // Always look at the target	
-        this.SetUpRotation(targetCenter, targetHead);
+        SetUpRotation(targetCenter, targetHead);
     }
 
     public virtual void LateUpdate()
     {
-        this.Apply(this.transform, Vector3.zero);
+        Apply(transform, Vector3.zero);
     }
 
     public virtual void Cut(Transform dummyTarget, Vector3 dummyCenter)
     {
-        float oldHeightSmooth = this.heightSmoothLag;
-        float oldSnapMaxSpeed = this.snapMaxSpeed;
-        float oldSnapSmooth = this.snapSmoothLag;
-        this.snapMaxSpeed = 10000;
-        this.snapSmoothLag = 0.001f;
-        this.heightSmoothLag = 0.001f;
-        this.snap = true;
-        this.Apply(this.transform, Vector3.zero);
-        this.heightSmoothLag = oldHeightSmooth;
-        this.snapMaxSpeed = oldSnapMaxSpeed;
-        this.snapSmoothLag = oldSnapSmooth;
+        float oldHeightSmooth = heightSmoothLag;
+        float oldSnapMaxSpeed = snapMaxSpeed;
+        float oldSnapSmooth = snapSmoothLag;
+        snapMaxSpeed = 10000;
+        snapSmoothLag = 0.001f;
+        heightSmoothLag = 0.001f;
+        snap = true;
+        Apply(transform, Vector3.zero);
+        heightSmoothLag = oldHeightSmooth;
+        snapMaxSpeed = oldSnapMaxSpeed;
+        snapSmoothLag = oldSnapSmooth;
     }
 
     public virtual void SetUpRotation(Vector3 centerPos, Vector3 headPos)
@@ -180,17 +180,17 @@ public partial class ThirdPersonCamera : MonoBehaviour
         // 2. When grounded we make him be centered
         // 3. When jumping we keep the camera rotation but rotate the camera to get him back into view if his head is above some threshold
         // 4. When landing we smoothly interpolate towards centering him on screen
-        Vector3 cameraPos = this.cameraTransform.position;
+        Vector3 cameraPos = cameraTransform.position;
         Vector3 offsetToCenter = centerPos - cameraPos;
         // Generate base rotation only around y-axis
         Quaternion yRotation = Quaternion.LookRotation(new Vector3(offsetToCenter.x, 0, offsetToCenter.z));
-        Vector3 relativeOffset = (Vector3.forward * this.distance) + (Vector3.down * this.height);
-        this.cameraTransform.rotation = yRotation * Quaternion.LookRotation(relativeOffset);
+        Vector3 relativeOffset = (Vector3.forward * distance) + (Vector3.down * height);
+        cameraTransform.rotation = yRotation * Quaternion.LookRotation(relativeOffset);
         // Calculate the projected center position and top position in world space
-        Ray centerRay = this.cameraTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 1));
-        Ray topRay = this.cameraTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, this.clampHeadPositionScreenSpace, 1));
-        Vector3 centerRayPos = centerRay.GetPoint(this.distance);
-        Vector3 topRayPos = topRay.GetPoint(this.distance);
+        Ray centerRay = cameraTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 1));
+        Ray topRay = cameraTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, clampHeadPositionScreenSpace, 1));
+        Vector3 centerRayPos = centerRay.GetPoint(distance);
+        Vector3 topRayPos = topRay.GetPoint(distance);
         float centerToTopAngle = Vector3.Angle(centerRay.direction, topRay.direction);
         float heightToAngle = centerToTopAngle / (centerRayPos.y - topRayPos.y);
         float extraLookAngle = heightToAngle * (centerRayPos.y - centerPos.y);
@@ -201,29 +201,29 @@ public partial class ThirdPersonCamera : MonoBehaviour
         else
         {
             extraLookAngle = extraLookAngle - centerToTopAngle;
-            this.cameraTransform.rotation = this.cameraTransform.rotation * Quaternion.Euler(-extraLookAngle, 0, 0);
+            cameraTransform.rotation = cameraTransform.rotation * Quaternion.Euler(-extraLookAngle, 0, 0);
         }
     }
 
     public virtual Vector3 GetCenterOffset()
     {
-        return this.centerOffset;
+        return centerOffset;
     }
 
     public ThirdPersonCamera()
     {
-        this.distance = 7f;
-        this.height = 3f;
-        this.angularSmoothLag = 0.3f;
-        this.angularMaxSpeed = 15f;
-        this.heightSmoothLag = 0.3f;
-        this.snapSmoothLag = 0.2f;
-        this.snapMaxSpeed = 720f;
-        this.clampHeadPositionScreenSpace = 0.75f;
-        this.lockCameraTimeout = 0.2f;
-        this.headOffset = Vector3.zero;
-        this.centerOffset = Vector3.zero;
-        this.targetHeight = 100000f;
+        distance = 7f;
+        height = 3f;
+        angularSmoothLag = 0.3f;
+        angularMaxSpeed = 15f;
+        heightSmoothLag = 0.3f;
+        snapSmoothLag = 0.2f;
+        snapMaxSpeed = 720f;
+        clampHeadPositionScreenSpace = 0.75f;
+        lockCameraTimeout = 0.2f;
+        headOffset = Vector3.zero;
+        centerOffset = Vector3.zero;
+        targetHeight = 100000f;
     }
 
 }

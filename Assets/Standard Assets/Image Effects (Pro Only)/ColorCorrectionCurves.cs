@@ -37,7 +37,7 @@ public partial class ColorCorrectionCurves : PostEffectsBase
     public override void Start()
     {
         base.Start();
-        this.updateTexturesOnStartup = true;
+        updateTexturesOnStartup = true;
     }
 
     public virtual void Awake()
@@ -46,117 +46,117 @@ public partial class ColorCorrectionCurves : PostEffectsBase
 
     public override bool CheckResources()
     {
-        this.CheckSupport(this.mode == ColorCorrectionMode.Advanced);
-        this.ccMaterial = this.CheckShaderAndCreateMaterial(this.simpleColorCorrectionCurvesShader, this.ccMaterial);
-        this.ccDepthMaterial = this.CheckShaderAndCreateMaterial(this.colorCorrectionCurvesShader, this.ccDepthMaterial);
-        this.selectiveCcMaterial = this.CheckShaderAndCreateMaterial(this.colorCorrectionSelectiveShader, this.selectiveCcMaterial);
-        if (!this.rgbChannelTex)
+        CheckSupport(mode == ColorCorrectionMode.Advanced);
+        ccMaterial = CheckShaderAndCreateMaterial(simpleColorCorrectionCurvesShader, ccMaterial);
+        ccDepthMaterial = CheckShaderAndCreateMaterial(colorCorrectionCurvesShader, ccDepthMaterial);
+        selectiveCcMaterial = CheckShaderAndCreateMaterial(colorCorrectionSelectiveShader, selectiveCcMaterial);
+        if (!rgbChannelTex)
         {
-            this.rgbChannelTex = new Texture2D(256, 4, TextureFormat.ARGB32, false, true);
+            rgbChannelTex = new Texture2D(256, 4, TextureFormat.ARGB32, false, true);
         }
-        if (!this.rgbDepthChannelTex)
+        if (!rgbDepthChannelTex)
         {
-            this.rgbDepthChannelTex = new Texture2D(256, 4, TextureFormat.ARGB32, false, true);
+            rgbDepthChannelTex = new Texture2D(256, 4, TextureFormat.ARGB32, false, true);
         }
-        if (!this.zCurveTex)
+        if (!zCurveTex)
         {
-            this.zCurveTex = new Texture2D(256, 1, TextureFormat.ARGB32, false, true);
+            zCurveTex = new Texture2D(256, 1, TextureFormat.ARGB32, false, true);
         }
-        this.rgbChannelTex.hideFlags = HideFlags.DontSave;
-        this.rgbDepthChannelTex.hideFlags = HideFlags.DontSave;
-        this.zCurveTex.hideFlags = HideFlags.DontSave;
-        this.rgbChannelTex.wrapMode = TextureWrapMode.Clamp;
-        this.rgbDepthChannelTex.wrapMode = TextureWrapMode.Clamp;
-        this.zCurveTex.wrapMode = TextureWrapMode.Clamp;
-        if (!this.isSupported)
+        rgbChannelTex.hideFlags = HideFlags.DontSave;
+        rgbDepthChannelTex.hideFlags = HideFlags.DontSave;
+        zCurveTex.hideFlags = HideFlags.DontSave;
+        rgbChannelTex.wrapMode = TextureWrapMode.Clamp;
+        rgbDepthChannelTex.wrapMode = TextureWrapMode.Clamp;
+        zCurveTex.wrapMode = TextureWrapMode.Clamp;
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void UpdateParameters()
     {
-        if (((this.redChannel != null) && (this.greenChannel != null)) && (this.blueChannel != null))
+        if (((redChannel != null) && (greenChannel != null)) && (blueChannel != null))
         {
             float i = 0f;
             while (i <= 1f)
             {
-                float rCh = Mathf.Clamp(this.redChannel.Evaluate(i), 0f, 1f);
-                float gCh = Mathf.Clamp(this.greenChannel.Evaluate(i), 0f, 1f);
-                float bCh = Mathf.Clamp(this.blueChannel.Evaluate(i), 0f, 1f);
-                this.rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
-                this.rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
-                this.rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
-                float zC = Mathf.Clamp(this.zCurve.Evaluate(i), 0f, 1f);
-                this.zCurveTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(zC, zC, zC));
-                rCh = Mathf.Clamp(this.depthRedChannel.Evaluate(i), 0f, 1f);
-                gCh = Mathf.Clamp(this.depthGreenChannel.Evaluate(i), 0f, 1f);
-                bCh = Mathf.Clamp(this.depthBlueChannel.Evaluate(i), 0f, 1f);
-                this.rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
-                this.rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
-                this.rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
+                float rCh = Mathf.Clamp(redChannel.Evaluate(i), 0f, 1f);
+                float gCh = Mathf.Clamp(greenChannel.Evaluate(i), 0f, 1f);
+                float bCh = Mathf.Clamp(blueChannel.Evaluate(i), 0f, 1f);
+                rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
+                rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
+                rgbChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
+                float zC = Mathf.Clamp(zCurve.Evaluate(i), 0f, 1f);
+                zCurveTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(zC, zC, zC));
+                rCh = Mathf.Clamp(depthRedChannel.Evaluate(i), 0f, 1f);
+                gCh = Mathf.Clamp(depthGreenChannel.Evaluate(i), 0f, 1f);
+                bCh = Mathf.Clamp(depthBlueChannel.Evaluate(i), 0f, 1f);
+                rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 0, new Color(rCh, rCh, rCh));
+                rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 1, new Color(gCh, gCh, gCh));
+                rgbDepthChannelTex.SetPixel((int)Mathf.Floor(i * 255f), 2, new Color(bCh, bCh, bCh));
                 i = i + (1f / 255f);
             }
-            this.rgbChannelTex.Apply();
-            this.rgbDepthChannelTex.Apply();
-            this.zCurveTex.Apply();
+            rgbChannelTex.Apply();
+            rgbDepthChannelTex.Apply();
+            zCurveTex.Apply();
         }
     }
 
     public virtual void UpdateTextures()
     {
-        this.UpdateParameters();
+        UpdateParameters();
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
-        if (this.updateTexturesOnStartup)
+        if (updateTexturesOnStartup)
         {
-            this.UpdateParameters();
-            this.updateTexturesOnStartup = false;
+            UpdateParameters();
+            updateTexturesOnStartup = false;
         }
-        if (this.useDepthCorrection)
+        if (useDepthCorrection)
         {
-            this.GetComponent<Camera>().depthTextureMode = this.GetComponent<Camera>().depthTextureMode | DepthTextureMode.Depth;
+            GetComponent<Camera>().depthTextureMode = GetComponent<Camera>().depthTextureMode | DepthTextureMode.Depth;
         }
         RenderTexture renderTarget2Use = destination;
-        if (this.selectiveCc)
+        if (selectiveCc)
         {
             renderTarget2Use = RenderTexture.GetTemporary(source.width, source.height);
         }
-        if (this.useDepthCorrection)
+        if (useDepthCorrection)
         {
-            this.ccDepthMaterial.SetTexture("_RgbTex", this.rgbChannelTex);
-            this.ccDepthMaterial.SetTexture("_ZCurve", this.zCurveTex);
-            this.ccDepthMaterial.SetTexture("_RgbDepthTex", this.rgbDepthChannelTex);
-            Graphics.Blit(source, renderTarget2Use, this.ccDepthMaterial);
+            ccDepthMaterial.SetTexture("_RgbTex", rgbChannelTex);
+            ccDepthMaterial.SetTexture("_ZCurve", zCurveTex);
+            ccDepthMaterial.SetTexture("_RgbDepthTex", rgbDepthChannelTex);
+            Graphics.Blit(source, renderTarget2Use, ccDepthMaterial);
         }
         else
         {
-            this.ccMaterial.SetTexture("_RgbTex", this.rgbChannelTex);
-            Graphics.Blit(source, renderTarget2Use, this.ccMaterial);
+            ccMaterial.SetTexture("_RgbTex", rgbChannelTex);
+            Graphics.Blit(source, renderTarget2Use, ccMaterial);
         }
-        if (this.selectiveCc)
+        if (selectiveCc)
         {
-            this.selectiveCcMaterial.SetColor("selColor", this.selectiveFromColor);
-            this.selectiveCcMaterial.SetColor("targetColor", this.selectiveToColor);
-            Graphics.Blit(renderTarget2Use, destination, this.selectiveCcMaterial);
+            selectiveCcMaterial.SetColor("selColor", selectiveFromColor);
+            selectiveCcMaterial.SetColor("targetColor", selectiveToColor);
+            Graphics.Blit(renderTarget2Use, destination, selectiveCcMaterial);
             RenderTexture.ReleaseTemporary(renderTarget2Use);
         }
     }
 
     public ColorCorrectionCurves()
     {
-        this.selectiveFromColor = Color.white;
-        this.selectiveToColor = Color.white;
-        this.updateTextures = true;
-        this.updateTexturesOnStartup = true;
+        selectiveFromColor = Color.white;
+        selectiveToColor = Color.white;
+        updateTextures = true;
+        updateTexturesOnStartup = true;
     }
 
 }

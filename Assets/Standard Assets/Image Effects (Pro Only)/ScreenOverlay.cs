@@ -23,31 +23,31 @@ public partial class ScreenOverlay : PostEffectsBase
     private Material overlayMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(false);
-        this.overlayMaterial = this.CheckShaderAndCreateMaterial(this.overlayShader, this.overlayMaterial);
-        if (!this.isSupported)
+        CheckSupport(false);
+        overlayMaterial = CheckShaderAndCreateMaterial(overlayShader, overlayMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
-        this.overlayMaterial.SetFloat("_Intensity", this.intensity);
-        this.overlayMaterial.SetTexture("_Overlay", this.texture);
-        Graphics.Blit(source, destination, this.overlayMaterial, (int)this.blendMode);
+        overlayMaterial.SetFloat("_Intensity", intensity);
+        overlayMaterial.SetTexture("_Overlay", texture);
+        Graphics.Blit(source, destination, overlayMaterial, (int)blendMode);
     }
 
     public ScreenOverlay()
     {
-        this.blendMode = OverlayBlendMode.Overlay;
-        this.intensity = 1f;
+        blendMode = OverlayBlendMode.Overlay;
+        intensity = 1f;
     }
 
 }

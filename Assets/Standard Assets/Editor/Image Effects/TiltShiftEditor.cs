@@ -16,21 +16,21 @@ public class TiltShiftEditor : Editor
     public SerializedProperty enableForegroundBlur;
     public virtual void OnEnable()
     {
-        this.serObj = new SerializedObject(this.target);
-        this.focalPoint = this.serObj.FindProperty("focalPoint");
-        this.smoothness = this.serObj.FindProperty("smoothness");
-        this.visualizeCoc = this.serObj.FindProperty("visualizeCoc");
-        this.renderTextureDivider = this.serObj.FindProperty("renderTextureDivider");
-        this.blurIterations = this.serObj.FindProperty("blurIterations");
-        this.foregroundBlurIterations = this.serObj.FindProperty("foregroundBlurIterations");
-        this.maxBlurSpread = this.serObj.FindProperty("maxBlurSpread");
-        this.enableForegroundBlur = this.serObj.FindProperty("enableForegroundBlur");
+        serObj = new SerializedObject(target);
+        focalPoint = serObj.FindProperty("focalPoint");
+        smoothness = serObj.FindProperty("smoothness");
+        visualizeCoc = serObj.FindProperty("visualizeCoc");
+        renderTextureDivider = serObj.FindProperty("renderTextureDivider");
+        blurIterations = serObj.FindProperty("blurIterations");
+        foregroundBlurIterations = serObj.FindProperty("foregroundBlurIterations");
+        maxBlurSpread = serObj.FindProperty("maxBlurSpread");
+        enableForegroundBlur = serObj.FindProperty("enableForegroundBlur");
     }
 
     public override void OnInspectorGUI()
     {
-        this.serObj.Update();
-        GameObject go = (this.target as TiltShift).gameObject;
+        serObj.Update();
+        GameObject go = (target as TiltShift).gameObject;
         if (!go)
         {
             return;
@@ -39,27 +39,27 @@ public class TiltShiftEditor : Editor
         {
             return;
         }
-        GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + this.focalPoint.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
+        GUILayout.Label((((((("Current: " + go.GetComponent<Camera>().name) + ", near ") + go.GetComponent<Camera>().nearClipPlane) + ", far: ") + go.GetComponent<Camera>().farClipPlane) + ", focal: ") + focalPoint.floatValue, EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
         GUILayout.Label("Focal Settings", EditorStyles.boldLabel, new GUILayoutOption[] { });
-        EditorGUILayout.PropertyField(this.visualizeCoc, new GUIContent("Visualize"), new GUILayoutOption[] { });
-        this.focalPoint.floatValue = EditorGUILayout.Slider("Distance", this.focalPoint.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] { });
-        EditorGUILayout.PropertyField(this.smoothness, new GUIContent("Smoothness"), new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(visualizeCoc, new GUIContent("Visualize"), new GUILayoutOption[] { });
+        focalPoint.floatValue = EditorGUILayout.Slider("Distance", focalPoint.floatValue, go.GetComponent<Camera>().nearClipPlane, go.GetComponent<Camera>().farClipPlane, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(smoothness, new GUIContent("Smoothness"), new GUILayoutOption[] { });
         EditorGUILayout.Separator();
         GUILayout.Label("Background Blur", EditorStyles.boldLabel, new GUILayoutOption[] { });
-        this.renderTextureDivider.intValue = (int)EditorGUILayout.Slider("Downsample", this.renderTextureDivider.intValue, 1, 3, new GUILayoutOption[] { });
-        this.blurIterations.intValue = (int)EditorGUILayout.Slider("Iterations", this.blurIterations.intValue, 1, 4, new GUILayoutOption[] { });
-        EditorGUILayout.PropertyField(this.maxBlurSpread, new GUIContent("Max blur spread"), new GUILayoutOption[] { });
+        renderTextureDivider.intValue = (int)EditorGUILayout.Slider("Downsample", renderTextureDivider.intValue, 1, 3, new GUILayoutOption[] { });
+        blurIterations.intValue = (int)EditorGUILayout.Slider("Iterations", blurIterations.intValue, 1, 4, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(maxBlurSpread, new GUIContent("Max blur spread"), new GUILayoutOption[] { });
         EditorGUILayout.Separator();
         GUILayout.Label("Foreground Blur", EditorStyles.boldLabel, new GUILayoutOption[] { });
-        EditorGUILayout.PropertyField(this.enableForegroundBlur, new GUIContent("Enable"), new GUILayoutOption[] { });
-        if (this.enableForegroundBlur.boolValue)
+        EditorGUILayout.PropertyField(enableForegroundBlur, new GUIContent("Enable"), new GUILayoutOption[] { });
+        if (enableForegroundBlur.boolValue)
         {
-            this.foregroundBlurIterations.intValue = (int)EditorGUILayout.Slider("Iterations", this.foregroundBlurIterations.intValue, 1, 4, new GUILayoutOption[] { });
+            foregroundBlurIterations.intValue = (int)EditorGUILayout.Slider("Iterations", foregroundBlurIterations.intValue, 1, 4, new GUILayoutOption[] { });
         }
         //GUILayout.Label ("Background options");
         //edgesOnly.floatValue = EditorGUILayout.Slider ("Edges only", edgesOnly.floatValue, 0.0, 1.0);
         //EditorGUILayout.PropertyField (edgesOnlyBgColor, new GUIContent ("Background"));    		
-        this.serObj.ApplyModifiedProperties();
+        serObj.ApplyModifiedProperties();
     }
 
 }

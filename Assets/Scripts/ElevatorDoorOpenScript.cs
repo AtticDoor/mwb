@@ -7,11 +7,11 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
     public bool PlayerWithin;
     public virtual void Update()
     {
-        if (this.PlayerWithin)
+        if (PlayerWithin)
         {
             if (Input.GetKey("up") || Input.GetKey("w"))
             {
-                ElevatorScript es = (ElevatorScript)this.transform.parent.GetComponent("ElevatorScript");
+                ElevatorScript es = (ElevatorScript)transform.parent.GetComponent("ElevatorScript");
                 MainScript.lastLevel = MainScript.curLevel;
                 MainScript.lastExit = "Elevator";
                 MainScript.curLevel = "Scene" + es.levelName;
@@ -24,7 +24,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
     {
         if (c.gameObject.tag == "Player")
         {
-            this.PlayerWithin = true;
+            PlayerWithin = true;
         }
     }
 
@@ -32,7 +32,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
     {
         if (c.gameObject.tag == "Player")
         {
-            this.PlayerWithin = false;
+            PlayerWithin = false;
         }
     }
 

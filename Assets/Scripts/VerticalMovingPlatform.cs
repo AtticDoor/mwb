@@ -11,7 +11,7 @@ public partial class VerticalMovingPlatform : MonoBehaviour
     {
         if (hit.tag == "Player")
         {
-            hit.transform.parent = this.transform;
+            hit.transform.parent = transform;
         }
     }
 
@@ -25,7 +25,7 @@ public partial class VerticalMovingPlatform : MonoBehaviour
 
     public virtual void Update()
     {
-        this.GetComponent<Rigidbody>().MovePosition(new Vector3(this.transform.position.x, this.transform.position.y + (5 * Time.deltaTime), this.transform.position.z));
+        GetComponent<Rigidbody>().MovePosition(new Vector3(transform.position.x, transform.position.y + (5 * Time.deltaTime), transform.position.z));
     }
 
 }

@@ -18,7 +18,7 @@ public partial class HookScript : MonoBehaviour
             GameObject g = c.gameObject;
             aliScript a = (aliScript)g.GetComponent("aliScript");
             a.Hooked = true;
-            this.transform.parent.parent = g.transform;
+            transform.parent.parent = g.transform;
         }
     }
 

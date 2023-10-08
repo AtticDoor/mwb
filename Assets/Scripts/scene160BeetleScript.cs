@@ -6,7 +6,7 @@ public partial class scene160BeetleScript : MonoBehaviour
     public GameObject Beetle;
     public virtual void Start()
     {
-        this.InvokeRepeating("StartBeetle", 2, 0.05f);
+        InvokeRepeating("StartBeetle", 2, 0.05f);
     }
 
     public virtual void Update()
@@ -15,7 +15,7 @@ public partial class scene160BeetleScript : MonoBehaviour
 
     public virtual void StartBeetle()
     {
-        UnityEngine.Object.Instantiate(this.Beetle, new Vector3(-6, Random.Range(4, -3), 0), Quaternion.EulerAngles(0, 90, 270));
+        UnityEngine.Object.Instantiate(Beetle, new Vector3(-6, Random.Range(4, -3), 0), Quaternion.EulerAngles(0, 90, 270));
     }
 
 }

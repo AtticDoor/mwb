@@ -14,14 +14,14 @@ public partial class CameraScript : MonoBehaviour
     public float RightPoint;
     public virtual void Awake()
     {
-        MainScript.yellow = this.yellowMat;
-        MainScript.red = this.redMat;
-        MainScript.blue = this.blueMat;
+        MainScript.yellow = yellowMat;
+        MainScript.red = redMat;
+        MainScript.blue = blueMat;
     }
 
     public virtual void Start()
     {
-        this.Player = GameObject.Find("Player");
+        Player = GameObject.Find("Player");
     }
 
     public bool editable;
@@ -35,16 +35,16 @@ public partial class CameraScript : MonoBehaviour
         {
             return;
         }
-        if (this.editable)
+        if (editable)
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
                 MainScript.EditMode = !MainScript.EditMode;
                 GameObject.Find("bgShieldPlane").GetComponent<Renderer>().enabled = !MainScript.EditMode;
             }
-            if (this.Player != null)
+            if (Player != null)
             {
-                ThirdPersonController tpc = (ThirdPersonController)this.Player.GetComponent("ThirdPersonController");
+                ThirdPersonController tpc = (ThirdPersonController)Player.GetComponent("ThirdPersonController");
                 tpc.enabled = !MainScript.EditMode;
             }
             if (MainScript.EditMode)
@@ -54,49 +54,49 @@ public partial class CameraScript : MonoBehaviour
                 {
 
                     {
-                        float _90 = this.transform.position.y + (1 * Time.deltaTime);
-                        Vector3 _91 = this.transform.position;
+                        float _90 = transform.position.y + (1 * Time.deltaTime);
+                        Vector3 _91 = transform.position;
                         _91.y = _90;
-                        this.transform.position = _91;
+                        transform.position = _91;
                     }
                 }
                 if (Input.GetKey("down"))
                 {
 
                     {
-                        float _92 = this.transform.position.y - (1 * Time.deltaTime);
-                        Vector3 _93 = this.transform.position;
+                        float _92 = transform.position.y - (1 * Time.deltaTime);
+                        Vector3 _93 = transform.position;
                         _93.y = _92;
-                        this.transform.position = _93;
+                        transform.position = _93;
                     }
                 }
                 if (Input.GetKey("left"))
                 {
 
                     {
-                        float _94 = this.transform.position.x - (1 * Time.deltaTime);
-                        Vector3 _95 = this.transform.position;
+                        float _94 = transform.position.x - (1 * Time.deltaTime);
+                        Vector3 _95 = transform.position;
                         _95.x = _94;
-                        this.transform.position = _95;
+                        transform.position = _95;
                     }
                 }
                 if (Input.GetKey("right"))
                 {
 
                     {
-                        float _96 = this.transform.position.x + (1 * Time.deltaTime);
-                        Vector3 _97 = this.transform.position;
+                        float _96 = transform.position.x + (1 * Time.deltaTime);
+                        Vector3 _97 = transform.position;
                         _97.x = _96;
-                        this.transform.position = _97;
+                        transform.position = _97;
                     }
                 }
                 if (Input.GetKey("-"))
                 {
-                    this.transform.GetComponent<Camera>().orthographicSize = this.transform.GetComponent<Camera>().orthographicSize - (1 * Time.deltaTime);
+                    transform.GetComponent<Camera>().orthographicSize = transform.GetComponent<Camera>().orthographicSize - (1 * Time.deltaTime);
                 }
                 if (Input.GetKey("="))
                 {
-                    this.transform.GetComponent<Camera>().orthographicSize = this.transform.GetComponent<Camera>().orthographicSize + (1 * Time.deltaTime);
+                    transform.GetComponent<Camera>().orthographicSize = transform.GetComponent<Camera>().orthographicSize + (1 * Time.deltaTime);
                 }
                 if (MainScript.Selected != null)
                 {
@@ -189,40 +189,40 @@ public partial class CameraScript : MonoBehaviour
                 return;
             }
         }
-        if (this.Player != null)
+        if (Player != null)
         {
-            if ((this.LeftPoint != 0) && (this.RightPoint != 0))
+            if ((LeftPoint != 0) && (RightPoint != 0))
             {
-                if (this.Player.transform.position.x <= this.LeftPoint)
+                if (Player.transform.position.x <= LeftPoint)
                 {
 
                     {
-                        float _114 = this.LeftPoint;
-                        Vector3 _115 = this.transform.position;
+                        float _114 = LeftPoint;
+                        Vector3 _115 = transform.position;
                         _115.x = _114;
-                        this.transform.position = _115;
+                        transform.position = _115;
                     }
                 }
                 else
                 {
-                    if (this.Player.transform.position.x >= this.RightPoint)
+                    if (Player.transform.position.x >= RightPoint)
                     {
 
                         {
-                            float _116 = this.RightPoint;
-                            Vector3 _117 = this.transform.position;
+                            float _116 = RightPoint;
+                            Vector3 _117 = transform.position;
                             _117.x = _116;
-                            this.transform.position = _117;
+                            transform.position = _117;
                         }
                     }
                     else
                     {
 
                         {
-                            float _118 = this.Player.transform.position.x;
-                            Vector3 _119 = this.transform.position;
+                            float _118 = Player.transform.position.x;
+                            Vector3 _119 = transform.position;
                             _119.x = _118;
-                            this.transform.position = _119;
+                            transform.position = _119;
                         }
                     }
                 }
@@ -231,44 +231,44 @@ public partial class CameraScript : MonoBehaviour
             {
 
                 {
-                    float _120 = this.Player.transform.position.x;
-                    Vector3 _121 = this.transform.position;
+                    float _120 = Player.transform.position.x;
+                    Vector3 _121 = transform.position;
                     _121.x = _120;
-                    this.transform.position = _121;
+                    transform.position = _121;
                 }
             }
-            if (this.verticalCam)
+            if (verticalCam)
             {
-                if (this.Player.transform.position.y <= this.lowPoint)
+                if (Player.transform.position.y <= lowPoint)
                 {
 
                     {
-                        float _122 = this.lowPoint;
-                        Vector3 _123 = this.transform.position;
+                        float _122 = lowPoint;
+                        Vector3 _123 = transform.position;
                         _123.y = _122;
-                        this.transform.position = _123;
+                        transform.position = _123;
                     }
                 }
                 else
                 {
-                    if (this.Player.transform.position.y >= this.highPoint)
+                    if (Player.transform.position.y >= highPoint)
                     {
 
                         {
-                            float _124 = this.highPoint;
-                            Vector3 _125 = this.transform.position;
+                            float _124 = highPoint;
+                            Vector3 _125 = transform.position;
                             _125.y = _124;
-                            this.transform.position = _125;
+                            transform.position = _125;
                         }
                     }
                     else
                     {
 
                         {
-                            float _126 = this.Player.transform.position.y;
-                            Vector3 _127 = this.transform.position;
+                            float _126 = Player.transform.position.y;
+                            Vector3 _127 = transform.position;
                             _127.y = _126;
-                            this.transform.position = _127;
+                            transform.position = _127;
                         }
                     }
                 }

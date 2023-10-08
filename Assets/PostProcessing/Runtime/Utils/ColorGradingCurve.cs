@@ -22,7 +22,7 @@ namespace UnityEngine.PostProcessing
 
         public ColorGradingCurve(AnimationCurve curve, float zeroValue, bool loop, Vector2 bounds)
         {
-            this.curve = curve;
+            curve = curve;
             m_ZeroValue = zeroValue;
             m_Loop = loop;
             m_Range = bounds.magnitude;

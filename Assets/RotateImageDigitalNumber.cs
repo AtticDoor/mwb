@@ -15,9 +15,9 @@ public partial class RotateImageDigitalNumber : MonoBehaviour
     public int[] frame; //unused here, inherited by RotateImageFrameList
     public virtual void Start()
     {
-        this.StartTime = Time.time;
-        this.ExtraStart();
-        this.Update();
+        StartTime = Time.time;
+        ExtraStart();
+        Update();
     }
 
     public bool animating;
@@ -32,30 +32,30 @@ public partial class RotateImageDigitalNumber : MonoBehaviour
         int tenMin = TimerGUI.minutes / 10;
         int min = TimerGUI.minutes % 10;
         Debug.Log(tenSecs);
-        this.TenSecPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(tenSecs / 16f, 0));
-        this.SecPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(secs / 16f, 0));
-        this.TenMinPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(tenMin / 16f, 0));
-        this.MinPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(min / 16f, 0));
+        TenSecPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(tenSecs / 16f, 0));
+        SecPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(secs / 16f, 0));
+        TenMinPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(tenMin / 16f, 0));
+        MinPos.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", new Vector2(min / 16f, 0));
         return;
-        if (!this.animating)
+        if (!animating)
         {
             return;
         }
         // Calculate index
-        this.index = (int)((Time.time - this.StartTime) * this.framesPerSecond);
+        index = (int)((Time.time - StartTime) * framesPerSecond);
         // repeat when exhausting all frames
-        this.index = this.startFrame + (this.index % this.numFrames);//(uvAnimationTileX * uvAnimationTileY);
+        index = startFrame + (index % numFrames);//(uvAnimationTileX * uvAnimationTileY);
         // Size of every tile
-        Vector2 size = new Vector2(1f / this.uvAnimationTileX, 1f / this.uvAnimationTileY);
+        Vector2 size = new Vector2(1f / uvAnimationTileX, 1f / uvAnimationTileY);
         // split into horizontal and vertical index
-        int uIndex = this.index % this.uvAnimationTileX;
-        int vIndex = this.index / this.uvAnimationTileX;
+        int uIndex = index % uvAnimationTileX;
+        int vIndex = index / uvAnimationTileX;
         // build offset
         // v coordinate is the bottom of the image in opengl so we need to invert.
         Vector2 offset = new Vector2(uIndex * size.x, (1f - size.y) - (vIndex * size.y));
-        this.GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", offset);
-        this.GetComponent<Renderer>().material.SetTextureScale("_MainTex", size);
-        this.ExtraUpdate();
+        GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", offset);
+        GetComponent<Renderer>().material.SetTextureScale("_MainTex", size);
+        ExtraUpdate();
     }
 
     public virtual void ExtraStart()
@@ -68,11 +68,11 @@ public partial class RotateImageDigitalNumber : MonoBehaviour
 
     public RotateImageDigitalNumber()
     {
-        this.uvAnimationTileX = 8;
-        this.uvAnimationTileY = 1;
-        this.framesPerSecond = 10f;
-        this.numFrames = 8;
-        this.animating = true;
+        uvAnimationTileX = 8;
+        uvAnimationTileY = 1;
+        framesPerSecond = 10f;
+        numFrames = 8;
+        animating = true;
     }
 
 }

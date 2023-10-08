@@ -11,10 +11,10 @@ public partial class menuScrollText : MonoBehaviour
     {
 
         {
-            float _166 = this.transform.position.y + (Time.deltaTime * 0.5f);
-            Vector3 _167 = this.transform.position;
+            float _166 = transform.position.y + (Time.deltaTime * 0.5f);
+            Vector3 _167 = transform.position;
             _167.y = _166;
-            this.transform.position = _167;
+            transform.position = _167;
         }
     }
 

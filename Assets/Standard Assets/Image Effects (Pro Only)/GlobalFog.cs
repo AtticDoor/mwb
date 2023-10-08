@@ -29,56 +29,56 @@ public partial class GlobalFog : PostEffectsBase
     private Material fogMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(true);
-        this.fogMaterial = this.CheckShaderAndCreateMaterial(this.fogShader, this.fogMaterial);
-        if (!this.isSupported)
+        CheckSupport(true);
+        fogMaterial = CheckShaderAndCreateMaterial(fogShader, fogMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         Vector4 vec = default(Vector4);
         Vector3 corner = default(Vector3);
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
-        this.CAMERA_NEAR = this.GetComponent<Camera>().nearClipPlane;
-        this.CAMERA_FAR = this.GetComponent<Camera>().farClipPlane;
-        this.CAMERA_FOV = this.GetComponent<Camera>().fieldOfView;
-        this.CAMERA_ASPECT_RATIO = this.GetComponent<Camera>().aspect;
+        CAMERA_NEAR = GetComponent<Camera>().nearClipPlane;
+        CAMERA_FAR = GetComponent<Camera>().farClipPlane;
+        CAMERA_FOV = GetComponent<Camera>().fieldOfView;
+        CAMERA_ASPECT_RATIO = GetComponent<Camera>().aspect;
         Matrix4x4 frustumCorners = Matrix4x4.identity;
-        float fovWHalf = this.CAMERA_FOV * 0.5f;
-        Vector3 toRight = ((this.GetComponent<Camera>().transform.right * this.CAMERA_NEAR) * Mathf.Tan(fovWHalf * Mathf.Deg2Rad)) * this.CAMERA_ASPECT_RATIO;
-        Vector3 toTop = (this.GetComponent<Camera>().transform.up * this.CAMERA_NEAR) * Mathf.Tan(fovWHalf * Mathf.Deg2Rad);
-        Vector3 topLeft = ((this.GetComponent<Camera>().transform.forward * this.CAMERA_NEAR) - toRight) + toTop;
-        float CAMERA_SCALE = (topLeft.magnitude * this.CAMERA_FAR) / this.CAMERA_NEAR;
+        float fovWHalf = CAMERA_FOV * 0.5f;
+        Vector3 toRight = ((GetComponent<Camera>().transform.right * CAMERA_NEAR) * Mathf.Tan(fovWHalf * Mathf.Deg2Rad)) * CAMERA_ASPECT_RATIO;
+        Vector3 toTop = (GetComponent<Camera>().transform.up * CAMERA_NEAR) * Mathf.Tan(fovWHalf * Mathf.Deg2Rad);
+        Vector3 topLeft = ((GetComponent<Camera>().transform.forward * CAMERA_NEAR) - toRight) + toTop;
+        float CAMERA_SCALE = (topLeft.magnitude * CAMERA_FAR) / CAMERA_NEAR;
         topLeft.Normalize();
         topLeft = topLeft * CAMERA_SCALE;
-        Vector3 topRight = ((this.GetComponent<Camera>().transform.forward * this.CAMERA_NEAR) + toRight) + toTop;
+        Vector3 topRight = ((GetComponent<Camera>().transform.forward * CAMERA_NEAR) + toRight) + toTop;
         topRight.Normalize();
         topRight = topRight * CAMERA_SCALE;
-        Vector3 bottomRight = ((this.GetComponent<Camera>().transform.forward * this.CAMERA_NEAR) + toRight) - toTop;
+        Vector3 bottomRight = ((GetComponent<Camera>().transform.forward * CAMERA_NEAR) + toRight) - toTop;
         bottomRight.Normalize();
         bottomRight = bottomRight * CAMERA_SCALE;
-        Vector3 bottomLeft = ((this.GetComponent<Camera>().transform.forward * this.CAMERA_NEAR) - toRight) - toTop;
+        Vector3 bottomLeft = ((GetComponent<Camera>().transform.forward * CAMERA_NEAR) - toRight) - toTop;
         bottomLeft.Normalize();
         bottomLeft = bottomLeft * CAMERA_SCALE;
         frustumCorners.SetRow(0, topLeft);
         frustumCorners.SetRow(1, topRight);
         frustumCorners.SetRow(2, bottomRight);
         frustumCorners.SetRow(3, bottomLeft);
-        this.fogMaterial.SetMatrix("_FrustumCornersWS", frustumCorners);
-        this.fogMaterial.SetVector("_CameraWS", this.GetComponent<Camera>().transform.position);
-        this.fogMaterial.SetVector("_StartDistance", new Vector4(1f / this.startDistance, CAMERA_SCALE - this.startDistance));
-        this.fogMaterial.SetVector("_Y", new Vector4(this.height, 1f / this.heightScale));
-        this.fogMaterial.SetFloat("_GlobalDensity", this.globalDensity * 0.01f);
-        this.fogMaterial.SetColor("_FogColor", this.globalFogColor);
-        GlobalFog.CustomGraphicsBlit(source, destination, this.fogMaterial, (int)this.fogMode);
+        fogMaterial.SetMatrix("_FrustumCornersWS", frustumCorners);
+        fogMaterial.SetVector("_CameraWS", GetComponent<Camera>().transform.position);
+        fogMaterial.SetVector("_StartDistance", new Vector4(1f / startDistance, CAMERA_SCALE - startDistance));
+        fogMaterial.SetVector("_Y", new Vector4(height, 1f / heightScale));
+        fogMaterial.SetFloat("_GlobalDensity", globalDensity * 0.01f);
+        fogMaterial.SetColor("_FogColor", globalFogColor);
+        GlobalFog.CustomGraphicsBlit(source, destination, fogMaterial, (int)fogMode);
     }
 
     public static void CustomGraphicsBlit(RenderTexture source, RenderTexture dest, Material fxMaterial, int passNr)
@@ -103,15 +103,15 @@ public partial class GlobalFog : PostEffectsBase
 
     public GlobalFog()
     {
-        this.fogMode = FogMode.AbsoluteYAndDistance;
-        this.CAMERA_NEAR = 0.5f;
-        this.CAMERA_FAR = 50f;
-        this.CAMERA_FOV = 60f;
-        this.CAMERA_ASPECT_RATIO = 1.333333f;
-        this.startDistance = 200f;
-        this.globalDensity = 1f;
-        this.heightScale = 100f;
-        this.globalFogColor = Color.grey;
+        fogMode = FogMode.AbsoluteYAndDistance;
+        CAMERA_NEAR = 0.5f;
+        CAMERA_FAR = 50f;
+        CAMERA_FOV = 60f;
+        CAMERA_ASPECT_RATIO = 1.333333f;
+        startDistance = 200f;
+        globalDensity = 1f;
+        heightScale = 100f;
+        globalFogColor = Color.grey;
     }
 
 }

@@ -33,9 +33,9 @@ public partial class PlayerScript : MonoBehaviour
 	}*/
     public virtual void Start()
     {
-        this.alpha = 1;
-        this.fadeIn();
-        this.SetPlayerStart();
+        alpha = 1;
+        fadeIn();
+        SetPlayerStart();
     }
 
     /*   public static void DIE()//	gameObject.GetComponent("Bip001 Pelvis").renderer.active=false;
@@ -74,43 +74,43 @@ public partial class PlayerScript : MonoBehaviour
     public virtual void OnGUI()
     {
         GUI.depth = 1;
-        this.alpha = this.alpha + ((this.fadeDir * this.fadeSpeed) * Time.deltaTime);
-        this.alpha = Mathf.Clamp01(this.alpha);
+        alpha = alpha + ((fadeDir * fadeSpeed) * Time.deltaTime);
+        alpha = Mathf.Clamp01(alpha);
 
         {
-            float _172 = this.alpha;
+            float _172 = alpha;
             Color _173 = GUI.color;
             _173.a = _172;
             GUI.color = _173;
         }
-        GUI.depth = this.drawDepth;
-        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), this.fadeOutTexture);
+        GUI.depth = drawDepth;
+        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeOutTexture);
     }
 
     //--------------------------------------------------------------------
     public virtual void fadeIn()
     {
-        this.fadeDir = -1;
+        fadeDir = -1;
     }
 
     //--------------------------------------------------------------------
     public virtual void fadeOut()
     {
-        this.fadeDir = 1;
+        fadeDir = 1;
     }
 
     public virtual void StartSSSS()
     {
-        this.alpha = 1;
-        this.fadeIn();
+        alpha = 1;
+        fadeIn();
     }
 
     public PlayerScript()
     {
-        this.fadeSpeed = 0.1f;
-        this.drawDepth = -1000;
-        this.alpha = 1f;
-        this.fadeDir = -1;
+        fadeSpeed = 0.1f;
+        drawDepth = -1000;
+        alpha = 1f;
+        fadeDir = -1;
     }
 
 

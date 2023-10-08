@@ -63,7 +63,7 @@ public partial class ElevatorScript : MonoBehaviour
         if (!DoorOpen.active)
         {
             int i = 0;
-            while (i < this.Codes.Length)
+            while (i < Codes.Length)
             {
                 //Debug.Log(ElevatorCodes.TVCleared(Codes[i])+"   "+Codes.length+" i:"+i+"  CodesI:"+Codes[i]+" ");
                 if (!ElevatorCodes.TVCleared(Codes[i]))

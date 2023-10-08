@@ -10,66 +10,66 @@ public partial class BlimpScript : MonoBehaviour
     public bool FireEnabled;
     public virtual void Start()
     {
-        this.StartY = this.transform.position.y;
-        this.Player = GameObject.Find("Player").transform;
-        this.EnableFire();
-        this.StartPosition();
+        StartY = transform.position.y;
+        Player = GameObject.Find("Player").transform;
+        EnableFire();
+        StartPosition();
         if (Random.Range(0, 10) < 1)
         {
-            this.Invoke("BlinkClosed", 1);
+            Invoke("BlinkClosed", 1);
         }
         else
         {
-            this.Invoke("BlinkClosed", Random.Range(4, 10));
+            Invoke("BlinkClosed", Random.Range(4, 10));
         }
     }
 
     public virtual void BlinkClosed()
     {
-        this.StartCoroutine(LerpObject.RotateObject(this.blinksphere.transform, new Vector3(40, 0, 0), new Vector3(-21, 0, 0), 0.5f));
-        this.Invoke("BlinkOpen", 0.5f);
+        StartCoroutine(LerpObject.RotateObject(blinksphere.transform, new Vector3(40, 0, 0), new Vector3(-21, 0, 0), 0.5f));
+        Invoke("BlinkOpen", 0.5f);
     }
 
     public virtual void BlinkOpen()
     {
-        this.StartCoroutine(LerpObject.RotateObject(this.blinksphere.transform, new Vector3(-21, 0, 0), new Vector3(40, 0, 0), 0.5f));
+        StartCoroutine(LerpObject.RotateObject(blinksphere.transform, new Vector3(-21, 0, 0), new Vector3(40, 0, 0), 0.5f));
         if (Random.Range(0, 10) < 1)
         {
-            this.Invoke("BlinkClosed", 1);
+            Invoke("BlinkClosed", 1);
         }
         else
         {
-            this.Invoke("BlinkClosed", Random.Range(4, 10));
+            Invoke("BlinkClosed", Random.Range(4, 10));
         }
     }
 
     public virtual void Update()
     {
-        if (this.FireEnabled)
+        if (FireEnabled)
         {
-            float distance = this.transform.position.x - this.Player.position.x;
+            float distance = transform.position.x - Player.position.x;
             if (distance < 0)
             {
                 distance = distance * -1;
             }
-            if (distance < this.window)
+            if (distance < window)
             {
-                this.Fire();
-                this.FireEnabled = false;
-                this.Invoke("EnableFire", 1);
+                Fire();
+                FireEnabled = false;
+                Invoke("EnableFire", 1);
             }
         }
-        this.UpdatePosition();
+        UpdatePosition();
     }
 
     public virtual void Fire()
     {
-        UnityEngine.Object.Instantiate(this.Bomb, this.transform.position, this.transform.rotation);
+        UnityEngine.Object.Instantiate(Bomb, transform.position, transform.rotation);
     }
 
     public virtual void EnableFire()
     {
-        this.FireEnabled = true;
+        FireEnabled = true;
     }
 
     public Transform target;
@@ -79,31 +79,31 @@ public partial class BlimpScript : MonoBehaviour
     public virtual void StartPosition()
     {
         //obtain the game object Transform
-        this.enemyTransform = this.transform;
-        this.getPlayerPosition();
-        this.InvokeRepeating("getPlayerPosition", 0, 3);
-        this.speed = 7;
+        enemyTransform = transform;
+        getPlayerPosition();
+        InvokeRepeating("getPlayerPosition", 0, 3);
+        speed = 7;
     }
 
     public virtual void UpdatePosition()
     {
         //target = GameObject.Find ("Player").transform;
-        Vector3 targetHeading = this.target.position - this.transform.position;
+        Vector3 targetHeading = target.position - transform.position;
         Vector3 targetDirection = targetHeading.normalized;
         //rotate to look at the player
         //transform.rotation = Quaternion.LookRotation(targetDirection); // Converts target direction vector to Quaternion
         //transform.eulerAngles = Vector3(0, transform.eulerAngles.y, 0);
         //move towards the player
-        Vector3 Increment = (targetDirection * this.speed) * Time.deltaTime;
+        Vector3 Increment = (targetDirection * speed) * Time.deltaTime;
         Increment.z = 0;
         Increment.y = 0;
-        this.enemyTransform.position = this.enemyTransform.position + Increment;//targetDirection * speed * Time.deltaTime;
-        this.UpdateY();
+        enemyTransform.position = enemyTransform.position + Increment;//targetDirection * speed * Time.deltaTime;
+        UpdateY();
     }
 
     public virtual void getPlayerPosition()
     {
-        this.target = GameObject.Find("Player").transform;
+        target = GameObject.Find("Player").transform;
     }
 
     public float amplitudeY;
@@ -112,23 +112,23 @@ public partial class BlimpScript : MonoBehaviour
     public float StartY;
     public virtual void UpdateY()
     {
-        this.index = this.index + (Time.deltaTime / 3);
-        float y = Mathf.Abs(this.amplitudeY * Mathf.Sin(this.omegaY * this.index));
+        index = index + (Time.deltaTime / 3);
+        float y = Mathf.Abs(amplitudeY * Mathf.Sin(omegaY * index));
 
         {
-            float _88 = this.StartY + y;//= new Vector3(0,y,0);
-            Vector3 _89 = this.transform.position;
+            float _88 = StartY + y;//= new Vector3(0,y,0);
+            Vector3 _89 = transform.position;
             _89.y = _88;
-            this.transform.position = _89;
+            transform.position = _89;
         }
     }
 
     public BlimpScript()
     {
-        this.speed = 0.01f;
-        this.rotationSpeed = 3f;
-        this.amplitudeY = 0.1f;
-        this.omegaY = 5f;
+        speed = 0.01f;
+        rotationSpeed = 3f;
+        amplitudeY = 0.1f;
+        omegaY = 5f;
     }
 
 }

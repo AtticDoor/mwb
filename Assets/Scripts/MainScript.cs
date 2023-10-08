@@ -34,7 +34,7 @@ public partial class MainScript : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
         if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)))
         {
-            GameObject crate = UnityEngine.Object.Instantiate(this.Prefabs[MainScript.enemyIndex], ray.origin, Quaternion.identity);
+            GameObject crate = UnityEngine.Object.Instantiate(Prefabs[MainScript.enemyIndex], ray.origin, Quaternion.identity);
 
             {
                 int _164 = 0;
@@ -48,7 +48,7 @@ public partial class MainScript : MonoBehaviour
         {
             MainScript.enemyIndex++;
         }
-        if (MainScript.enemyIndex >= this.Prefabs.Length)
+        if (MainScript.enemyIndex >= Prefabs.Length)
         {
             MainScript.enemyIndex = 0;
         }
@@ -67,7 +67,7 @@ public partial class MainScript : MonoBehaviour
         {
             return;
         }
-        GUI.Label(new Rect(0, 0, 200, 100), "CREATE: " + this.Prefabs[MainScript.enemyIndex].transform.name);
+        GUI.Label(new Rect(0, 0, 200, 100), "CREATE: " + Prefabs[MainScript.enemyIndex].transform.name);
         string SelectedName = "";
         if (MainScript.Selected != null)
         {

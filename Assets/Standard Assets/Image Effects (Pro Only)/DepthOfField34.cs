@@ -71,30 +71,30 @@ public partial class DepthOfField34 : PostEffectsBase
     private Material bokehMaterial;
     public virtual void CreateMaterials()
     {
-        this.dofBlurMaterial = this.CheckShaderAndCreateMaterial(this.dofBlurShader, this.dofBlurMaterial);
-        this.dofMaterial = this.CheckShaderAndCreateMaterial(this.dofShader, this.dofMaterial);
-        this.bokehSupport = this.bokehShader.isSupported;
-        if ((this.bokeh && this.bokehSupport) && this.bokehShader)
+        dofBlurMaterial = CheckShaderAndCreateMaterial(dofBlurShader, dofBlurMaterial);
+        dofMaterial = CheckShaderAndCreateMaterial(dofShader, dofMaterial);
+        bokehSupport = bokehShader.isSupported;
+        if ((bokeh && bokehSupport) && bokehShader)
         {
-            this.bokehMaterial = this.CheckShaderAndCreateMaterial(this.bokehShader, this.bokehMaterial);
+            bokehMaterial = CheckShaderAndCreateMaterial(bokehShader, bokehMaterial);
         }
     }
 
     public override bool CheckResources()
     {
-        this.CheckSupport(true);
-        this.dofBlurMaterial = this.CheckShaderAndCreateMaterial(this.dofBlurShader, this.dofBlurMaterial);
-        this.dofMaterial = this.CheckShaderAndCreateMaterial(this.dofShader, this.dofMaterial);
-        this.bokehSupport = this.bokehShader.isSupported;
-        if ((this.bokeh && this.bokehSupport) && this.bokehShader)
+        CheckSupport(true);
+        dofBlurMaterial = CheckShaderAndCreateMaterial(dofBlurShader, dofBlurMaterial);
+        dofMaterial = CheckShaderAndCreateMaterial(dofShader, dofMaterial);
+        bokehSupport = bokehShader.isSupported;
+        if ((bokeh && bokehSupport) && bokehShader)
         {
-            this.bokehMaterial = this.CheckShaderAndCreateMaterial(this.bokehShader, this.bokehMaterial);
+            bokehMaterial = CheckShaderAndCreateMaterial(bokehShader, bokehMaterial);
         }
-        if (!this.isSupported)
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnDisable()
@@ -104,24 +104,24 @@ public partial class DepthOfField34 : PostEffectsBase
 
     public override void OnEnable()
     {
-        this.GetComponent<Camera>().depthTextureMode = this.GetComponent<Camera>().depthTextureMode | DepthTextureMode.Depth;
+        GetComponent<Camera>().depthTextureMode = GetComponent<Camera>().depthTextureMode | DepthTextureMode.Depth;
     }
 
     public virtual float FocalDistance01(float worldDist)
     {
-        return this.GetComponent<Camera>().WorldToViewportPoint(((worldDist - this.GetComponent<Camera>().nearClipPlane) * this.GetComponent<Camera>().transform.forward) + this.GetComponent<Camera>().transform.position).z / (this.GetComponent<Camera>().farClipPlane - this.GetComponent<Camera>().nearClipPlane);
+        return GetComponent<Camera>().WorldToViewportPoint(((worldDist - GetComponent<Camera>().nearClipPlane) * GetComponent<Camera>().transform.forward) + GetComponent<Camera>().transform.position).z / (GetComponent<Camera>().farClipPlane - GetComponent<Camera>().nearClipPlane);
     }
 
     public virtual int GetDividerBasedOnQuality()
     {
         int divider = 1;
-        if (this.resolution == DofResolution.Medium)
+        if (resolution == DofResolution.Medium)
         {
             divider = 2;
         }
         else
         {
-            if (this.resolution == DofResolution.Low)
+            if (resolution == DofResolution.Low)
             {
                 divider = 2;
             }
@@ -132,11 +132,11 @@ public partial class DepthOfField34 : PostEffectsBase
     public virtual int GetLowResolutionDividerBasedOnQuality(int baseDivider)
     {
         int lowTexDivider = baseDivider;
-        if (this.resolution == DofResolution.High)
+        if (resolution == DofResolution.High)
         {
             lowTexDivider = lowTexDivider * 2;
         }
-        if (this.resolution == DofResolution.Low)
+        if (resolution == DofResolution.Low)
         {
             lowTexDivider = lowTexDivider * 2;
         }
@@ -151,128 +151,128 @@ public partial class DepthOfField34 : PostEffectsBase
     private RenderTexture bokehSource2;
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
-        if (this.smoothness < 0.1f)
+        if (smoothness < 0.1f)
         {
-            this.smoothness = 0.1f;
+            smoothness = 0.1f;
         }
         // update needed focal & rt size parameter
-        this.bokeh = this.bokeh && this.bokehSupport;
-        float bokehBlurAmplifier = this.bokeh ? DepthOfField34.BOKEH_EXTRA_BLUR : 1f;
-        bool blurForeground = this.quality > Dof34QualitySetting.OnlyBackground;
-        float focal01Size = this.focalSize / (this.GetComponent<Camera>().farClipPlane - this.GetComponent<Camera>().nearClipPlane);
-        if (this.simpleTweakMode)
+        bokeh = bokeh && bokehSupport;
+        float bokehBlurAmplifier = bokeh ? DepthOfField34.BOKEH_EXTRA_BLUR : 1f;
+        bool blurForeground = quality > Dof34QualitySetting.OnlyBackground;
+        float focal01Size = focalSize / (GetComponent<Camera>().farClipPlane - GetComponent<Camera>().nearClipPlane);
+        if (simpleTweakMode)
         {
-            this.focalDistance01 = this.objectFocus ? this.GetComponent<Camera>().WorldToViewportPoint(this.objectFocus.position).z / this.GetComponent<Camera>().farClipPlane : this.FocalDistance01(this.focalPoint);
-            this.focalStartCurve = this.focalDistance01 * this.smoothness;
-            this.focalEndCurve = this.focalStartCurve;
-            blurForeground = blurForeground && (this.focalPoint > (this.GetComponent<Camera>().nearClipPlane + Mathf.Epsilon));
+            focalDistance01 = objectFocus ? GetComponent<Camera>().WorldToViewportPoint(objectFocus.position).z / GetComponent<Camera>().farClipPlane : FocalDistance01(focalPoint);
+            focalStartCurve = focalDistance01 * smoothness;
+            focalEndCurve = focalStartCurve;
+            blurForeground = blurForeground && (focalPoint > (GetComponent<Camera>().nearClipPlane + Mathf.Epsilon));
         }
         else
         {
-            if (this.objectFocus)
+            if (objectFocus)
             {
-                Vector3 vpPoint = this.GetComponent<Camera>().WorldToViewportPoint(this.objectFocus.position);
-                vpPoint.z = vpPoint.z / this.GetComponent<Camera>().farClipPlane;
-                this.focalDistance01 = vpPoint.z;
+                Vector3 vpPoint = GetComponent<Camera>().WorldToViewportPoint(objectFocus.position);
+                vpPoint.z = vpPoint.z / GetComponent<Camera>().farClipPlane;
+                focalDistance01 = vpPoint.z;
             }
             else
             {
-                this.focalDistance01 = this.FocalDistance01(this.focalZDistance);
+                focalDistance01 = FocalDistance01(focalZDistance);
             }
-            this.focalStartCurve = this.focalZStartCurve;
-            this.focalEndCurve = this.focalZEndCurve;
-            blurForeground = blurForeground && (this.focalPoint > (this.GetComponent<Camera>().nearClipPlane + Mathf.Epsilon));
+            focalStartCurve = focalZStartCurve;
+            focalEndCurve = focalZEndCurve;
+            blurForeground = blurForeground && (focalPoint > (GetComponent<Camera>().nearClipPlane + Mathf.Epsilon));
         }
-        this.widthOverHeight = (1f * source.width) / (1f * source.height);
-        this.oneOverBaseSize = 1f / 512f;
-        this.dofMaterial.SetFloat("_ForegroundBlurExtrude", this.foregroundBlurExtrude);
-        this.dofMaterial.SetVector("_CurveParams", new Vector4(this.simpleTweakMode ? 1f / this.focalStartCurve : this.focalStartCurve, this.simpleTweakMode ? 1f / this.focalEndCurve : this.focalEndCurve, focal01Size * 0.5f, this.focalDistance01));
-        this.dofMaterial.SetVector("_InvRenderTargetSize", new Vector4(1f / (1f * source.width), 1f / (1f * source.height), 0f, 0f));
-        int divider = this.GetDividerBasedOnQuality();
-        int lowTexDivider = this.GetLowResolutionDividerBasedOnQuality(divider);
-        this.AllocateTextures(blurForeground, source, divider, lowTexDivider);
+        widthOverHeight = (1f * source.width) / (1f * source.height);
+        oneOverBaseSize = 1f / 512f;
+        dofMaterial.SetFloat("_ForegroundBlurExtrude", foregroundBlurExtrude);
+        dofMaterial.SetVector("_CurveParams", new Vector4(simpleTweakMode ? 1f / focalStartCurve : focalStartCurve, simpleTweakMode ? 1f / focalEndCurve : focalEndCurve, focal01Size * 0.5f, focalDistance01));
+        dofMaterial.SetVector("_InvRenderTargetSize", new Vector4(1f / (1f * source.width), 1f / (1f * source.height), 0f, 0f));
+        int divider = GetDividerBasedOnQuality();
+        int lowTexDivider = GetLowResolutionDividerBasedOnQuality(divider);
+        AllocateTextures(blurForeground, source, divider, lowTexDivider);
         // WRITE COC to alpha channel		
         // source is only being bound to detect y texcoord flip
-        Graphics.Blit(source, source, this.dofMaterial, 3);
+        Graphics.Blit(source, source, dofMaterial, 3);
         // better DOWNSAMPLE (could actually be weighted for higher quality)
-        this.Downsample(source, this.mediumRezWorkTexture);
+        Downsample(source, mediumRezWorkTexture);
         // BLUR A LITTLE first, which has two purposes
         // 1.) reduce jitter, noise, aliasing
         // 2.) produce the little-blur buffer used in composition later     	     
-        this.Blur(this.mediumRezWorkTexture, this.mediumRezWorkTexture, DofBlurriness.Low, 4, this.maxBlurSpread);
-        if (this.bokeh && ((this.bokehDestination & BokehDestination.Background) != (BokehDestination)0))
+        Blur(mediumRezWorkTexture, mediumRezWorkTexture, DofBlurriness.Low, 4, maxBlurSpread);
+        if (bokeh && ((bokehDestination & BokehDestination.Background) != (BokehDestination)0))
         {
-            this.dofMaterial.SetVector("_Threshhold", new Vector4(this.bokehThreshholdContrast, this.bokehThreshholdLuminance, 0.95f, 0f));
+            dofMaterial.SetVector("_Threshhold", new Vector4(bokehThreshholdContrast, bokehThreshholdLuminance, 0.95f, 0f));
             // add and mark the parts that should end up as bokeh shapes
-            Graphics.Blit(this.mediumRezWorkTexture, this.bokehSource2, this.dofMaterial, 11);
+            Graphics.Blit(mediumRezWorkTexture, bokehSource2, dofMaterial, 11);
             // remove those parts (maybe even a little tittle bittle more) from the regurlarly blurred buffer		
             //Graphics.Blit (mediumRezWorkTexture, lowRezWorkTexture, dofMaterial, 10);
-            Graphics.Blit(this.mediumRezWorkTexture, this.lowRezWorkTexture);//, dofMaterial, 10);
+            Graphics.Blit(mediumRezWorkTexture, lowRezWorkTexture);//, dofMaterial, 10);
             // maybe you want to reblur the small blur ... but not really needed.
             //Blur (mediumRezWorkTexture, mediumRezWorkTexture, DofBlurriness.Low, 4, maxBlurSpread);						
             // bigger BLUR
-            this.Blur(this.lowRezWorkTexture, this.lowRezWorkTexture, this.bluriness, 0, this.maxBlurSpread * bokehBlurAmplifier);
+            Blur(lowRezWorkTexture, lowRezWorkTexture, bluriness, 0, maxBlurSpread * bokehBlurAmplifier);
         }
         else
         {
             // bigger BLUR
-            this.Downsample(this.mediumRezWorkTexture, this.lowRezWorkTexture);
-            this.Blur(this.lowRezWorkTexture, this.lowRezWorkTexture, this.bluriness, 0, this.maxBlurSpread);
+            Downsample(mediumRezWorkTexture, lowRezWorkTexture);
+            Blur(lowRezWorkTexture, lowRezWorkTexture, bluriness, 0, maxBlurSpread);
         }
-        this.dofBlurMaterial.SetTexture("_TapLow", this.lowRezWorkTexture);
-        this.dofBlurMaterial.SetTexture("_TapMedium", this.mediumRezWorkTexture);
-        Graphics.Blit(null, this.finalDefocus, this.dofBlurMaterial, 3);
+        dofBlurMaterial.SetTexture("_TapLow", lowRezWorkTexture);
+        dofBlurMaterial.SetTexture("_TapMedium", mediumRezWorkTexture);
+        Graphics.Blit(null, finalDefocus, dofBlurMaterial, 3);
         // we are only adding bokeh now if the background is the only part we have to deal with
-        if (this.bokeh && ((this.bokehDestination & BokehDestination.Background) != (BokehDestination)0))
+        if (bokeh && ((bokehDestination & BokehDestination.Background) != (BokehDestination)0))
         {
-            this.AddBokeh(this.bokehSource2, this.bokehSource, this.finalDefocus);
+            AddBokeh(bokehSource2, bokehSource, finalDefocus);
         }
-        this.dofMaterial.SetTexture("_TapLowBackground", this.finalDefocus);
-        this.dofMaterial.SetTexture("_TapMedium", this.mediumRezWorkTexture); // needed for debugging/visualization
+        dofMaterial.SetTexture("_TapLowBackground", finalDefocus);
+        dofMaterial.SetTexture("_TapMedium", mediumRezWorkTexture); // needed for debugging/visualization
         // FINAL DEFOCUS (background)
-        Graphics.Blit(source, blurForeground ? this.foregroundTexture : destination, this.dofMaterial, this.visualize ? 2 : 0);
+        Graphics.Blit(source, blurForeground ? foregroundTexture : destination, dofMaterial, visualize ? 2 : 0);
         // FINAL DEFOCUS (foreground)
         if (blurForeground)
         {
             // WRITE COC to alpha channel			
-            Graphics.Blit(this.foregroundTexture, source, this.dofMaterial, 5);
+            Graphics.Blit(foregroundTexture, source, dofMaterial, 5);
             // DOWNSAMPLE (unweighted)
-            this.Downsample(source, this.mediumRezWorkTexture);
+            Downsample(source, mediumRezWorkTexture);
             // BLUR A LITTLE first, which has two purposes
             // 1.) reduce jitter, noise, aliasing
             // 2.) produce the little-blur buffer used in composition later   
-            this.BlurFg(this.mediumRezWorkTexture, this.mediumRezWorkTexture, DofBlurriness.Low, 2, this.maxBlurSpread);
-            if (this.bokeh && ((this.bokehDestination & BokehDestination.Foreground) != (BokehDestination)0))
+            BlurFg(mediumRezWorkTexture, mediumRezWorkTexture, DofBlurriness.Low, 2, maxBlurSpread);
+            if (bokeh && ((bokehDestination & BokehDestination.Foreground) != (BokehDestination)0))
             {
-                this.dofMaterial.SetVector("_Threshhold", new Vector4(this.bokehThreshholdContrast * 0.5f, this.bokehThreshholdLuminance, 0f, 0f));
+                dofMaterial.SetVector("_Threshhold", new Vector4(bokehThreshholdContrast * 0.5f, bokehThreshholdLuminance, 0f, 0f));
                 // add and mark the parts that should end up as bokeh shapes
-                Graphics.Blit(this.mediumRezWorkTexture, this.bokehSource2, this.dofMaterial, 11);
+                Graphics.Blit(mediumRezWorkTexture, bokehSource2, dofMaterial, 11);
                 // remove the parts (maybe even a little tittle bittle more) that will end up in bokeh space			
                 //Graphics.Blit (mediumRezWorkTexture, lowRezWorkTexture, dofMaterial, 10);
-                Graphics.Blit(this.mediumRezWorkTexture, this.lowRezWorkTexture);//, dofMaterial, 10);
+                Graphics.Blit(mediumRezWorkTexture, lowRezWorkTexture);//, dofMaterial, 10);
                 // big BLUR		
-                this.BlurFg(this.lowRezWorkTexture, this.lowRezWorkTexture, this.bluriness, 1, this.maxBlurSpread * bokehBlurAmplifier);
+                BlurFg(lowRezWorkTexture, lowRezWorkTexture, bluriness, 1, maxBlurSpread * bokehBlurAmplifier);
             }
             else
             {
                 // big BLUR		
-                this.BlurFg(this.mediumRezWorkTexture, this.lowRezWorkTexture, this.bluriness, 1, this.maxBlurSpread);
+                BlurFg(mediumRezWorkTexture, lowRezWorkTexture, bluriness, 1, maxBlurSpread);
             }
             // simple upsample once						
-            Graphics.Blit(this.lowRezWorkTexture, this.finalDefocus);
-            this.dofMaterial.SetTexture("_TapLowForeground", this.finalDefocus);
-            Graphics.Blit(source, destination, this.dofMaterial, this.visualize ? 1 : 4);
-            if (this.bokeh && ((this.bokehDestination & BokehDestination.Foreground) != (BokehDestination)0))
+            Graphics.Blit(lowRezWorkTexture, finalDefocus);
+            dofMaterial.SetTexture("_TapLowForeground", finalDefocus);
+            Graphics.Blit(source, destination, dofMaterial, visualize ? 1 : 4);
+            if (bokeh && ((bokehDestination & BokehDestination.Foreground) != (BokehDestination)0))
             {
-                this.AddBokeh(this.bokehSource2, this.bokehSource, destination);
+                AddBokeh(bokehSource2, bokehSource, destination);
             }
         }
-        this.ReleaseTextures();
+        ReleaseTextures();
     }
 
     public virtual void Blur(RenderTexture from, RenderTexture to, DofBlurriness iterations, int blurPass, float spread)
@@ -280,21 +280,21 @@ public partial class DepthOfField34 : PostEffectsBase
         RenderTexture tmp = RenderTexture.GetTemporary(to.width, to.height);
         if (iterations > (DofBlurriness)1)
         {
-            this.BlurHex(from, to, blurPass, spread, tmp);
+            BlurHex(from, to, blurPass, spread, tmp);
             if (iterations > (DofBlurriness)2)
             {
-                this.dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * this.oneOverBaseSize, 0f, 0f));
-                Graphics.Blit(to, tmp, this.dofBlurMaterial, blurPass);
-                this.dofBlurMaterial.SetVector("offsets", new Vector4((spread / this.widthOverHeight) * this.oneOverBaseSize, 0f, 0f, 0f));
-                Graphics.Blit(tmp, to, this.dofBlurMaterial, blurPass);
+                dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * oneOverBaseSize, 0f, 0f));
+                Graphics.Blit(to, tmp, dofBlurMaterial, blurPass);
+                dofBlurMaterial.SetVector("offsets", new Vector4((spread / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                Graphics.Blit(tmp, to, dofBlurMaterial, blurPass);
             }
         }
         else
         {
-            this.dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * this.oneOverBaseSize, 0f, 0f));
-            Graphics.Blit(from, tmp, this.dofBlurMaterial, blurPass);
-            this.dofBlurMaterial.SetVector("offsets", new Vector4((spread / this.widthOverHeight) * this.oneOverBaseSize, 0f, 0f, 0f));
-            Graphics.Blit(tmp, to, this.dofBlurMaterial, blurPass);
+            dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * oneOverBaseSize, 0f, 0f));
+            Graphics.Blit(from, tmp, dofBlurMaterial, blurPass);
+            dofBlurMaterial.SetVector("offsets", new Vector4((spread / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+            Graphics.Blit(tmp, to, dofBlurMaterial, blurPass);
         }
         RenderTexture.ReleaseTemporary(tmp);
     }
@@ -302,50 +302,50 @@ public partial class DepthOfField34 : PostEffectsBase
     public virtual void BlurFg(RenderTexture from, RenderTexture to, DofBlurriness iterations, int blurPass, float spread)
     {
         // we want a nice, big coc, hence we need to tap once from this (higher resolution) texture
-        this.dofBlurMaterial.SetTexture("_TapHigh", from);
+        dofBlurMaterial.SetTexture("_TapHigh", from);
         RenderTexture tmp = RenderTexture.GetTemporary(to.width, to.height);
         if (iterations > (DofBlurriness)1)
         {
-            this.BlurHex(from, to, blurPass, spread, tmp);
+            BlurHex(from, to, blurPass, spread, tmp);
             if (iterations > (DofBlurriness)2)
             {
-                this.dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * this.oneOverBaseSize, 0f, 0f));
-                Graphics.Blit(to, tmp, this.dofBlurMaterial, blurPass);
-                this.dofBlurMaterial.SetVector("offsets", new Vector4((spread / this.widthOverHeight) * this.oneOverBaseSize, 0f, 0f, 0f));
-                Graphics.Blit(tmp, to, this.dofBlurMaterial, blurPass);
+                dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * oneOverBaseSize, 0f, 0f));
+                Graphics.Blit(to, tmp, dofBlurMaterial, blurPass);
+                dofBlurMaterial.SetVector("offsets", new Vector4((spread / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                Graphics.Blit(tmp, to, dofBlurMaterial, blurPass);
             }
         }
         else
         {
-            this.dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * this.oneOverBaseSize, 0f, 0f));
-            Graphics.Blit(from, tmp, this.dofBlurMaterial, blurPass);
-            this.dofBlurMaterial.SetVector("offsets", new Vector4((spread / this.widthOverHeight) * this.oneOverBaseSize, 0f, 0f, 0f));
-            Graphics.Blit(tmp, to, this.dofBlurMaterial, blurPass);
+            dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * oneOverBaseSize, 0f, 0f));
+            Graphics.Blit(from, tmp, dofBlurMaterial, blurPass);
+            dofBlurMaterial.SetVector("offsets", new Vector4((spread / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+            Graphics.Blit(tmp, to, dofBlurMaterial, blurPass);
         }
         RenderTexture.ReleaseTemporary(tmp);
     }
 
     public virtual void BlurHex(RenderTexture from, RenderTexture to, int blurPass, float spread, RenderTexture tmp)
     {
-        this.dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * this.oneOverBaseSize, 0f, 0f));
-        Graphics.Blit(from, tmp, this.dofBlurMaterial, blurPass);
-        this.dofBlurMaterial.SetVector("offsets", new Vector4((spread / this.widthOverHeight) * this.oneOverBaseSize, 0f, 0f, 0f));
-        Graphics.Blit(tmp, to, this.dofBlurMaterial, blurPass);
-        this.dofBlurMaterial.SetVector("offsets", new Vector4((spread / this.widthOverHeight) * this.oneOverBaseSize, spread * this.oneOverBaseSize, 0f, 0f));
-        Graphics.Blit(to, tmp, this.dofBlurMaterial, blurPass);
-        this.dofBlurMaterial.SetVector("offsets", new Vector4((spread / this.widthOverHeight) * this.oneOverBaseSize, -spread * this.oneOverBaseSize, 0f, 0f));
-        Graphics.Blit(tmp, to, this.dofBlurMaterial, blurPass);
+        dofBlurMaterial.SetVector("offsets", new Vector4(0f, spread * oneOverBaseSize, 0f, 0f));
+        Graphics.Blit(from, tmp, dofBlurMaterial, blurPass);
+        dofBlurMaterial.SetVector("offsets", new Vector4((spread / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+        Graphics.Blit(tmp, to, dofBlurMaterial, blurPass);
+        dofBlurMaterial.SetVector("offsets", new Vector4((spread / widthOverHeight) * oneOverBaseSize, spread * oneOverBaseSize, 0f, 0f));
+        Graphics.Blit(to, tmp, dofBlurMaterial, blurPass);
+        dofBlurMaterial.SetVector("offsets", new Vector4((spread / widthOverHeight) * oneOverBaseSize, -spread * oneOverBaseSize, 0f, 0f));
+        Graphics.Blit(tmp, to, dofBlurMaterial, blurPass);
     }
 
     public virtual void Downsample(RenderTexture from, RenderTexture to)
     {
-        this.dofMaterial.SetVector("_InvRenderTargetSize", new Vector4(1f / (1f * to.width), 1f / (1f * to.height), 0f, 0f));
-        Graphics.Blit(from, to, this.dofMaterial, DepthOfField34.SMOOTH_DOWNSAMPLE_PASS);
+        dofMaterial.SetVector("_InvRenderTargetSize", new Vector4(1f / (1f * to.width), 1f / (1f * to.height), 0f, 0f));
+        Graphics.Blit(from, to, dofMaterial, DepthOfField34.SMOOTH_DOWNSAMPLE_PASS);
     }
 
     public virtual void AddBokeh(RenderTexture bokehInfo, RenderTexture tempTex, RenderTexture finalTarget)
     {
-        if (this.bokehMaterial)
+        if (bokehMaterial)
         {
             Mesh[] meshes = Quads.GetMeshes(tempTex.width, tempTex.height); // quads: exchanging more triangles with less overdraw			
             RenderTexture.active = tempTex;
@@ -356,12 +356,12 @@ public partial class DepthOfField34 : PostEffectsBase
             bokehInfo.filterMode = FilterMode.Point;
             float arW = (bokehInfo.width * 1f) / (bokehInfo.height * 1f);
             float sc = 2f / (1f * bokehInfo.width);
-            sc = sc + (((this.bokehScale * this.maxBlurSpread) * DepthOfField34.BOKEH_EXTRA_BLUR) * this.oneOverBaseSize);
-            this.bokehMaterial.SetTexture("_Source", bokehInfo);
-            this.bokehMaterial.SetTexture("_MainTex", this.bokehTexture);
-            this.bokehMaterial.SetVector("_ArScale", new Vector4(sc, sc * arW, 0.5f, 0.5f * arW));
-            this.bokehMaterial.SetFloat("_Intensity", this.bokehIntensity);
-            this.bokehMaterial.SetPass(0);
+            sc = sc + (((bokehScale * maxBlurSpread) * DepthOfField34.BOKEH_EXTRA_BLUR) * oneOverBaseSize);
+            bokehMaterial.SetTexture("_Source", bokehInfo);
+            bokehMaterial.SetTexture("_MainTex", bokehTexture);
+            bokehMaterial.SetVector("_ArScale", new Vector4(sc, sc * arW, 0.5f, 0.5f * arW));
+            bokehMaterial.SetFloat("_Intensity", bokehIntensity);
+            bokehMaterial.SetPass(0);
             foreach (Mesh m in meshes)
             {
                 if (m)
@@ -370,7 +370,7 @@ public partial class DepthOfField34 : PostEffectsBase
                 }
             }
             GL.PopMatrix();
-            Graphics.Blit(tempTex, finalTarget, this.dofMaterial, 8);
+            Graphics.Blit(tempTex, finalTarget, dofMaterial, 8);
             // important to set back as we sample from this later on
             bokehInfo.filterMode = FilterMode.Bilinear;
         }
@@ -378,88 +378,88 @@ public partial class DepthOfField34 : PostEffectsBase
 
     public virtual void ReleaseTextures()
     {
-        if (this.foregroundTexture)
+        if (foregroundTexture)
         {
-            RenderTexture.ReleaseTemporary(this.foregroundTexture);
+            RenderTexture.ReleaseTemporary(foregroundTexture);
         }
-        if (this.finalDefocus)
+        if (finalDefocus)
         {
-            RenderTexture.ReleaseTemporary(this.finalDefocus);
+            RenderTexture.ReleaseTemporary(finalDefocus);
         }
-        if (this.mediumRezWorkTexture)
+        if (mediumRezWorkTexture)
         {
-            RenderTexture.ReleaseTemporary(this.mediumRezWorkTexture);
+            RenderTexture.ReleaseTemporary(mediumRezWorkTexture);
         }
-        if (this.lowRezWorkTexture)
+        if (lowRezWorkTexture)
         {
-            RenderTexture.ReleaseTemporary(this.lowRezWorkTexture);
+            RenderTexture.ReleaseTemporary(lowRezWorkTexture);
         }
-        if (this.bokehSource)
+        if (bokehSource)
         {
-            RenderTexture.ReleaseTemporary(this.bokehSource);
+            RenderTexture.ReleaseTemporary(bokehSource);
         }
-        if (this.bokehSource2)
+        if (bokehSource2)
         {
-            RenderTexture.ReleaseTemporary(this.bokehSource2);
+            RenderTexture.ReleaseTemporary(bokehSource2);
         }
     }
 
     public virtual void AllocateTextures(bool blurForeground, RenderTexture source, int divider, int lowTexDivider)
     {
-        this.foregroundTexture = null;
+        foregroundTexture = null;
         if (blurForeground)
         {
-            this.foregroundTexture = RenderTexture.GetTemporary(source.width, source.height, 0);
+            foregroundTexture = RenderTexture.GetTemporary(source.width, source.height, 0);
         }
-        this.mediumRezWorkTexture = RenderTexture.GetTemporary(source.width / divider, source.height / divider, 0);
-        this.finalDefocus = RenderTexture.GetTemporary(source.width / divider, source.height / divider, 0);
-        this.lowRezWorkTexture = RenderTexture.GetTemporary(source.width / lowTexDivider, source.height / lowTexDivider, 0);
-        this.bokehSource = null;
-        this.bokehSource2 = null;
-        if (this.bokeh)
+        mediumRezWorkTexture = RenderTexture.GetTemporary(source.width / divider, source.height / divider, 0);
+        finalDefocus = RenderTexture.GetTemporary(source.width / divider, source.height / divider, 0);
+        lowRezWorkTexture = RenderTexture.GetTemporary(source.width / lowTexDivider, source.height / lowTexDivider, 0);
+        bokehSource = null;
+        bokehSource2 = null;
+        if (bokeh)
         {
-            this.bokehSource = RenderTexture.GetTemporary(source.width / (lowTexDivider * this.bokehDownsample), source.height / (lowTexDivider * this.bokehDownsample), 0, RenderTextureFormat.ARGBHalf);
-            this.bokehSource2 = RenderTexture.GetTemporary(source.width / (lowTexDivider * this.bokehDownsample), source.height / (lowTexDivider * this.bokehDownsample), 0, RenderTextureFormat.ARGBHalf);
-            this.bokehSource.filterMode = FilterMode.Bilinear;
-            this.bokehSource2.filterMode = FilterMode.Bilinear;
-            RenderTexture.active = this.bokehSource2;
+            bokehSource = RenderTexture.GetTemporary(source.width / (lowTexDivider * bokehDownsample), source.height / (lowTexDivider * bokehDownsample), 0, RenderTextureFormat.ARGBHalf);
+            bokehSource2 = RenderTexture.GetTemporary(source.width / (lowTexDivider * bokehDownsample), source.height / (lowTexDivider * bokehDownsample), 0, RenderTextureFormat.ARGBHalf);
+            bokehSource.filterMode = FilterMode.Bilinear;
+            bokehSource2.filterMode = FilterMode.Bilinear;
+            RenderTexture.active = bokehSource2;
             GL.Clear(false, true, new Color(0f, 0f, 0f, 0f));
         }
         // to make sure: always use bilinear filter setting
         source.filterMode = FilterMode.Bilinear;
-        this.finalDefocus.filterMode = FilterMode.Bilinear;
-        this.mediumRezWorkTexture.filterMode = FilterMode.Bilinear;
-        this.lowRezWorkTexture.filterMode = FilterMode.Bilinear;
-        if (this.foregroundTexture)
+        finalDefocus.filterMode = FilterMode.Bilinear;
+        mediumRezWorkTexture.filterMode = FilterMode.Bilinear;
+        lowRezWorkTexture.filterMode = FilterMode.Bilinear;
+        if (foregroundTexture)
         {
-            this.foregroundTexture.filterMode = FilterMode.Bilinear;
+            foregroundTexture.filterMode = FilterMode.Bilinear;
         }
     }
 
     public DepthOfField34()
     {
-        this.quality = Dof34QualitySetting.OnlyBackground;
-        this.resolution = DofResolution.Low;
-        this.simpleTweakMode = true;
-        this.focalPoint = 1f;
-        this.smoothness = 0.5f;
-        this.focalZStartCurve = 1f;
-        this.focalZEndCurve = 1f;
-        this.focalStartCurve = 2f;
-        this.focalEndCurve = 2f;
-        this.focalDistance01 = 0.1f;
-        this.bluriness = DofBlurriness.High;
-        this.maxBlurSpread = 1.75f;
-        this.foregroundBlurExtrude = 1.15f;
-        this.bokehDestination = BokehDestination.Background;
-        this.widthOverHeight = 1.25f;
-        this.oneOverBaseSize = 1f / 512f;
-        this.bokehSupport = true;
-        this.bokehScale = 2.4f;
-        this.bokehIntensity = 0.15f;
-        this.bokehThreshholdContrast = 0.1f;
-        this.bokehThreshholdLuminance = 0.55f;
-        this.bokehDownsample = 1;
+        quality = Dof34QualitySetting.OnlyBackground;
+        resolution = DofResolution.Low;
+        simpleTweakMode = true;
+        focalPoint = 1f;
+        smoothness = 0.5f;
+        focalZStartCurve = 1f;
+        focalZEndCurve = 1f;
+        focalStartCurve = 2f;
+        focalEndCurve = 2f;
+        focalDistance01 = 0.1f;
+        bluriness = DofBlurriness.High;
+        maxBlurSpread = 1.75f;
+        foregroundBlurExtrude = 1.15f;
+        bokehDestination = BokehDestination.Background;
+        widthOverHeight = 1.25f;
+        oneOverBaseSize = 1f / 512f;
+        bokehSupport = true;
+        bokehScale = 2.4f;
+        bokehIntensity = 0.15f;
+        bokehThreshholdContrast = 0.1f;
+        bokehThreshholdLuminance = 0.55f;
+        bokehDownsample = 1;
     }
 
     static DepthOfField34()

@@ -9,8 +9,8 @@ namespace UnityEditor.PostProcessing
 
         public PostProcessingModelEditorAttribute(Type type, bool alwaysEnabled = false)
         {
-            this.type = type;
-            this.alwaysEnabled = alwaysEnabled;
+            type = type;
+            alwaysEnabled = alwaysEnabled;
         }
     }
 }

@@ -36,42 +36,42 @@ public partial class DepthOfFieldScatter : PostEffectsBase
     private Material dofHdrMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(true);
-        this.dofHdrMaterial = this.CheckShaderAndCreateMaterial(this.dofHdrShader, this.dofHdrMaterial);
-        if (!this.isSupported)
+        CheckSupport(true);
+        dofHdrMaterial = CheckShaderAndCreateMaterial(dofHdrShader, dofHdrMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual float FocalDistance01(float worldDist)
     {
-        return this.GetComponent<Camera>().WorldToViewportPoint(((worldDist - this.GetComponent<Camera>().nearClipPlane) * this.GetComponent<Camera>().transform.forward) + this.GetComponent<Camera>().transform.position).z / (this.GetComponent<Camera>().farClipPlane - this.GetComponent<Camera>().nearClipPlane);
+        return GetComponent<Camera>().WorldToViewportPoint(((worldDist - GetComponent<Camera>().nearClipPlane) * GetComponent<Camera>().transform.forward) + GetComponent<Camera>().transform.position).z / (GetComponent<Camera>().farClipPlane - GetComponent<Camera>().nearClipPlane);
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
         int i = 0;
-        float internalBlurWidth = this.maxBlurSize;
-        int blurRtDivider = this.blurResolution == BlurResolution.High ? 1 : 2;
+        float internalBlurWidth = maxBlurSize;
+        int blurRtDivider = blurResolution == BlurResolution.High ? 1 : 2;
         // clamp values so they make sense
-        if (this.aperture < 0f)
+        if (aperture < 0f)
         {
-            this.aperture = 0f;
+            aperture = 0f;
         }
-        if (this.maxBlurSize < 0f)
+        if (maxBlurSize < 0f)
         {
-            this.maxBlurSize = 0f;
+            maxBlurSize = 0f;
         }
-        this.focalSize = Mathf.Clamp(this.focalSize, 0f, 0.3f);
+        focalSize = Mathf.Clamp(focalSize, 0f, 0.3f);
         // focal & coc calculations
-        this.focalDistance01 = this.focalTransform ? this.GetComponent<Camera>().WorldToViewportPoint(this.focalTransform.position).z / this.GetComponent<Camera>().farClipPlane : this.FocalDistance01(this.focalLength);
+        focalDistance01 = focalTransform ? GetComponent<Camera>().WorldToViewportPoint(focalTransform.position).z / GetComponent<Camera>().farClipPlane : FocalDistance01(focalLength);
         bool isInHdr = source.format == RenderTextureFormat.ARGBHalf;
         RenderTexture scene = blurRtDivider > 1 ? RenderTexture.GetTemporary(source.width / blurRtDivider, source.height / blurRtDivider, 0, source.format) : null;
         if (scene)
@@ -88,43 +88,43 @@ public partial class DepthOfFieldScatter : PostEffectsBase
         {
             rtLow2.filterMode = FilterMode.Bilinear;
         }
-        this.dofHdrMaterial.SetVector("_CurveParams", new Vector4(0f, this.focalSize, this.aperture / 10f, this.focalDistance01));
+        dofHdrMaterial.SetVector("_CurveParams", new Vector4(0f, focalSize, aperture / 10f, focalDistance01));
         // foreground blur
-        if (this.foregroundBlur)
+        if (foregroundBlur)
         {
             RenderTexture rtLowTmp = RenderTexture.GetTemporary(source.width / (2 * blurRtDivider), source.height / (2 * blurRtDivider), 0, source.format);
             // Capture foreground CoC only in alpha channel and increase CoC radius
-            Graphics.Blit(source, rtLow2, this.dofHdrMaterial, 4);
-            this.dofHdrMaterial.SetTexture("_FgOverlap", rtLow2);
-            float fgAdjustment = (internalBlurWidth * this.foregroundOverlap) * 0.225f;
-            this.dofHdrMaterial.SetVector("_Offsets", new Vector4(0f, fgAdjustment, 0f, fgAdjustment));
-            Graphics.Blit(rtLow2, rtLowTmp, this.dofHdrMaterial, 2);
-            this.dofHdrMaterial.SetVector("_Offsets", new Vector4(fgAdjustment, 0f, 0f, fgAdjustment));
-            Graphics.Blit(rtLowTmp, rtLow, this.dofHdrMaterial, 2);
-            this.dofHdrMaterial.SetTexture("_FgOverlap", null); // NEW: not needed anymore
+            Graphics.Blit(source, rtLow2, dofHdrMaterial, 4);
+            dofHdrMaterial.SetTexture("_FgOverlap", rtLow2);
+            float fgAdjustment = (internalBlurWidth * foregroundOverlap) * 0.225f;
+            dofHdrMaterial.SetVector("_Offsets", new Vector4(0f, fgAdjustment, 0f, fgAdjustment));
+            Graphics.Blit(rtLow2, rtLowTmp, dofHdrMaterial, 2);
+            dofHdrMaterial.SetVector("_Offsets", new Vector4(fgAdjustment, 0f, 0f, fgAdjustment));
+            Graphics.Blit(rtLowTmp, rtLow, dofHdrMaterial, 2);
+            dofHdrMaterial.SetTexture("_FgOverlap", null); // NEW: not needed anymore
             // apply adjust FG coc back to high rez coc texture
-            Graphics.Blit(rtLow, source, this.dofHdrMaterial, 7);
+            Graphics.Blit(rtLow, source, dofHdrMaterial, 7);
             RenderTexture.ReleaseTemporary(rtLowTmp);
         }
         else
         {
-            this.dofHdrMaterial.SetTexture("_FgOverlap", null); // ugly FG overlaps as a result
+            dofHdrMaterial.SetTexture("_FgOverlap", null); // ugly FG overlaps as a result
         }
         // capture remaing CoC (fore & *background*)
-        Graphics.Blit(source, source, this.dofHdrMaterial, this.foregroundBlur ? 3 : 0);
+        Graphics.Blit(source, source, dofHdrMaterial, foregroundBlur ? 3 : 0);
         RenderTexture cocRt = source;
         if (blurRtDivider > 1)
         {
-            Graphics.Blit(source, scene, this.dofHdrMaterial, 6);
+            Graphics.Blit(source, scene, dofHdrMaterial, 6);
             cocRt = scene;
         }
         // spawn a few low rez parts in high rez image to get a bigger blur
         // resulting quality is higher than directly blending preblurred buffers
-        Graphics.Blit(cocRt, rtLow2, this.dofHdrMaterial, 6);
-        Graphics.Blit(rtLow2, cocRt, this.dofHdrMaterial, 8);
+        Graphics.Blit(cocRt, rtLow2, dofHdrMaterial, 6);
+        Graphics.Blit(rtLow2, cocRt, dofHdrMaterial, 8);
         //  blur and apply to color buffer 
         int blurPassNumber = 10;
-        switch (this.blurQuality)
+        switch (blurQuality)
         {
             case BlurQuality.Low:
                 blurPassNumber = blurRtDivider > 1 ? 13 : 10;
@@ -136,18 +136,18 @@ public partial class DepthOfFieldScatter : PostEffectsBase
                 blurPassNumber = blurRtDivider > 1 ? 15 : 14;
                 break;
             default:
-                Debug.Log("DOF couldn't find valid blur quality setting", this.transform);
+                Debug.Log("DOF couldn't find valid blur quality setting", transform);
                 break;
         }
-        if (this.visualizeFocus)
+        if (visualizeFocus)
         {
-            Graphics.Blit(source, destination, this.dofHdrMaterial, 1);
+            Graphics.Blit(source, destination, dofHdrMaterial, 1);
         }
         else
         {
-            this.dofHdrMaterial.SetVector("_Offsets", new Vector4(0f, 0f, 0f, internalBlurWidth));
-            this.dofHdrMaterial.SetTexture("_LowRez", cocRt); // only needed in low resolution profile. and then, ugh, we get an ugly transition from nonblur -> blur areas
-            Graphics.Blit(source, destination, this.dofHdrMaterial, blurPassNumber);
+            dofHdrMaterial.SetVector("_Offsets", new Vector4(0f, 0f, 0f, internalBlurWidth));
+            dofHdrMaterial.SetTexture("_LowRez", cocRt); // only needed in low resolution profile. and then, ugh, we get an ugly transition from nonblur -> blur areas
+            Graphics.Blit(source, destination, dofHdrMaterial, blurPassNumber);
         }
         if (rtLow)
         {
@@ -165,14 +165,14 @@ public partial class DepthOfFieldScatter : PostEffectsBase
 
     public DepthOfFieldScatter()
     {
-        this.focalLength = 10f;
-        this.focalSize = 0.05f;
-        this.aperture = 10f;
-        this.maxBlurSize = 2f;
-        this.blurQuality = BlurQuality.Medium;
-        this.blurResolution = BlurResolution.Low;
-        this.foregroundOverlap = 0.55f;
-        this.focalDistance01 = 10f;
+        focalLength = 10f;
+        focalSize = 0.05f;
+        aperture = 10f;
+        maxBlurSize = 2f;
+        blurQuality = BlurQuality.Medium;
+        blurResolution = BlurResolution.Low;
+        foregroundOverlap = 0.55f;
+        focalDistance01 = 10f;
     }
 
 }

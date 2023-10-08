@@ -20,7 +20,7 @@ public partial class LeggedEnemyScript : MonoBehaviour
         //	Debug.Log("FDFDSFDSFSDFDSFSDFDSGDSGSDGDSGDSGDSGDSGDSGDGDSGSGDSGSDGG");
         if (c.gameObject.tag == "Player")
         {
-            this.KillPlayer(c.gameObject);
+            KillPlayer(c.gameObject);
             //fadeOut();	
             Time.timeScale = 0;
             c.transform.position = GameObject.Find("PlayerStartPoint").transform.position;
@@ -40,13 +40,13 @@ public partial class LeggedEnemyScript : MonoBehaviour
 	dist=right-left;/*/
     public virtual void Start()
     {
-        if (this.Stationary)
+        if (Stationary)
         {
-            this.pauseMotion = true;
+            pauseMotion = true;
         }
-        if (this.Erratic)
+        if (Erratic)
         {
-            this.Invoke("ErraticPause", Random.Range(0.5f, 4));
+            Invoke("ErraticPause", Random.Range(0.5f, 4));
         }
     }
 
@@ -54,50 +54,50 @@ public partial class LeggedEnemyScript : MonoBehaviour
     private bool pauseMotion;
     public virtual void Update()
     {
-        if (this.pauseMotion)
+        if (pauseMotion)
         {
             return;
         }
-        if (this.movingLeft && (this.transform.position.x < this.LeftBoundary.transform.position.x))
+        if (movingLeft && (transform.position.x < LeftBoundary.transform.position.x))
         {
-            this.movingLeft = false;
-            if (this.walkAndPause)
+            movingLeft = false;
+            if (walkAndPause)
             {
-                this.pauseMotion = true;
-                this.Invoke("TogglePauseMotion", 1);
+                pauseMotion = true;
+                Invoke("TogglePauseMotion", 1);
             }
         }
         else
         {
-            if (!this.movingLeft && (this.transform.position.x > this.RightBoundary.transform.position.x))
+            if (!movingLeft && (transform.position.x > RightBoundary.transform.position.x))
             {
-                this.movingLeft = true;
-                if (this.walkAndPause)
+                movingLeft = true;
+                if (walkAndPause)
                 {
-                    this.pauseMotion = true;
-                    this.Invoke("TogglePauseMotion", 1);
+                    pauseMotion = true;
+                    Invoke("TogglePauseMotion", 1);
                 }
             }
             else
             {
-                if (this.movingLeft)
+                if (movingLeft)
                 {
 
                     {
-                        float _160 = this.transform.position.x - (1.5f * Time.deltaTime);
-                        Vector3 _161 = this.transform.position;
+                        float _160 = transform.position.x - (1.5f * Time.deltaTime);
+                        Vector3 _161 = transform.position;
                         _161.x = _160;
-                        this.transform.position = _161;
+                        transform.position = _161;
                     }
                 }
                 else
                 {
 
                     {
-                        float _162 = this.transform.position.x + (1.5f * Time.deltaTime);
-                        Vector3 _163 = this.transform.position;
+                        float _162 = transform.position.x + (1.5f * Time.deltaTime);
+                        Vector3 _163 = transform.position;
                         _163.x = _162;
-                        this.transform.position = _163;
+                        transform.position = _163;
                     }
                 }
             }
@@ -106,13 +106,13 @@ public partial class LeggedEnemyScript : MonoBehaviour
 
     public virtual void TogglePauseMotion()
     {
-        this.pauseMotion = !this.pauseMotion;
+        pauseMotion = !pauseMotion;
     }
 
     public virtual void ErraticPause()
     {
-        this.TogglePauseMotion();
-        this.Invoke("ErraticPause", Random.Range(0.5f, 4));
+        TogglePauseMotion();
+        Invoke("ErraticPause", Random.Range(0.5f, 4));
     }
 
 }

@@ -10,52 +10,52 @@ public partial class ThwompBiteScript : MonoBehaviour
     public GameObject Bot;
     public virtual void Start()
     {
-        this.BotClosedY = this.Bot.transform.position.y;
-        this.TopClosedY = this.Top.transform.position.y;
+        BotClosedY = Bot.transform.position.y;
+        TopClosedY = Top.transform.position.y;
     }
 
     public virtual void Update()
     {
-        if (this.closing)
+        if (closing)
         {
 
             {
-                float _184 = this.Bot.transform.position.y + (Time.deltaTime * 6);
-                Vector3 _185 = this.Bot.transform.position;
+                float _184 = Bot.transform.position.y + (Time.deltaTime * 6);
+                Vector3 _185 = Bot.transform.position;
                 _185.y = _184;
-                this.Bot.transform.position = _185;
+                Bot.transform.position = _185;
             }
 
             {
-                float _186 = this.Top.transform.position.y - (Time.deltaTime * 6);
-                Vector3 _187 = this.Top.transform.position;
+                float _186 = Top.transform.position.y - (Time.deltaTime * 6);
+                Vector3 _187 = Top.transform.position;
                 _187.y = _186;
-                this.Top.transform.position = _187;
+                Top.transform.position = _187;
             }
-            if (this.Top.transform.position.y < this.TopClosedY)
+            if (Top.transform.position.y < TopClosedY)
             {
-                this.closing = false;
+                closing = false;
             }
         }
         else
         {
 
             {
-                float _188 = this.Bot.transform.position.y - (Time.deltaTime * 3);
-                Vector3 _189 = this.Bot.transform.position;
+                float _188 = Bot.transform.position.y - (Time.deltaTime * 3);
+                Vector3 _189 = Bot.transform.position;
                 _189.y = _188;
-                this.Bot.transform.position = _189;
+                Bot.transform.position = _189;
             }
 
             {
-                float _190 = this.Top.transform.position.y + (Time.deltaTime * 3);
-                Vector3 _191 = this.Top.transform.position;
+                float _190 = Top.transform.position.y + (Time.deltaTime * 3);
+                Vector3 _191 = Top.transform.position;
                 _191.y = _190;
-                this.Top.transform.position = _191;
+                Top.transform.position = _191;
             }
-            if (this.Top.transform.position.y > 10)
+            if (Top.transform.position.y > 10)
             {
-                this.closing = true;
+                closing = true;
             }
         }
     }

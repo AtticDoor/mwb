@@ -7,7 +7,7 @@ public partial class MovingPlatformParentPlayer : MonoBehaviour
     {
         if (other.transform.name == "Player")
         {
-            other.transform.parent = this.gameObject.transform;
+            other.transform.parent = gameObject.transform;
         }
     }
 
