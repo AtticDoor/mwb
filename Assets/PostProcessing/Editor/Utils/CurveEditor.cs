@@ -89,9 +89,9 @@ namespace UnityEditor.PostProcessing
 
             public Selection(SerializedProperty curve, int keyframeIndex, Keyframe? keyframe)
             {
-                curve = curve;
-                keyframeIndex = keyframeIndex;
-                keyframe = keyframe;
+                this.curve = curve;
+                this.keyframeIndex = keyframeIndex;
+                this.keyframe = keyframe;
             }
         }
 
@@ -103,23 +103,23 @@ namespace UnityEditor.PostProcessing
 
             internal MenuAction(SerializedProperty curve)
             {
-                curve = curve;
+                this.curve = curve;
                 index = -1;
                 position = Vector3.zero;
             }
 
             internal MenuAction(SerializedProperty curve, int index)
             {
-                curve = curve;
-                index = index;
+                this.curve = curve;
+                this.index = index;
                 position = Vector3.zero;
             }
 
             internal MenuAction(SerializedProperty curve, Vector3 position)
             {
-                curve = curve;
+                this.curve = curve;
                 index = -1;
-                position = position;
+                this.position = position;
             }
         }
         #endregion
@@ -146,7 +146,7 @@ namespace UnityEditor.PostProcessing
 
         public CurveEditor(Settings settings)
         {
-            settings = settings;
+            this.settings = settings;
             m_Curves = new Dictionary<SerializedProperty, CurveState>();
         }
 
