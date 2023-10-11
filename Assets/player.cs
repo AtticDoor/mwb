@@ -34,7 +34,7 @@ public partial class player : MonoBehaviour
             phys.velocity.y = 0; //Reset y velocity
             if (Input.GetKey(KeyCode.Space)) //If Space is pressed
             {
-                jumpCurAirTime = jumpMaxAirTime; //Start jump
+               // jumpCurAirTime = jumpMaxAirTime; //Start jump
             }
         }
         if (Input.GetKey(KeyCode.Space) && (jumpCurAirTime > 0)) //If jumping

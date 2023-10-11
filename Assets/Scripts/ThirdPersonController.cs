@@ -137,6 +137,14 @@ public var jumpPoseAnimation : AnimationClip;
         Vector3 right = new Vector3(forward.z, 0, -forward.x);
         int v = 0;//Input.GetAxisRaw("Vertical");
         float h = Input.GetAxisRaw("Horizontal");
+
+        if (h == 0)
+        {
+            if (InputMobile.MovingLeft)
+                h = -1;
+            if (InputMobile.MovingRight)
+                h = 1;
+        }
         // Are we moving backwards or looking backwards
         if (v < -0.2f)
         {
@@ -186,7 +194,8 @@ public var jumpPoseAnimation : AnimationClip;
                 _characterState = CharacterState.Idle;
             }
             // Pick speed modifier
-            if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) || Input.GetButton("Run"))
+            if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) 
+                || Input.GetButton("Run") || InputMobile.Running)
             {
                 targetSpeed = targetSpeed * runSpeed;
                 if (grounded)
@@ -319,7 +328,7 @@ public var jumpPoseAnimation : AnimationClip;
             // kill all inputs if not controllable.
             Input.ResetInputAxes();
         }
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump")||InputMobile.Jumping)
         {
             Debug.Log(Time.time - lastJumpTime);
             if (JumpCount < 2)
@@ -337,9 +346,9 @@ public var jumpPoseAnimation : AnimationClip;
         ApplyJumping();
         // Calculate actual motion
         Vector3 movement = ((moveDirection * moveSpeed) + new Vector3(0, verticalSpeed, 0)) + inAirVelocity;
-        movement = movement * Time.deltaTime;
+        movement *= Time.deltaTime;
         // Move the controller
-        CharacterController controller = (CharacterController)GetComponent(typeof(CharacterController));
+        CharacterController controller = GetComponent<CharacterController>();
         collisionFlags = controller.Move(movement);
         // ANIMATION sector
         if (_animation)

@@ -9,7 +9,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
     {
         if (PlayerWithin)
         {
-            if (Input.GetKey("up") || Input.GetKey("w"))
+            if (Input.GetKey("up") || Input.GetKey("w") ||InputMobile.MovingUp)
             {
                 ElevatorScript es = (ElevatorScript)transform.parent.GetComponent("ElevatorScript");
                 MainScript.lastLevel = MainScript.curLevel;

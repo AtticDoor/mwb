@@ -29,8 +29,11 @@ public partial class TVScript : MonoBehaviour
             else if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))
                 ToggleBrainWash(true);
 
+            if(InputMobile.MovingUp)
+                ToggleBrainWash(false);
+            else ToggleBrainWash(true);
 
-            if (Input.GetKey("up") || Input.GetKey("w"))
+            if (Input.GetKey("up") || Input.GetKey("w")||InputMobile.MovingUp)
             {
                 if (Meter.transform.localScale.x > 0)
                 {

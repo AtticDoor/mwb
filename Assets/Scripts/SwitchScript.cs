@@ -14,7 +14,7 @@ public class SwitchScript : EnemyScript
         if (c.transform.tag == "Player")
         {
             GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
-            On = !On;
+            this.On = !this.On;
             EnableColors(On);
         }
     }
@@ -29,5 +29,4 @@ public class SwitchScript : EnemyScript
             ((EnemyScript)o.GetComponent(typeof(EnemyScript))).On = t;
         }
     }
-
 }
