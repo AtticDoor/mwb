@@ -236,7 +236,7 @@ public partial class CharacterMotor : MonoBehaviour
     public CharacterMotorJumping jumping;
     public CharacterMotorMovingPlatform movingPlatform;
     public CharacterMotorSliding sliding;
-    [System.NonSerialized]
+    [SerializeField]
     public bool grounded;
     [System.NonSerialized]
     public Vector3 groundNormal;
