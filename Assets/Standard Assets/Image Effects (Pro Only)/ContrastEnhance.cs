@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -16,39 +15,39 @@ public partial class ContrastEnhance : PostEffectsBase
     public Shader contrastCompositeShader;
     public override bool CheckResources()
     {
-        this.CheckSupport(false);
-        this.contrastCompositeMaterial = this.CheckShaderAndCreateMaterial(this.contrastCompositeShader, this.contrastCompositeMaterial);
-        this.separableBlurMaterial = this.CheckShaderAndCreateMaterial(this.separableBlurShader, this.separableBlurMaterial);
-        if (!this.isSupported)
+        CheckSupport(false);
+        contrastCompositeMaterial = CheckShaderAndCreateMaterial(contrastCompositeShader, contrastCompositeMaterial);
+        separableBlurMaterial = CheckShaderAndCreateMaterial(separableBlurShader, separableBlurMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
-        RenderTexture halfRezColor = RenderTexture.GetTemporary((int) (source.width / 2f), (int) (source.height / 2f), 0);
-        RenderTexture quarterRezColor = RenderTexture.GetTemporary((int) (source.width / 4f), (int) (source.height / 4f), 0);
-        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int) (source.width / 4f), (int) (source.height / 4f), 0);
+        RenderTexture halfRezColor = RenderTexture.GetTemporary((int)(source.width / 2f), (int)(source.height / 2f), 0);
+        RenderTexture quarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
+        RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary((int)(source.width / 4f), (int)(source.height / 4f), 0);
         // ddownsample
         Graphics.Blit(source, halfRezColor);
         Graphics.Blit(halfRezColor, quarterRezColor);
         // blur
-        this.separableBlurMaterial.SetVector("offsets", new Vector4(0f, (this.blurSpread * 1f) / quarterRezColor.height, 0f, 0f));
-        Graphics.Blit(quarterRezColor, secondQuarterRezColor, this.separableBlurMaterial);
-        this.separableBlurMaterial.SetVector("offsets", new Vector4((this.blurSpread * 1f) / quarterRezColor.width, 0f, 0f, 0f));
-        Graphics.Blit(secondQuarterRezColor, quarterRezColor, this.separableBlurMaterial);
+        separableBlurMaterial.SetVector("offsets", new Vector4(0f, (blurSpread * 1f) / quarterRezColor.height, 0f, 0f));
+        Graphics.Blit(quarterRezColor, secondQuarterRezColor, separableBlurMaterial);
+        separableBlurMaterial.SetVector("offsets", new Vector4((blurSpread * 1f) / quarterRezColor.width, 0f, 0f, 0f));
+        Graphics.Blit(secondQuarterRezColor, quarterRezColor, separableBlurMaterial);
         // composite
-        this.contrastCompositeMaterial.SetTexture("_MainTexBlurred", quarterRezColor);
-        this.contrastCompositeMaterial.SetFloat("intensity", this.intensity);
-        this.contrastCompositeMaterial.SetFloat("threshhold", this.threshhold);
-        Graphics.Blit(source, destination, this.contrastCompositeMaterial);
+        contrastCompositeMaterial.SetTexture("_MainTexBlurred", quarterRezColor);
+        contrastCompositeMaterial.SetFloat("intensity", intensity);
+        contrastCompositeMaterial.SetFloat("threshhold", threshhold);
+        Graphics.Blit(source, destination, contrastCompositeMaterial);
         RenderTexture.ReleaseTemporary(halfRezColor);
         RenderTexture.ReleaseTemporary(quarterRezColor);
         RenderTexture.ReleaseTemporary(secondQuarterRezColor);
@@ -56,8 +55,8 @@ public partial class ContrastEnhance : PostEffectsBase
 
     public ContrastEnhance()
     {
-        this.intensity = 0.5f;
-        this.blurSpread = 1f;
+        intensity = 0.5f;
+        blurSpread = 1f;
     }
 
 }

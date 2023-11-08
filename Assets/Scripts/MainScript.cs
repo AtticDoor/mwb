@@ -1,9 +1,12 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class MainScript : MonoBehaviour
 {
+    public static string GameType; //hacked for Game B to play list of scenes
+    public static string[] SceneList; //hacked for Game B to play list of scenes
+    public static int SceneListNumber; //hacked for Game B to play list of scenes
+
     public static bool EditMode;
     public static GameObject Selected;
     public static Material yellow;
@@ -11,7 +14,7 @@ public partial class MainScript : MonoBehaviour
     public static Material blue;
     public static string curLevel;
     public string nonStaticCurLevel;
-    public static string lastLevel="Scene101";
+    public static string lastLevel = "Scene101";
     public static string lastExit;
 
     public static float timer = -100;
@@ -31,7 +34,7 @@ public partial class MainScript : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
         if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)))
         {
-            GameObject crate = UnityEngine.Object.Instantiate(this.Prefabs[MainScript.enemyIndex], ray.origin, Quaternion.identity);
+            GameObject crate = UnityEngine.Object.Instantiate(Prefabs[MainScript.enemyIndex], ray.origin, Quaternion.identity);
 
             {
                 int _164 = 0;
@@ -45,7 +48,7 @@ public partial class MainScript : MonoBehaviour
         {
             MainScript.enemyIndex++;
         }
-        if (MainScript.enemyIndex >= this.Prefabs.Length)
+        if (MainScript.enemyIndex >= Prefabs.Length)
         {
             MainScript.enemyIndex = 0;
         }
@@ -59,21 +62,12 @@ public partial class MainScript : MonoBehaviour
         int j = 0;
         GUI.depth = 0;
         GUI.Label(new Rect(0, 100, 100, 100), "Scene" + MainScript.curLevel);
-        //test door output	
-        if (false)
-        {
-            while (j < 70)
-            {
-                GUI.Label(new Rect(j * 50, 50, 100, 100), (j + "") + ElevatorCodes.TVCleared(j));
-                j++;
-            }
-        }
         GUI.Label(new Rect(0, 100, 100, 100), "Scene" + MainScript.curLevel);
         if (!MainScript.EditMode)
         {
             return;
         }
-        GUI.Label(new Rect(0, 0, 200, 100), "CREATE: " + this.Prefabs[MainScript.enemyIndex].transform.name);
+        GUI.Label(new Rect(0, 0, 200, 100), "CREATE: " + Prefabs[MainScript.enemyIndex].transform.name);
         string SelectedName = "";
         if (MainScript.Selected != null)
         {

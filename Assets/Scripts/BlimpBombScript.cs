@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class BlimpBombScript : MonoBehaviour
@@ -12,10 +11,10 @@ public partial class BlimpBombScript : MonoBehaviour
     {
 
         {
-            float _78 = this.transform.position.y - (Time.deltaTime * 2);
-            Vector3 _79 = this.transform.position;
+            float _78 = transform.position.y - (Time.deltaTime * 2);
+            Vector3 _79 = transform.position;
             _79.y = _78;
-            this.transform.position = _79;
+            transform.position = _79;
         }
     }
 

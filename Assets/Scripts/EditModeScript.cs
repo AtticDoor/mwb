@@ -1,7 +1,5 @@
-using System;
 using System.IO;
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class EditModeScript : MonoBehaviour
@@ -11,17 +9,17 @@ public partial class EditModeScript : MonoBehaviour
     {
         if (Input.GetKeyUp("1"))
         {
-            this.SaveX();
+            SaveX();
         }
         if (Input.GetKeyUp("2"))
         {
-            this.LoadGUI = true;
+            LoadGUI = true;
         }
     }
 
     public virtual void Start()
     {
-        this.fileName = "C:\\MWB\\MWB";
+        fileName = "C:\\MWB\\MWB";
     }
 
     public string fileName;
@@ -29,11 +27,11 @@ public partial class EditModeScript : MonoBehaviour
     {
         int i = 0;
         int num = 0;
-        string fileName2 = (this.fileName + num) + ".txt";
+        string fileName2 = (fileName + num) + ".txt";
         while (File.Exists(fileName2))
         {
             num++;
-            fileName2 = (this.fileName + num) + ".txt";
+            fileName2 = (fileName + num) + ".txt";
             Debug.Log(fileName2 + " already exists.");
         }
         //            return;
@@ -41,14 +39,14 @@ public partial class EditModeScript : MonoBehaviour
         //sr.WriteLine ("This is my file.");
         //sr.WriteLine ("I can write ints {0} or floats {1}, and so on.",
         //  gameObject.transform.position.x, 4.2999f);
-        GameObject[] gameObjs = ((GameObject[]) UnityEngine.Object.FindObjectsOfType(typeof(GameObject))) as GameObject[];
+        GameObject[] gameObjs = ((GameObject[])UnityEngine.Object.FindObjectsOfType(typeof(GameObject))) as GameObject[];
         //find all Walls            
         while (i < gameObjs.Length)
         {
             //if (gameObjs[i].name=="WALLS")
             if (gameObjs[i].transform.parent != null)//=="WALLS")
             {
-                sr.WriteLine("{0},{1},{2},{3}", new object[] {gameObjs[i].name, gameObjs[i].transform.position.x, gameObjs[i].transform.position.y, gameObjs[i].transform.position.z});
+                sr.WriteLine("{0},{1},{2},{3}", new object[] { gameObjs[i].name, gameObjs[i].transform.position.x, gameObjs[i].transform.position.y, gameObjs[i].transform.position.z });
             }
             i++;
         }
@@ -61,7 +59,7 @@ public partial class EditModeScript : MonoBehaviour
         StreamReader sr = new StreamReader(f);
         string fileContents = sr.ReadToEnd();
         sr.Close();
-        string[] lines = fileContents.Split(new char[] {"\n"[0]});
+        string[] lines = fileContents.Split(new char[] { "\n"[0] });
         foreach (string line in lines)
         {
             MonoBehaviour.print(line);
@@ -70,7 +68,7 @@ public partial class EditModeScript : MonoBehaviour
 
     public virtual void OnGUI()
     {
-        if (!this.LoadGUI)
+        if (!LoadGUI)
         {
             return;
         }
@@ -78,27 +76,27 @@ public partial class EditModeScript : MonoBehaviour
         while (num < 20)
         {
             //var num:int=0;
-            string fileName2 = (this.fileName + num) + ".txt";
+            string fileName2 = (fileName + num) + ".txt";
             Debug.Log(fileName2);
             if (File.Exists(fileName2))
             {
                 if (GUI.Button(new Rect(num * 50, 400, 50, 50), num + ""))
                 {
-                    this.Load(fileName2);
-                    this.LoadGUI = false;
+                    Load(fileName2);
+                    LoadGUI = false;
                 }
             }
             num++;
         }
         if (GUI.Button(new Rect(0, 600, 100, 100), "Cancel"))
         {
-            this.LoadGUI = false;
+            LoadGUI = false;
         }
     }
 
     public EditModeScript()
     {
-        this.fileName = "C:\\MWB\\MWB";
+        fileName = "C:\\MWB\\MWB";
     }
 
 }

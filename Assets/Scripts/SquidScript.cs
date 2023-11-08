@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class SquidScript : MonoBehaviour
@@ -8,43 +7,43 @@ public partial class SquidScript : MonoBehaviour
     public bool MovingDown;
     public virtual void Start()
     {
-        this.InitSpeed();
+        InitSpeed();
     }
 
     public virtual void Update()
     {
 
         {
-            float _174 = this.transform.position.y + (this.Speed * Time.deltaTime);
-            Vector3 _175 = this.transform.position;
+            float _174 = transform.position.y + (Speed * Time.deltaTime);
+            Vector3 _175 = transform.position;
             _175.y = _174;
-            this.transform.position = _175;
+            transform.position = _175;
         }
-        if (this.MovingDown)
+        if (MovingDown)
         {
-            if (this.transform.position.y < -18.62549f)
+            if (transform.position.y < -18.62549f)
             {
-                this.InitSpeed();
+                InitSpeed();
 
                 {
                     int _176 = 90;
-                    Vector3 _177 = this.transform.position;
+                    Vector3 _177 = transform.position;
                     _177.y = _176;
-                    this.transform.position = _177;
+                    transform.position = _177;
                 }
             }
         }
         else
         {
-            if (this.transform.position.y > 90)
+            if (transform.position.y > 90)
             {
-                this.InitSpeed();
+                InitSpeed();
 
                 {
                     int _178 = -18;
-                    Vector3 _179 = this.transform.position;
+                    Vector3 _179 = transform.position;
                     _179.y = _178;
-                    this.transform.position = _179;
+                    transform.position = _179;
                 }
             }
         }
@@ -52,16 +51,16 @@ public partial class SquidScript : MonoBehaviour
 
     public virtual void InitSpeed()
     {
-        this.Speed = Random.Range(0, 1f) * 3;
-        if (this.MovingDown)
+        Speed = Random.Range(0, 1f) * 3;
+        if (MovingDown)
         {
-            this.Speed = this.Speed * -1;
+            Speed = Speed * -1;
         }
     }
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        other.transform.parent = this.gameObject.transform;
+        other.transform.parent = gameObject.transform;
     }
 
     public virtual void OnTriggerExit(Collider other)

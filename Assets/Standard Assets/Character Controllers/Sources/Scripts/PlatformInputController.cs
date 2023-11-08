@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 // This makes the character turn to face the current movement speed per default.
@@ -26,7 +25,7 @@ public partial class PlatformInputController : MonoBehaviour
     private CharacterMotor motor;
     public virtual void Awake()
     {
-        this.motor = (CharacterMotor) this.GetComponent(typeof(CharacterMotor));
+        motor = (CharacterMotor)GetComponent(typeof(CharacterMotor));
     }
 
     public virtual void Update()
@@ -41,15 +40,15 @@ public partial class PlatformInputController : MonoBehaviour
             directionVector = directionVector * directionLength;
         }
         directionVector = Camera.main.transform.rotation * directionVector;
-        Quaternion camToCharacterSpace = Quaternion.FromToRotation(-Camera.main.transform.forward, this.transform.up);
+        Quaternion camToCharacterSpace = Quaternion.FromToRotation(-Camera.main.transform.forward, transform.up);
         directionVector = camToCharacterSpace * directionVector;
-        this.motor.inputMoveDirection = directionVector;
-        this.motor.inputJump = Input.GetButton("Jump");
-        if (this.autoRotate && (directionVector.sqrMagnitude > 0.01f))
+        motor.inputMoveDirection = directionVector;
+        motor.inputJump = Input.GetButton("Jump");
+        if (autoRotate && (directionVector.sqrMagnitude > 0.01f))
         {
-            Vector3 newForward = this.ConstantSlerp(this.transform.forward, directionVector, this.maxRotationSpeed * Time.deltaTime);
-            newForward = this.ProjectOntoPlane(newForward, this.transform.up);
-            this.transform.rotation = Quaternion.LookRotation(newForward, this.transform.up);
+            Vector3 newForward = ConstantSlerp(transform.forward, directionVector, maxRotationSpeed * Time.deltaTime);
+            newForward = ProjectOntoPlane(newForward, transform.up);
+            transform.rotation = Quaternion.LookRotation(newForward, transform.up);
         }
     }
 
@@ -66,8 +65,8 @@ public partial class PlatformInputController : MonoBehaviour
 
     public PlatformInputController()
     {
-        this.autoRotate = true;
-        this.maxRotationSpeed = 360;
+        autoRotate = true;
+        maxRotationSpeed = 360;
     }
 
 }

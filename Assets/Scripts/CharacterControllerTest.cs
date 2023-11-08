@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class CharacterControllerTest : MonoBehaviour
@@ -11,51 +10,51 @@ public partial class CharacterControllerTest : MonoBehaviour
     private Animation _animation;
     public virtual void StartXXXXXXXXXXXXX()
     {
-        this._animation = (Animation) this.GetComponent(typeof(Animation));
-        this._animation[this.jumpPoseAnimation.name].speed = 1f;
+        _animation = (Animation)GetComponent(typeof(Animation));
+        _animation[jumpPoseAnimation.name].speed = 1f;
     }
 
-     /// This script moves the character controller forward 
-     /// and sideways based on the arrow keys.
-     /// It also jumps when pressing space.
-     /// Make sure to attach a character controller to the same game object.
-     /// It is recommended that you make only one call to Move or SimpleMove per frame.    
+    /// This script moves the character controller forward 
+    /// and sideways based on the arrow keys.
+    /// It also jumps when pressing space.
+    /// Make sure to attach a character controller to the same game object.
+    /// It is recommended that you make only one call to Move or SimpleMove per frame.    
     public float speed;
     public float jumpSpeed;
     public float gravity;
     private Vector3 moveDirection;
     public virtual void UpdateXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX()
     {
-        CharacterController controller = (CharacterController) this.GetComponent(typeof(CharacterController));
+        CharacterController controller = (CharacterController)GetComponent(typeof(CharacterController));
         if (controller.isGrounded)
         {
-             // We are grounded, so recalculate
-             // move direction directly from axes
-            this.moveDirection = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
-            this.moveDirection = this.transform.TransformDirection(this.moveDirection);
-            this.moveDirection = this.moveDirection * this.speed;
+            // We are grounded, so recalculate
+            // move direction directly from axes
+            moveDirection = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
+            moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection = moveDirection * speed;
             if (Input.GetButton("Jump"))
             {
-                this.moveDirection.y = this.jumpSpeed;
-                this._animation.CrossFade(this.jumpPoseAnimation.name);
+                moveDirection.y = jumpSpeed;
+                _animation.CrossFade(jumpPoseAnimation.name);
             }
         }
         else
         {
-            this._animation.CrossFade(this.jumpPoseAnimation.name);
+            _animation.CrossFade(jumpPoseAnimation.name);
         }
         // Apply gravity
-        this.moveDirection.y = this.moveDirection.y - (this.gravity * Time.deltaTime);
+        moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
         // Move the controller
-        controller.Move(this.moveDirection * Time.deltaTime);
+        controller.Move(moveDirection * Time.deltaTime);
     }
 
     public CharacterControllerTest()
     {
-        this.speed = 6f;
-        this.jumpSpeed = 8f;
-        this.gravity = 20f;
-        this.moveDirection = Vector3.zero;
+        speed = 6f;
+        jumpSpeed = 8f;
+        gravity = 20f;
+        moveDirection = Vector3.zero;
     }
 
 }

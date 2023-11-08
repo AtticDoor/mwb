@@ -22,16 +22,16 @@ public class ImageEffects
 
         Graphics.Blit(source, destination, material);
     }
-    
-	[System.Obsolete("Use Graphics.Blit(source,dest) instead")]
-	public static void Blit(RenderTexture source, RenderTexture dest)
-	{
-		Graphics.Blit(source, dest);
-	}
 
-	[System.Obsolete("Use Graphics.Blit(source, destination, material) instead")]
-	public static void BlitWithMaterial(Material material, RenderTexture source, RenderTexture dest)
-	{
-		Graphics.Blit(source, dest, material);
-	}        
+    [System.Obsolete("Use Graphics.Blit(source,dest) instead")]
+    public static void Blit(RenderTexture source, RenderTexture dest)
+    {
+        Graphics.Blit(source, dest);
+    }
+
+    [System.Obsolete("Use Graphics.Blit(source, destination, material) instead")]
+    public static void BlitWithMaterial(Material material, RenderTexture source, RenderTexture dest)
+    {
+        Graphics.Blit(source, dest, material);
+    }
 }

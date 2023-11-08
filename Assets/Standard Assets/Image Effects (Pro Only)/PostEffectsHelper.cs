@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -19,7 +18,7 @@ public partial class PostEffectsHelper : MonoBehaviour
     {
         float y1_ = 0.0f;
         float y2_ = 0.0f;
-         // Make the destination texture the target for all rendering
+        // Make the destination texture the target for all rendering
         RenderTexture.active = dest;
         // Assign the source texture to a property from a shader
         material.SetTexture("_MainTex", source);
@@ -160,7 +159,7 @@ public partial class PostEffectsHelper : MonoBehaviour
     {
         float y1_ = 0.0f;
         float y2_ = 0.0f;
-         // Make the destination texture the target for all rendering
+        // Make the destination texture the target for all rendering
         RenderTexture.active = dest;
         // Assign the source texture to a property from a shader
         material.SetTexture("_MainTex", source);

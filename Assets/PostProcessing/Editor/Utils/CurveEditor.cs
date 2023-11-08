@@ -104,21 +104,21 @@ namespace UnityEditor.PostProcessing
             internal MenuAction(SerializedProperty curve)
             {
                 this.curve = curve;
-                this.index = -1;
-                this.position = Vector3.zero;
+                index = -1;
+                position = Vector3.zero;
             }
 
             internal MenuAction(SerializedProperty curve, int index)
             {
                 this.curve = curve;
                 this.index = index;
-                this.position = Vector3.zero;
+                position = Vector3.zero;
             }
 
             internal MenuAction(SerializedProperty curve, Vector3 position)
             {
                 this.curve = curve;
-                this.index = -1;
+                index = -1;
                 this.position = position;
             }
         }
@@ -142,7 +142,7 @@ namespace UnityEditor.PostProcessing
         #region Constructors & destructors
         public CurveEditor()
             : this(Settings.defaultSettings)
-        {}
+        { }
 
         public CurveEditor(Settings settings)
         {
@@ -785,7 +785,7 @@ namespace UnityEditor.PostProcessing
             segment[0] = CurveToCanvas(new Vector3(start.time, start.value));
             segment[3] = CurveToCanvas(new Vector3(end.time, end.value));
 
-            float middle  = start.time + ((end.time - start.time) * 0.333333f);
+            float middle = start.time + ((end.time - start.time) * 0.333333f);
             float middle2 = start.time + ((end.time - start.time) * 0.666666f);
 
             segment[1] = CurveToCanvas(new Vector3(middle, ProjectTangent(start.time, start.value, start.outTangent, middle)));

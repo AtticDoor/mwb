@@ -1,47 +1,23 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class GirlHeadTearScript1 : MonoBehaviour
 {
-    public virtual void Start()//transform.localScale.y=Random.Range(0,.45);
-    {
-    }
-
+    //TODO add this to a pool
     public virtual void Update()
     {
-        if (this.transform.localScale.y < 0.45f)
+        if (transform.localScale.y < 0.45f)
         {
-
-            {
-                float _146 = this.transform.localScale.y + (Time.deltaTime / 15);
-                Vector3 _147 = this.transform.localScale;
-                _147.y = _146;
-                this.transform.localScale = _147;
-            }
-
-            {
-                int _148 = Random.Range(-3, 3);
-                Vector3 _149 = this.transform.localEulerAngles;
-                _149.z = _148;
-                this.transform.localEulerAngles = _149;
-            }
+            transform.localScale += new Vector3(0, Time.deltaTime / 15, 0);
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, Random.Range(-3, 3));
         }
         else
-        {
-
-            {
-                float _150 = this.transform.position.y - (Time.deltaTime * 5);
-                Vector3 _151 = this.transform.position;
-                _151.y = _150;
-                this.transform.position = _151;
-            }
-        }
+            transform.position += new Vector3(0, -(Time.deltaTime * 5), 0);
     }
 
     public virtual void OnCollisionEnter(Collision c)
     {
-        UnityEngine.Object.Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
 }

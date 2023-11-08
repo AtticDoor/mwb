@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -22,28 +21,28 @@ public partial class NoiseAndGrain : PostEffectsBase
     private Material noiseMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(false);
-        this.noiseMaterial = this.CheckShaderAndCreateMaterial(this.noiseShader, this.noiseMaterial);
-        if (!this.isSupported)
+        CheckSupport(false);
+        noiseMaterial = CheckShaderAndCreateMaterial(noiseShader, noiseMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
-        this.noiseMaterial.SetVector("_NoisePerChannel", new Vector3(this.redChannelNoise, this.greenChannelNoise, this.blueChannelNoise));
-        this.noiseMaterial.SetVector("_NoiseTilingPerChannel", new Vector3(this.redChannelTiling, this.greenChannelTiling, this.blueChannelTiling));
-        this.noiseMaterial.SetVector("_NoiseAmount", new Vector3(this.strength, this.blackIntensity, this.whiteIntensity));
-        this.noiseMaterial.SetTexture("_NoiseTex", this.noiseTexture);
-        this.noiseTexture.filterMode = this.filterMode;
-        NoiseAndGrain.DrawNoiseQuadGrid(source, destination, this.noiseMaterial, this.noiseTexture, 0);
+        noiseMaterial.SetVector("_NoisePerChannel", new Vector3(redChannelNoise, greenChannelNoise, blueChannelNoise));
+        noiseMaterial.SetVector("_NoiseTilingPerChannel", new Vector3(redChannelTiling, greenChannelTiling, blueChannelTiling));
+        noiseMaterial.SetVector("_NoiseAmount", new Vector3(strength, blackIntensity, whiteIntensity));
+        noiseMaterial.SetTexture("_NoiseTex", noiseTexture);
+        noiseTexture.filterMode = filterMode;
+        NoiseAndGrain.DrawNoiseQuadGrid(source, destination, noiseMaterial, noiseTexture, 0);
     }
 
     public static void DrawNoiseQuadGrid(RenderTexture source, RenderTexture dest, Material fxMaterial, Texture2D noise, int passNr)
@@ -95,16 +94,16 @@ public partial class NoiseAndGrain : PostEffectsBase
 
     public NoiseAndGrain()
     {
-        this.strength = 1f;
-        this.blackIntensity = 1f;
-        this.whiteIntensity = 1f;
-        this.redChannelNoise = 0.975f;
-        this.greenChannelNoise = 0.875f;
-        this.blueChannelNoise = 1.2f;
-        this.redChannelTiling = 24f;
-        this.greenChannelTiling = 28f;
-        this.blueChannelTiling = 34f;
-        this.filterMode = FilterMode.Bilinear;
+        strength = 1f;
+        blackIntensity = 1f;
+        whiteIntensity = 1f;
+        redChannelNoise = 0.975f;
+        greenChannelNoise = 0.875f;
+        blueChannelNoise = 1.2f;
+        redChannelTiling = 24f;
+        greenChannelTiling = 28f;
+        blueChannelTiling = 34f;
+        filterMode = FilterMode.Bilinear;
     }
 
 }

@@ -1,78 +1,54 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class TVScript : MonoBehaviour
 {
-    public bool PlayerWithin;
-    public string Name;
+    private bool PlayerWithin;
     public GameObject Meter;
     public GameObject TVScreen;
     public int DoorVal;
     public GameObject Code;
-    public bool Completed;
+    private bool Completed;
+    public float MeterStartPercent = 100f;
     public virtual void Update()
     {
-        //Debug.Log(Input.GetAxis ("Vertical2")+.0f);
-        if (!Completed)
+        if (Completed) 
+            return;
+
+        if (PlayerWithin)
         {
-            if (PlayerWithin)
+            //testing purposes, automatically clear the TV
+            if (Input.GetKeyUp("q"))
             {
-                if (Input.GetKeyDown("up") || Input.GetKeyDown("w"))//||(Input.GetAxis ("Vertical2")>0.5))
+                Meter.transform.localScale = new Vector3(0, 0, 0);
+                Complete();
+            }
+
+            if (Input.GetKeyDown("up") || Input.GetKeyDown("w"))
+                ToggleBrainWash(false);
+            else if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))
+                ToggleBrainWash(true);
+
+            if(InputMobile.MovingUp)
+                ToggleBrainWash(false);
+            else ToggleBrainWash(true);
+
+            if (Input.GetKey("up") || Input.GetKey("w")||InputMobile.MovingUp)
+            {
+                if (Meter.transform.localScale.x > 0)
                 {
-                    ToggleBrainWash(false);
+                    Meter.transform.localScale += new Vector3(-(0.3f * Time.deltaTime),0,0);
+                    Meter.GetComponent<Renderer>().enabled = true;
                 }
                 else
                 {
-                    if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))//||(Input.GetAxis ("Vertical")<=0.5))
-                    {
-                        ToggleBrainWash(true);
-                    }
-                    else
-                    {
-                        if (Input.GetKey("up") || Input.GetKey("w"))//||(Input.GetAxis ("Vertical2")>0.5))//||(Input.GetAxis ("Vertical2")>0))
-                        {
-                             //testing
-                            if (Input.GetKey("w"))
-                            {
-
-                                {
-                                    int _192 = 0;
-                                    Vector3 _193 = Meter.transform.localScale;
-                                    _193.x = _192;
-                                    Meter.transform.localScale = _193;
-                                }
-                            }
-                            //testing
-                            if (Meter.transform.localScale.x > 0)
-                            {
-
-                                {
-                                    float _194 = Meter.transform.localScale.x - (0.3f * Time.deltaTime);
-                                    Vector3 _195 = Meter.transform.localScale;
-                                    _195.x = _194;
-                                    Meter.transform.localScale = _195;
-                                }
-                                Meter.GetComponent<Renderer>().enabled = true;
-                            }
-                            else
-                            {
-
-                                {
-                                    int _196 = 0;
-                                    Vector3 _197 = Meter.transform.localScale;
-                                    _197.x = _196;
-                                    Meter.transform.localScale = _197;
-                                }
-                                Complete();
-                            }
-                        }
-                        else
-                        {
-                            Meter.GetComponent<Renderer>().enabled = false;
-                        }
-                    }
+                    Meter.transform.localScale = Vector3.zero;
+                    Complete();
                 }
+            }
+            else
+            {
+                Meter.GetComponent<Renderer>().enabled = false;
             }
         }
     }
@@ -96,9 +72,10 @@ public partial class TVScript : MonoBehaviour
     public AnimatedTexture at;
     public virtual void Start()
     {
+        Meter.transform.localScale = new Vector3(Meter.transform.localScale.x * MeterStartPercent / 100 , Meter.transform.localScale.y, 1);
         transform.tag = "TV";
         staticImage = TVScreen.GetComponent<Renderer>().material.mainTexture;
-        at = (AnimatedTexture) TVScreen.GetComponent("AnimatedTexture");
+        at = (AnimatedTexture)TVScreen.GetComponent("AnimatedTexture");
         if (ElevatorCodes.TVCleared(DoorVal))
         {
             Complete();
@@ -118,7 +95,7 @@ public partial class TVScript : MonoBehaviour
 
     public virtual void Complete()//ElevatorScript.DoorSwitchOn(DoorVal);
     {
-         //TVScreen.renderer.material.mainTexture=Textures[0];//[DoorVal];
+        //TVScreen.renderer.material.mainTexture=Textures[0];//[DoorVal];
         TVScreen.GetComponent<Renderer>().material.mainTexture = BlackTexture;//[DoorVal];
         if (DoorVal > 72)
         {
@@ -130,9 +107,8 @@ public partial class TVScript : MonoBehaviour
         }
         Code.GetComponent<Renderer>().enabled = true;
         ElevatorCodes.ClearTV(DoorVal);
-        ((AnimatedTexture) TVScreen.GetComponent(typeof(AnimatedTexture))).enabled = false;
+        ((AnimatedTexture)TVScreen.GetComponent(typeof(AnimatedTexture))).enabled = false;
         TVScreen.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(1, 1));
-        //TVScreen.renderer.material.SetTextureOffset(SetTextureScale(Vector2(1,1));
         TVScreen.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0, 0));
         Completed = true;
     }

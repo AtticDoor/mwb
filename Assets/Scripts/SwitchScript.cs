@@ -1,34 +1,32 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public class SwitchScript : EnemyScript
 {
     public override void Start()
     {
-        this.GetComponent<Renderer>().enabled = this.On;
-        this.EnableColors(this.On);
+        GetComponent<Renderer>().enabled = On;
+        EnableColors(On);
     }
 
     public override void OnTriggerEnter(Collider c)
     {
         if (c.transform.tag == "Player")
         {
-            this.GetComponent<Renderer>().enabled = !this.GetComponent<Renderer>().enabled;
+            GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
             this.On = !this.On;
-            this.EnableColors(this.On);
+            EnableColors(On);
         }
     }
 
     public virtual void EnableColors(bool t)
     {
         GameObject[] Objects = null;
-        Objects = GameObject.FindGameObjectsWithTag(this.gameObject.tag);
+        Objects = GameObject.FindGameObjectsWithTag(gameObject.tag);
         foreach (GameObject o in Objects)
         {
-             //Debug.Log(o.transform.name);
-            ((EnemyScript) o.GetComponent(typeof(EnemyScript))).On = t;
+            //Debug.Log(o.transform.name);
+            ((EnemyScript)o.GetComponent(typeof(EnemyScript))).On = t;
         }
     }
-
 }

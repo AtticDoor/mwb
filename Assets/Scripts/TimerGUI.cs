@@ -1,37 +1,46 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [System.Serializable]
 public partial class TimerGUI : MonoBehaviour
 {
     public virtual void Awake()
     {
+        //txt = (TextMeshPro)GameObject.Find("Timer");
+
         if (MainScript.timer == -100)
             MainScript.timer = 10000;  //only for playing the scene without menu.
 
         if (MainScript.timer <= 0)
             TimerGUI.GameOver();
     }
-
+    public GUIStyle TimerStyle;
     public virtual void Update()
     {
-        MainScript.timer = MainScript.timer - Time.deltaTime;
+        MainScript.timer -= Time.deltaTime;
+        TimerGUI.minutes = Mathf.FloorToInt(MainScript.timer / 60f);
+        TimerGUI.seconds = Mathf.FloorToInt(MainScript.timer - (TimerGUI.minutes * 60));
+        if(txt!=null)
+        txt.text = string.Format("{0:0}:{1:00}", TimerGUI.minutes, TimerGUI.seconds); 
+        //MainScript.timer+"";
     }
 
+    public TextMeshProUGUI txt; 
     public static int minutes;
     public static int seconds;
-    public virtual void OnGUI()
+    public virtual void OnGUIJUNK()
     {
         TimerGUI.minutes = Mathf.FloorToInt(MainScript.timer / 60f);
         TimerGUI.seconds = Mathf.FloorToInt(MainScript.timer - (TimerGUI.minutes * 60));
         string niceTime = string.Format("{0:0}:{1:00}", TimerGUI.minutes, TimerGUI.seconds);
         GUI.depth = 10;
-        GUI.Label(new Rect(10, 10, 250, 100), niceTime);
+        GUI.Label(new Rect(10, 10, 250, 100), niceTime,TimerStyle);
     }
 
     public static void GameOver()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("SceneMenu");
     }
 
     public static void Death()

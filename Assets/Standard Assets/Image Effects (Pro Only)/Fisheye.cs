@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -13,32 +12,32 @@ public partial class Fisheye : PostEffectsBase
     private Material fisheyeMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(false);
-        this.fisheyeMaterial = this.CheckShaderAndCreateMaterial(this.fishEyeShader, this.fisheyeMaterial);
-        if (!this.isSupported)
+        CheckSupport(false);
+        fisheyeMaterial = CheckShaderAndCreateMaterial(fishEyeShader, fisheyeMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
         float oneOverBaseSize = 80f / 512f; // to keep values more like in the old version of fisheye
         float ar = (source.width * 1f) / (source.height * 1f);
-        this.fisheyeMaterial.SetVector("intensity", new Vector4((this.strengthX * ar) * oneOverBaseSize, this.strengthY * oneOverBaseSize, (this.strengthX * ar) * oneOverBaseSize, this.strengthY * oneOverBaseSize));
-        Graphics.Blit(source, destination, this.fisheyeMaterial);
+        fisheyeMaterial.SetVector("intensity", new Vector4((strengthX * ar) * oneOverBaseSize, strengthY * oneOverBaseSize, (strengthX * ar) * oneOverBaseSize, strengthY * oneOverBaseSize));
+        Graphics.Blit(source, destination, fisheyeMaterial);
     }
 
     public Fisheye()
     {
-        this.strengthX = 0.05f;
-        this.strengthY = 0.05f;
+        strengthX = 0.05f;
+        strengthY = 0.05f;
     }
 
 }

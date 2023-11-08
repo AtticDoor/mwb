@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum AAMode
 {
@@ -43,28 +42,28 @@ public partial class AntialiasingAsPostEffect : PostEffectsBase
     public virtual Material CurrentAAMaterial()
     {
         Material returnValue = null;
-        switch (this.mode)
+        switch (mode)
         {
             case AAMode.FXAA3Console:
-                returnValue = this.materialFXAAIII;
+                returnValue = materialFXAAIII;
                 break;
             case AAMode.FXAA2:
-                returnValue = this.materialFXAAII;
+                returnValue = materialFXAAII;
                 break;
             case AAMode.FXAA1PresetA:
-                returnValue = this.materialFXAAPreset2;
+                returnValue = materialFXAAPreset2;
                 break;
             case AAMode.FXAA1PresetB:
-                returnValue = this.materialFXAAPreset3;
+                returnValue = materialFXAAPreset3;
                 break;
             case AAMode.NFAA:
-                returnValue = this.nfaa;
+                returnValue = nfaa;
                 break;
             case AAMode.SSAA:
-                returnValue = this.ssaa;
+                returnValue = ssaa;
                 break;
             case AAMode.DLAA:
-                returnValue = this.dlaa;
+                returnValue = dlaa;
                 break;
             default:
                 returnValue = null;
@@ -75,88 +74,88 @@ public partial class AntialiasingAsPostEffect : PostEffectsBase
 
     public override bool CheckResources()
     {
-        this.CheckSupport(false);
-        this.materialFXAAPreset2 = this.CreateMaterial(this.shaderFXAAPreset2, this.materialFXAAPreset2);
-        this.materialFXAAPreset3 = this.CreateMaterial(this.shaderFXAAPreset3, this.materialFXAAPreset3);
-        this.materialFXAAII = this.CreateMaterial(this.shaderFXAAII, this.materialFXAAII);
-        this.materialFXAAIII = this.CreateMaterial(this.shaderFXAAIII, this.materialFXAAIII);
-        this.nfaa = this.CreateMaterial(this.nfaaShader, this.nfaa);
-        this.ssaa = this.CreateMaterial(this.ssaaShader, this.ssaa);
-        this.dlaa = this.CreateMaterial(this.dlaaShader, this.dlaa);
-        if (!this.ssaaShader.isSupported)
+        CheckSupport(false);
+        materialFXAAPreset2 = CreateMaterial(shaderFXAAPreset2, materialFXAAPreset2);
+        materialFXAAPreset3 = CreateMaterial(shaderFXAAPreset3, materialFXAAPreset3);
+        materialFXAAII = CreateMaterial(shaderFXAAII, materialFXAAII);
+        materialFXAAIII = CreateMaterial(shaderFXAAIII, materialFXAAIII);
+        nfaa = CreateMaterial(nfaaShader, nfaa);
+        ssaa = CreateMaterial(ssaaShader, ssaa);
+        dlaa = CreateMaterial(dlaaShader, dlaa);
+        if (!ssaaShader.isSupported)
         {
-            this.NotSupported();
-            this.ReportAutoDisable();
+            NotSupported();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
         // .............................................................................
         // FXAA antialiasing modes .....................................................
-        if ((this.mode == AAMode.FXAA3Console) && (this.materialFXAAIII != null))
+        if ((mode == AAMode.FXAA3Console) && (materialFXAAIII != null))
         {
-            this.materialFXAAIII.SetFloat("_EdgeThresholdMin", this.edgeThresholdMin);
-            this.materialFXAAIII.SetFloat("_EdgeThreshold", this.edgeThreshold);
-            this.materialFXAAIII.SetFloat("_EdgeSharpness", this.edgeSharpness);
-            Graphics.Blit(source, destination, this.materialFXAAIII);
+            materialFXAAIII.SetFloat("_EdgeThresholdMin", edgeThresholdMin);
+            materialFXAAIII.SetFloat("_EdgeThreshold", edgeThreshold);
+            materialFXAAIII.SetFloat("_EdgeSharpness", edgeSharpness);
+            Graphics.Blit(source, destination, materialFXAAIII);
         }
         else
         {
-            if ((this.mode == AAMode.FXAA1PresetB) && (this.materialFXAAPreset3 != null))
+            if ((mode == AAMode.FXAA1PresetB) && (materialFXAAPreset3 != null))
             {
-                Graphics.Blit(source, destination, this.materialFXAAPreset3);
+                Graphics.Blit(source, destination, materialFXAAPreset3);
             }
             else
             {
-                if ((this.mode == AAMode.FXAA1PresetA) && (this.materialFXAAPreset2 != null))
+                if ((mode == AAMode.FXAA1PresetA) && (materialFXAAPreset2 != null))
                 {
                     source.anisoLevel = 4;
-                    Graphics.Blit(source, destination, this.materialFXAAPreset2);
+                    Graphics.Blit(source, destination, materialFXAAPreset2);
                     source.anisoLevel = 0;
                 }
                 else
                 {
-                    if ((this.mode == AAMode.FXAA2) && (this.materialFXAAII != null))
+                    if ((mode == AAMode.FXAA2) && (materialFXAAII != null))
                     {
-                        Graphics.Blit(source, destination, this.materialFXAAII);
+                        Graphics.Blit(source, destination, materialFXAAII);
                     }
                     else
                     {
-                        if ((this.mode == AAMode.SSAA) && (this.ssaa != null))
+                        if ((mode == AAMode.SSAA) && (ssaa != null))
                         {
                             // .............................................................................
                             // SSAA antialiasing ...........................................................
-                            Graphics.Blit(source, destination, this.ssaa);
+                            Graphics.Blit(source, destination, ssaa);
                         }
                         else
                         {
-                            if ((this.mode == AAMode.DLAA) && (this.dlaa != null))
+                            if ((mode == AAMode.DLAA) && (dlaa != null))
                             {
                                 // .............................................................................
                                 // DLAA antialiasing ...........................................................
                                 source.anisoLevel = 0;
                                 RenderTexture interim = RenderTexture.GetTemporary(source.width, source.height);
-                                Graphics.Blit(source, interim, this.dlaa, 0);
-                                Graphics.Blit(interim, destination, this.dlaa, this.dlaaSharp ? 2 : 1);
+                                Graphics.Blit(source, interim, dlaa, 0);
+                                Graphics.Blit(interim, destination, dlaa, dlaaSharp ? 2 : 1);
                                 RenderTexture.ReleaseTemporary(interim);
                             }
                             else
                             {
-                                if ((this.mode == AAMode.NFAA) && (this.nfaa != null))
+                                if ((mode == AAMode.NFAA) && (nfaa != null))
                                 {
                                     // .............................................................................
                                     // nfaa antialiasing ..............................................
                                     source.anisoLevel = 0;
-                                    this.nfaa.SetFloat("_OffsetScale", this.offsetScale);
-                                    this.nfaa.SetFloat("_BlurRadius", this.blurRadius);
-                                    Graphics.Blit(source, destination, this.nfaa, this.showGeneratedNormals ? 1 : 0);
+                                    nfaa.SetFloat("_OffsetScale", offsetScale);
+                                    nfaa.SetFloat("_BlurRadius", blurRadius);
+                                    Graphics.Blit(source, destination, nfaa, showGeneratedNormals ? 1 : 0);
                                 }
                                 else
                                 {
@@ -173,12 +172,12 @@ public partial class AntialiasingAsPostEffect : PostEffectsBase
 
     public AntialiasingAsPostEffect()
     {
-        this.mode = AAMode.FXAA3Console;
-        this.offsetScale = 0.2f;
-        this.blurRadius = 18f;
-        this.edgeThresholdMin = 0.05f;
-        this.edgeThreshold = 0.2f;
-        this.edgeSharpness = 4f;
+        mode = AAMode.FXAA3Console;
+        offsetScale = 0.2f;
+        blurRadius = 18f;
+        edgeThresholdMin = 0.05f;
+        edgeThreshold = 0.2f;
+        edgeSharpness = 4f;
     }
 
 }

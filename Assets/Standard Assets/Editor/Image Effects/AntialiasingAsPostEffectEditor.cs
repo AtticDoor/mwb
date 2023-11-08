@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 [UnityEditor.CustomEditor(typeof(AntialiasingAsPostEffect))]
@@ -17,53 +16,53 @@ public class AntialiasingAsPostEffectEditor : Editor
     public SerializedProperty edgeSharpness;
     public virtual void OnEnable()
     {
-        this.serObj = new SerializedObject(this.target);
-        this.mode = this.serObj.FindProperty("mode");
-        this.showGeneratedNormals = this.serObj.FindProperty("showGeneratedNormals");
-        this.offsetScale = this.serObj.FindProperty("offsetScale");
-        this.blurRadius = this.serObj.FindProperty("blurRadius");
-        this.dlaaSharp = this.serObj.FindProperty("dlaaSharp");
-        this.edgeThresholdMin = this.serObj.FindProperty("edgeThresholdMin");
-        this.edgeThreshold = this.serObj.FindProperty("edgeThreshold");
-        this.edgeSharpness = this.serObj.FindProperty("edgeSharpness");
+        serObj = new SerializedObject(target);
+        mode = serObj.FindProperty("mode");
+        showGeneratedNormals = serObj.FindProperty("showGeneratedNormals");
+        offsetScale = serObj.FindProperty("offsetScale");
+        blurRadius = serObj.FindProperty("blurRadius");
+        dlaaSharp = serObj.FindProperty("dlaaSharp");
+        edgeThresholdMin = serObj.FindProperty("edgeThresholdMin");
+        edgeThreshold = serObj.FindProperty("edgeThreshold");
+        edgeSharpness = serObj.FindProperty("edgeSharpness");
     }
 
     public override void OnInspectorGUI()
     {
-        this.serObj.Update();
-        GUILayout.Label("Various luminance based fullscreen Antialiasing techniques", EditorStyles.miniBoldLabel, new GUILayoutOption[] {});
-        EditorGUILayout.PropertyField(this.mode, new GUIContent("AA Technique"), new GUILayoutOption[] {});
-        Material mat = (this.target as AntialiasingAsPostEffect).CurrentAAMaterial();
+        serObj.Update();
+        GUILayout.Label("Various luminance based fullscreen Antialiasing techniques", EditorStyles.miniBoldLabel, new GUILayoutOption[] { });
+        EditorGUILayout.PropertyField(mode, new GUIContent("AA Technique"), new GUILayoutOption[] { });
+        Material mat = (target as AntialiasingAsPostEffect).CurrentAAMaterial();
         if (null == mat)
         {
             EditorGUILayout.HelpBox("This AA technique is currently not supported. Choose a different technique or disable the effect and use MSAA instead.", MessageType.Warning);
         }
-        if (((AAMode) this.mode.enumValueIndex) == AAMode.NFAA)
+        if (((AAMode)mode.enumValueIndex) == AAMode.NFAA)
         {
             EditorGUILayout.Separator();
-            EditorGUILayout.PropertyField(this.offsetScale, new GUIContent("Edge Detect Ofs"), new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.blurRadius, new GUIContent("Blur Radius"), new GUILayoutOption[] {});
-            EditorGUILayout.PropertyField(this.showGeneratedNormals, new GUIContent("Show Normals"), new GUILayoutOption[] {});
+            EditorGUILayout.PropertyField(offsetScale, new GUIContent("Edge Detect Ofs"), new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(blurRadius, new GUIContent("Blur Radius"), new GUILayoutOption[] { });
+            EditorGUILayout.PropertyField(showGeneratedNormals, new GUIContent("Show Normals"), new GUILayoutOption[] { });
         }
         else
         {
-            if (((AAMode) this.mode.enumValueIndex) == AAMode.DLAA)
+            if (((AAMode)mode.enumValueIndex) == AAMode.DLAA)
             {
                 EditorGUILayout.Separator();
-                EditorGUILayout.PropertyField(this.dlaaSharp, new GUIContent("Sharp"), new GUILayoutOption[] {});
+                EditorGUILayout.PropertyField(dlaaSharp, new GUIContent("Sharp"), new GUILayoutOption[] { });
             }
             else
             {
-                if (((AAMode) this.mode.enumValueIndex) == AAMode.FXAA3Console)
+                if (((AAMode)mode.enumValueIndex) == AAMode.FXAA3Console)
                 {
                     EditorGUILayout.Separator();
-                    EditorGUILayout.PropertyField(this.edgeThresholdMin, new GUIContent("Edge Min Threshhold"), new GUILayoutOption[] {});
-                    EditorGUILayout.PropertyField(this.edgeThreshold, new GUIContent("Edge Threshhold"), new GUILayoutOption[] {});
-                    EditorGUILayout.PropertyField(this.edgeSharpness, new GUIContent("Edge Sharpness"), new GUILayoutOption[] {});
+                    EditorGUILayout.PropertyField(edgeThresholdMin, new GUIContent("Edge Min Threshhold"), new GUILayoutOption[] { });
+                    EditorGUILayout.PropertyField(edgeThreshold, new GUIContent("Edge Threshhold"), new GUILayoutOption[] { });
+                    EditorGUILayout.PropertyField(edgeSharpness, new GUIContent("Edge Sharpness"), new GUILayoutOption[] { });
                 }
             }
         }
-        this.serObj.ApplyModifiedProperties();
+        serObj.ApplyModifiedProperties();
     }
 
 }

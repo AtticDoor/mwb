@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public partial class PlayerScript : MonoBehaviour
@@ -29,18 +30,19 @@ public partial class PlayerScript : MonoBehaviour
 		case 13: SetPosition(-77.65131, 14.56291, -41.32747,		0, 358.5954, 0); break; //dutton
 		case 14: SetPosition(-55.9055 , 14.56291, -41.32747,		0, 358.5954, 0); break; //burden
 	
-	}*/    public virtual void Start()
+	}*/
+    public virtual void Start()
     {
-        this.alpha = 1;
-        this.fadeIn();
-        this.SetPlayerStart();
+        alpha = 1;
+        fadeIn();
+        SetPlayerStart();
     }
 
- /*   public static void DIE()//	gameObject.GetComponent("Bip001 Pelvis").renderer.active=false;
-    {
-        MainScript.timer -= 10;
-    }
- */
+    /*   public static void DIE()//	gameObject.GetComponent("Bip001 Pelvis").renderer.active=false;
+       {
+           MainScript.timer -= 10;
+       }
+    */
     public virtual void SetPlayerStart()
     {
     }
@@ -72,43 +74,101 @@ public partial class PlayerScript : MonoBehaviour
     public virtual void OnGUI()
     {
         GUI.depth = 1;
-        this.alpha = this.alpha + ((this.fadeDir * this.fadeSpeed) * Time.deltaTime);
-        this.alpha = Mathf.Clamp01(this.alpha);
+        alpha = alpha + ((fadeDir * fadeSpeed) * Time.deltaTime);
+        alpha = Mathf.Clamp01(alpha);
 
         {
-            float _172 = this.alpha;
+            float _172 = alpha;
             Color _173 = GUI.color;
             _173.a = _172;
             GUI.color = _173;
         }
-        GUI.depth = this.drawDepth;
-        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), this.fadeOutTexture);
+        GUI.depth = drawDepth;
+        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeOutTexture);
     }
 
     //--------------------------------------------------------------------
     public virtual void fadeIn()
     {
-        this.fadeDir = -1;
+        fadeDir = -1;
     }
 
     //--------------------------------------------------------------------
     public virtual void fadeOut()
     {
-        this.fadeDir = 1;
+        fadeDir = 1;
     }
 
     public virtual void StartSSSS()
     {
-        this.alpha = 1;
-        this.fadeIn();
+        alpha = 1;
+        fadeIn();
     }
 
     public PlayerScript()
     {
-        this.fadeSpeed = 0.1f;
-        this.drawDepth = -1000;
-        this.alpha = 1f;
-        this.fadeDir = -1;
+        fadeSpeed = 0.1f;
+        drawDepth = -1000;
+        alpha = 1f;
+        fadeDir = -1;
     }
+
+
+
+    public static void Kill(int killType)
+    {
+        PlayerScript p = GameObject.Find("Player").GetComponent<PlayerScript>(); 
+
+        switch (killType)
+        {
+            case 0: p.KillPlayerDefault(); break;
+            case 1: p.KillPlayerElectrocute(); break;
+            case 2: p.KillPlayerDefault(); break;  //saw blade
+            case 3: p.KillPlayerElectrocute(); break;  //spiderattack
+
+        }
+    }
+
+
+    private void KillPlayerDefault()
+    {
+        ThirdPersonController.isControllable = false;
+        Time.timeScale = 0;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        TimerGUI.Death();
+    }
+
+
+    private void KillPlayerElectrocute()
+    {
+        ThirdPersonController.isControllable = false;
+        Time.timeScale = 0;
+        Time.timeScale = 1f;
+        StartCoroutine(WaitToDie());
+        //                StartCoroutine(LerpObject.ChangeTextureScaleY(GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>(), 100, 20, 2.0f));
+        StartCoroutine(LerpObject.ChangeTextureScaleY(GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>(), 0, .9375f, 1.0f));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        TimerGUI.Death();
+    }
+
+    private IEnumerator WaitToDie()
+    {
+        /*  for (int i = 0; 1 < 32; i++)
+          {
+              yield return new WaitForSeconds(.0625f);
+              GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(.0625f * i, 0));
+
+          }
+        */
+        yield return new WaitForSeconds(.99f);
+        GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>().enabled = (false);
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
+
+
 
 }

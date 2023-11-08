@@ -6,7 +6,7 @@ public partial class TestDevESCAPE : MonoBehaviour
 {
     public virtual void Start()
     {
-        UnityEngine.Object.DontDestroyOnLoad(this.gameObject);
+        UnityEngine.Object.DontDestroyOnLoad(gameObject);
     }
 
     public virtual void Update()

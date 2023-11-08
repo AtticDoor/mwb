@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum LensflareStyle34
 {
@@ -70,45 +69,45 @@ public partial class BloomAndLensFlares : PostEffectsBase
     private Material brightPassFilterMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(false);
-        this.screenBlend = this.CheckShaderAndCreateMaterial(this.screenBlendShader, this.screenBlend);
-        this.lensFlareMaterial = this.CheckShaderAndCreateMaterial(this.lensFlareShader, this.lensFlareMaterial);
-        this.vignetteMaterial = this.CheckShaderAndCreateMaterial(this.vignetteShader, this.vignetteMaterial);
-        this.separableBlurMaterial = this.CheckShaderAndCreateMaterial(this.separableBlurShader, this.separableBlurMaterial);
-        this.addBrightStuffBlendOneOneMaterial = this.CheckShaderAndCreateMaterial(this.addBrightStuffOneOneShader, this.addBrightStuffBlendOneOneMaterial);
-        this.hollywoodFlaresMaterial = this.CheckShaderAndCreateMaterial(this.hollywoodFlaresShader, this.hollywoodFlaresMaterial);
-        this.brightPassFilterMaterial = this.CheckShaderAndCreateMaterial(this.brightPassFilterShader, this.brightPassFilterMaterial);
-        if (!this.isSupported)
+        CheckSupport(false);
+        screenBlend = CheckShaderAndCreateMaterial(screenBlendShader, screenBlend);
+        lensFlareMaterial = CheckShaderAndCreateMaterial(lensFlareShader, lensFlareMaterial);
+        vignetteMaterial = CheckShaderAndCreateMaterial(vignetteShader, vignetteMaterial);
+        separableBlurMaterial = CheckShaderAndCreateMaterial(separableBlurShader, separableBlurMaterial);
+        addBrightStuffBlendOneOneMaterial = CheckShaderAndCreateMaterial(addBrightStuffOneOneShader, addBrightStuffBlendOneOneMaterial);
+        hollywoodFlaresMaterial = CheckShaderAndCreateMaterial(hollywoodFlaresShader, hollywoodFlaresMaterial);
+        brightPassFilterMaterial = CheckShaderAndCreateMaterial(brightPassFilterShader, brightPassFilterMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
         // screen blend is not supported when HDR is enabled (will cap values)
-        this.doHdr = false;
-        if (this.hdr == HDRBloomMode.Auto)
+        doHdr = false;
+        if (hdr == HDRBloomMode.Auto)
         {
-            this.doHdr = (source.format == RenderTextureFormat.ARGBHalf) && this.GetComponent<Camera>().allowHDR;
+            doHdr = (source.format == RenderTextureFormat.ARGBHalf) && GetComponent<Camera>().allowHDR;
         }
         else
         {
-            this.doHdr = this.hdr == HDRBloomMode.On;
+            doHdr = hdr == HDRBloomMode.On;
         }
-        this.doHdr = this.doHdr && this.supportHDRTextures;
-        BloomScreenBlendMode realBlendMode = this.screenBlendMode;
-        if (this.doHdr)
+        doHdr = doHdr && supportHDRTextures;
+        BloomScreenBlendMode realBlendMode = screenBlendMode;
+        if (doHdr)
         {
             realBlendMode = BloomScreenBlendMode.Add;
         }
-        RenderTextureFormat rtFormat = this.doHdr ? RenderTextureFormat.ARGBHalf : RenderTextureFormat.Default;
+        RenderTextureFormat rtFormat = doHdr ? RenderTextureFormat.ARGBHalf : RenderTextureFormat.Default;
         RenderTexture halfRezColor = RenderTexture.GetTemporary(source.width / 2, source.height / 2, 0, rtFormat);
         RenderTexture quarterRezColor = RenderTexture.GetTemporary(source.width / 4, source.height / 4, 0, rtFormat);
         RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary(source.width / 4, source.height / 4, 0, rtFormat);
@@ -116,32 +115,32 @@ public partial class BloomAndLensFlares : PostEffectsBase
         float widthOverHeight = (1f * source.width) / (1f * source.height);
         float oneOverBaseSize = 1f / 512f;
         // downsample
-        Graphics.Blit(source, halfRezColor, this.screenBlend, 2); // <- 2 is stable downsample
-        Graphics.Blit(halfRezColor, quarterRezColor, this.screenBlend, 2); // <- 2 is stable downsample	
+        Graphics.Blit(source, halfRezColor, screenBlend, 2); // <- 2 is stable downsample
+        Graphics.Blit(halfRezColor, quarterRezColor, screenBlend, 2); // <- 2 is stable downsample	
         RenderTexture.ReleaseTemporary(halfRezColor);
         // cut colors (threshholding)			
-        this.BrightFilter(this.bloomThreshhold, this.useSrcAlphaAsMask, quarterRezColor, secondQuarterRezColor);
+        BrightFilter(bloomThreshhold, useSrcAlphaAsMask, quarterRezColor, secondQuarterRezColor);
         // blurring
-        if (this.bloomBlurIterations < 1)
+        if (bloomBlurIterations < 1)
         {
-            this.bloomBlurIterations = 1;
+            bloomBlurIterations = 1;
         }
         int iter = 0;
-        while (iter < this.bloomBlurIterations)
+        while (iter < bloomBlurIterations)
         {
-            float spreadForPass = (1f + (iter * 0.5f)) * this.sepBlurSpread;
-            this.separableBlurMaterial.SetVector("offsets", new Vector4(0f, spreadForPass * oneOverBaseSize, 0f, 0f));
-            Graphics.Blit(iter == 0 ? secondQuarterRezColor : quarterRezColor, thirdQuarterRezColor, this.separableBlurMaterial);
-            this.separableBlurMaterial.SetVector("offsets", new Vector4((spreadForPass / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-            Graphics.Blit(thirdQuarterRezColor, quarterRezColor, this.separableBlurMaterial);
+            float spreadForPass = (1f + (iter * 0.5f)) * sepBlurSpread;
+            separableBlurMaterial.SetVector("offsets", new Vector4(0f, spreadForPass * oneOverBaseSize, 0f, 0f));
+            Graphics.Blit(iter == 0 ? secondQuarterRezColor : quarterRezColor, thirdQuarterRezColor, separableBlurMaterial);
+            separableBlurMaterial.SetVector("offsets", new Vector4((spreadForPass / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+            Graphics.Blit(thirdQuarterRezColor, quarterRezColor, separableBlurMaterial);
             iter++;
         }
         // lens flares: ghosting, anamorphic or a combination 
-        if (this.lensflares)
+        if (lensflares)
         {
-            if (this.lensflareMode == (LensflareStyle34) 0)
+            if (lensflareMode == (LensflareStyle34)0)
             {
-                this.BrightFilter(this.lensflareThreshhold, 0f, quarterRezColor, thirdQuarterRezColor);
+                BrightFilter(lensflareThreshhold, 0f, quarterRezColor, thirdQuarterRezColor);
                 // smooth a little, this needs to be resolution dependent
                 /*				
 				separableBlurMaterial.SetVector ("offsets", Vector4 (0.0f, (2.0f) / (1.0f * quarterRezColor.height), 0.0f, 0.0f));	
@@ -150,60 +149,60 @@ public partial class BloomAndLensFlares : PostEffectsBase
 				Graphics.Blit (secondQuarterRezColor, thirdQuarterRezColor, separableBlurMaterial); 
 				*/
                 // no ugly edges!
-                this.Vignette(0.975f, thirdQuarterRezColor, secondQuarterRezColor);
-                this.BlendFlares(secondQuarterRezColor, quarterRezColor);
+                Vignette(0.975f, thirdQuarterRezColor, secondQuarterRezColor);
+                BlendFlares(secondQuarterRezColor, quarterRezColor);
             }
             else
             {
                 // (b) hollywood/anamorphic flares?
                 // thirdQuarter has the brightcut unblurred colors
                 // quarterRezColor is the blurred, brightcut buffer that will end up as bloom
-                this.hollywoodFlaresMaterial.SetVector("_Threshhold", new Vector4(this.lensflareThreshhold, 1f / (1f - this.lensflareThreshhold), 0f, 0f));
-                this.hollywoodFlaresMaterial.SetVector("tintColor", (new Vector4(this.flareColorA.r, this.flareColorA.g, this.flareColorA.b, this.flareColorA.a) * this.flareColorA.a) * this.lensflareIntensity);
-                Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, this.hollywoodFlaresMaterial, 2);
-                Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, this.hollywoodFlaresMaterial, 3);
-                this.hollywoodFlaresMaterial.SetVector("offsets", new Vector4(((this.sepBlurSpread * 1f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-                this.hollywoodFlaresMaterial.SetFloat("stretchWidth", this.hollyStretchWidth);
-                Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, this.hollywoodFlaresMaterial, 1);
-                this.hollywoodFlaresMaterial.SetFloat("stretchWidth", this.hollyStretchWidth * 2f);
-                Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, this.hollywoodFlaresMaterial, 1);
-                this.hollywoodFlaresMaterial.SetFloat("stretchWidth", this.hollyStretchWidth * 4f);
-                Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, this.hollywoodFlaresMaterial, 1);
-                if (this.lensflareMode == (LensflareStyle34) 1)
+                hollywoodFlaresMaterial.SetVector("_Threshhold", new Vector4(lensflareThreshhold, 1f / (1f - lensflareThreshhold), 0f, 0f));
+                hollywoodFlaresMaterial.SetVector("tintColor", (new Vector4(flareColorA.r, flareColorA.g, flareColorA.b, flareColorA.a) * flareColorA.a) * lensflareIntensity);
+                Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, hollywoodFlaresMaterial, 2);
+                Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, hollywoodFlaresMaterial, 3);
+                hollywoodFlaresMaterial.SetVector("offsets", new Vector4(((sepBlurSpread * 1f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                hollywoodFlaresMaterial.SetFloat("stretchWidth", hollyStretchWidth);
+                Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, hollywoodFlaresMaterial, 1);
+                hollywoodFlaresMaterial.SetFloat("stretchWidth", hollyStretchWidth * 2f);
+                Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, hollywoodFlaresMaterial, 1);
+                hollywoodFlaresMaterial.SetFloat("stretchWidth", hollyStretchWidth * 4f);
+                Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, hollywoodFlaresMaterial, 1);
+                if (lensflareMode == (LensflareStyle34)1)
                 {
                     int itera = 0;
-                    while (itera < this.hollywoodFlareBlurIterations)
+                    while (itera < hollywoodFlareBlurIterations)
                     {
-                        this.separableBlurMaterial.SetVector("offsets", new Vector4(((this.hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-                        Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, this.separableBlurMaterial);
-                        this.separableBlurMaterial.SetVector("offsets", new Vector4(((this.hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-                        Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, this.separableBlurMaterial);
+                        separableBlurMaterial.SetVector("offsets", new Vector4(((hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                        Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, separableBlurMaterial);
+                        separableBlurMaterial.SetVector("offsets", new Vector4(((hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                        Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, separableBlurMaterial);
                         itera++;
                     }
-                    this.AddTo(1f, secondQuarterRezColor, quarterRezColor);
+                    AddTo(1f, secondQuarterRezColor, quarterRezColor);
                 }
                 else
                 {
                     // (c) combined
                     int ix = 0;
-                    while (ix < this.hollywoodFlareBlurIterations)
+                    while (ix < hollywoodFlareBlurIterations)
                     {
-                        this.separableBlurMaterial.SetVector("offsets", new Vector4(((this.hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-                        Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, this.separableBlurMaterial);
-                        this.separableBlurMaterial.SetVector("offsets", new Vector4(((this.hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-                        Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, this.separableBlurMaterial);
+                        separableBlurMaterial.SetVector("offsets", new Vector4(((hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                        Graphics.Blit(secondQuarterRezColor, thirdQuarterRezColor, separableBlurMaterial);
+                        separableBlurMaterial.SetVector("offsets", new Vector4(((hollyStretchWidth * 2f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                        Graphics.Blit(thirdQuarterRezColor, secondQuarterRezColor, separableBlurMaterial);
                         ix++;
                     }
-                    this.Vignette(1f, secondQuarterRezColor, thirdQuarterRezColor);
-                    this.BlendFlares(thirdQuarterRezColor, secondQuarterRezColor);
-                    this.AddTo(1f, secondQuarterRezColor, quarterRezColor);
+                    Vignette(1f, secondQuarterRezColor, thirdQuarterRezColor);
+                    BlendFlares(thirdQuarterRezColor, secondQuarterRezColor);
+                    AddTo(1f, secondQuarterRezColor, quarterRezColor);
                 }
             }
         }
         // screen blend bloom results to color buffer
-        this.screenBlend.SetFloat("_Intensity", this.bloomIntensity);
-        this.screenBlend.SetTexture("_ColorBuffer", source);
-        Graphics.Blit(quarterRezColor, destination, this.screenBlend, (int) realBlendMode);
+        screenBlend.SetFloat("_Intensity", bloomIntensity);
+        screenBlend.SetTexture("_ColorBuffer", source);
+        Graphics.Blit(quarterRezColor, destination, screenBlend, (int)realBlendMode);
         RenderTexture.ReleaseTemporary(quarterRezColor);
         RenderTexture.ReleaseTemporary(secondQuarterRezColor);
         RenderTexture.ReleaseTemporary(thirdQuarterRezColor);
@@ -211,66 +210,66 @@ public partial class BloomAndLensFlares : PostEffectsBase
 
     private void AddTo(float intensity_, RenderTexture from, RenderTexture to)
     {
-        this.addBrightStuffBlendOneOneMaterial.SetFloat("_Intensity", intensity_);
-        Graphics.Blit(from, to, this.addBrightStuffBlendOneOneMaterial);
+        addBrightStuffBlendOneOneMaterial.SetFloat("_Intensity", intensity_);
+        Graphics.Blit(from, to, addBrightStuffBlendOneOneMaterial);
     }
 
     private void BlendFlares(RenderTexture from, RenderTexture to)
     {
-        this.lensFlareMaterial.SetVector("colorA", new Vector4(this.flareColorA.r, this.flareColorA.g, this.flareColorA.b, this.flareColorA.a) * this.lensflareIntensity);
-        this.lensFlareMaterial.SetVector("colorB", new Vector4(this.flareColorB.r, this.flareColorB.g, this.flareColorB.b, this.flareColorB.a) * this.lensflareIntensity);
-        this.lensFlareMaterial.SetVector("colorC", new Vector4(this.flareColorC.r, this.flareColorC.g, this.flareColorC.b, this.flareColorC.a) * this.lensflareIntensity);
-        this.lensFlareMaterial.SetVector("colorD", new Vector4(this.flareColorD.r, this.flareColorD.g, this.flareColorD.b, this.flareColorD.a) * this.lensflareIntensity);
-        Graphics.Blit(from, to, this.lensFlareMaterial);
+        lensFlareMaterial.SetVector("colorA", new Vector4(flareColorA.r, flareColorA.g, flareColorA.b, flareColorA.a) * lensflareIntensity);
+        lensFlareMaterial.SetVector("colorB", new Vector4(flareColorB.r, flareColorB.g, flareColorB.b, flareColorB.a) * lensflareIntensity);
+        lensFlareMaterial.SetVector("colorC", new Vector4(flareColorC.r, flareColorC.g, flareColorC.b, flareColorC.a) * lensflareIntensity);
+        lensFlareMaterial.SetVector("colorD", new Vector4(flareColorD.r, flareColorD.g, flareColorD.b, flareColorD.a) * lensflareIntensity);
+        Graphics.Blit(from, to, lensFlareMaterial);
     }
 
     private void BrightFilter(float thresh, float useAlphaAsMask, RenderTexture from, RenderTexture to)
     {
-        if (this.doHdr)
+        if (doHdr)
         {
-            this.brightPassFilterMaterial.SetVector("threshhold", new Vector4(thresh, 1f, 0f, 0f));
+            brightPassFilterMaterial.SetVector("threshhold", new Vector4(thresh, 1f, 0f, 0f));
         }
         else
         {
-            this.brightPassFilterMaterial.SetVector("threshhold", new Vector4(thresh, 1f / (1f - thresh), 0f, 0f));
+            brightPassFilterMaterial.SetVector("threshhold", new Vector4(thresh, 1f / (1f - thresh), 0f, 0f));
         }
-        this.brightPassFilterMaterial.SetFloat("useSrcAlphaAsMask", useAlphaAsMask);
-        Graphics.Blit(from, to, this.brightPassFilterMaterial);
+        brightPassFilterMaterial.SetFloat("useSrcAlphaAsMask", useAlphaAsMask);
+        Graphics.Blit(from, to, brightPassFilterMaterial);
     }
 
     private void Vignette(float amount, RenderTexture from, RenderTexture to)
     {
-        if (this.lensFlareVignetteMask)
+        if (lensFlareVignetteMask)
         {
-            this.screenBlend.SetTexture("_ColorBuffer", this.lensFlareVignetteMask);
-            Graphics.Blit(from, to, this.screenBlend, 3);
+            screenBlend.SetTexture("_ColorBuffer", lensFlareVignetteMask);
+            Graphics.Blit(from, to, screenBlend, 3);
         }
         else
         {
-            this.vignetteMaterial.SetFloat("vignetteIntensity", amount);
-            Graphics.Blit(from, to, this.vignetteMaterial);
+            vignetteMaterial.SetFloat("vignetteIntensity", amount);
+            Graphics.Blit(from, to, vignetteMaterial);
         }
     }
 
     public BloomAndLensFlares()
     {
-        this.screenBlendMode = BloomScreenBlendMode.Add;
-        this.hdr = HDRBloomMode.Auto;
-        this.sepBlurSpread = 1.5f;
-        this.useSrcAlphaAsMask = 0.5f;
-        this.bloomIntensity = 1f;
-        this.bloomThreshhold = 0.5f;
-        this.bloomBlurIterations = 2;
-        this.hollywoodFlareBlurIterations = 2;
-        this.lensflareMode = (LensflareStyle34) 1;
-        this.hollyStretchWidth = 3.5f;
-        this.lensflareIntensity = 1f;
-        this.lensflareThreshhold = 0.3f;
-        this.flareColorA = new Color(0.4f, 0.4f, 0.8f, 0.75f);
-        this.flareColorB = new Color(0.4f, 0.8f, 0.8f, 0.75f);
-        this.flareColorC = new Color(0.8f, 0.4f, 0.8f, 0.75f);
-        this.flareColorD = new Color(0.8f, 0.4f, 0f, 0.75f);
-        this.blurWidth = 1f;
+        screenBlendMode = BloomScreenBlendMode.Add;
+        hdr = HDRBloomMode.Auto;
+        sepBlurSpread = 1.5f;
+        useSrcAlphaAsMask = 0.5f;
+        bloomIntensity = 1f;
+        bloomThreshhold = 0.5f;
+        bloomBlurIterations = 2;
+        hollywoodFlareBlurIterations = 2;
+        lensflareMode = (LensflareStyle34)1;
+        hollyStretchWidth = 3.5f;
+        lensflareIntensity = 1f;
+        lensflareThreshhold = 0.3f;
+        flareColorA = new Color(0.4f, 0.4f, 0.8f, 0.75f);
+        flareColorB = new Color(0.4f, 0.8f, 0.8f, 0.75f);
+        flareColorC = new Color(0.8f, 0.4f, 0.8f, 0.75f);
+        flareColorD = new Color(0.8f, 0.4f, 0f, 0.75f);
+        blurWidth = 1f;
     }
 
 }

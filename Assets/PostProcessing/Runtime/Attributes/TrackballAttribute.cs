@@ -6,7 +6,7 @@ namespace UnityEngine.PostProcessing
 
         public TrackballAttribute(string method)
         {
-            this.method = method;
+            method = method;
         }
     }
 }

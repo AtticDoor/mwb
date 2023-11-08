@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class aliScript : MonoBehaviour
@@ -12,16 +11,16 @@ public partial class aliScript : MonoBehaviour
 
     public virtual void Update()
     {
-        if (this.Hooked)
+        if (Hooked)
         {
-            if (this.transform.position.y > this.EndYpos)
+            if (transform.position.y > EndYpos)
             {
 
                 {
-                    float _72 = this.transform.position.y - (Time.deltaTime * 2);
-                    Vector3 _73 = this.transform.position;
+                    float _72 = transform.position.y - (Time.deltaTime * 2);
+                    Vector3 _73 = transform.position;
                     _73.y = _72;
-                    this.transform.position = _73;
+                    transform.position = _73;
                 }
             }
         }
@@ -29,10 +28,10 @@ public partial class aliScript : MonoBehaviour
         {
 
             {
-                float _74 = this.transform.position.y + (Time.deltaTime * 2);
-                Vector3 _75 = this.transform.position;
+                float _74 = transform.position.y + (Time.deltaTime * 2);
+                Vector3 _75 = transform.position;
                 _75.y = _74;
-                this.transform.position = _75;
+                transform.position = _75;
             }
         }
     }

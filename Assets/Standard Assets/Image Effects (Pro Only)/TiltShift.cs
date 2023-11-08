@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 [UnityEngine.ExecuteInEditMode]
@@ -24,18 +23,18 @@ public partial class TiltShift : PostEffectsBase
     private float curve;
     public override bool CheckResources()
     {
-        this.CheckSupport(true);
-        this.tiltShiftMaterial = this.CheckShaderAndCreateMaterial(this.tiltShiftShader, this.tiltShiftMaterial);
-        if (!this.isSupported)
+        CheckSupport(true);
+        tiltShiftMaterial = CheckShaderAndCreateMaterial(tiltShiftShader, tiltShiftMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
@@ -43,41 +42,41 @@ public partial class TiltShift : PostEffectsBase
         float widthOverHeight = (1f * source.width) / (1f * source.height);
         float oneOverBaseSize = 1f / 512f;
         // clamp some values
-        this.renderTextureDivider = this.renderTextureDivider < 1 ? 1 : this.renderTextureDivider;
-        this.renderTextureDivider = this.renderTextureDivider > 4 ? 4 : this.renderTextureDivider;
-        this.blurIterations = this.blurIterations < 1 ? 0 : this.blurIterations;
-        this.blurIterations = this.blurIterations > 4 ? 4 : this.blurIterations;
+        renderTextureDivider = renderTextureDivider < 1 ? 1 : renderTextureDivider;
+        renderTextureDivider = renderTextureDivider > 4 ? 4 : renderTextureDivider;
+        blurIterations = blurIterations < 1 ? 0 : blurIterations;
+        blurIterations = blurIterations > 4 ? 4 : blurIterations;
         // automagically calculate parameters based on focalPoint
-        float focalPoint01 = this.GetComponent<Camera>().WorldToViewportPoint((this.focalPoint * this.GetComponent<Camera>().transform.forward) + this.GetComponent<Camera>().transform.position).z / this.GetComponent<Camera>().farClipPlane;
-        this.distance01 = focalPoint01;
-        this.start01 = 0f;
-        this.end01 = 1f;
-        this.start01 = Mathf.Min(focalPoint01 - Mathf.Epsilon, this.start01);
-        this.end01 = Mathf.Max(focalPoint01 + Mathf.Epsilon, this.end01);
-        this.curve = this.smoothness * this.distance01;
+        float focalPoint01 = GetComponent<Camera>().WorldToViewportPoint((focalPoint * GetComponent<Camera>().transform.forward) + GetComponent<Camera>().transform.position).z / GetComponent<Camera>().farClipPlane;
+        distance01 = focalPoint01;
+        start01 = 0f;
+        end01 = 1f;
+        start01 = Mathf.Min(focalPoint01 - Mathf.Epsilon, start01);
+        end01 = Mathf.Max(focalPoint01 + Mathf.Epsilon, end01);
+        curve = smoothness * distance01;
         // resources
         RenderTexture cocTex = RenderTexture.GetTemporary(source.width, source.height, 0);
         RenderTexture cocTex2 = RenderTexture.GetTemporary(source.width, source.height, 0);
-        RenderTexture lrTex1 = RenderTexture.GetTemporary(source.width / this.renderTextureDivider, source.height / this.renderTextureDivider, 0);
-        RenderTexture lrTex2 = RenderTexture.GetTemporary(source.width / this.renderTextureDivider, source.height / this.renderTextureDivider, 0);
+        RenderTexture lrTex1 = RenderTexture.GetTemporary(source.width / renderTextureDivider, source.height / renderTextureDivider, 0);
+        RenderTexture lrTex2 = RenderTexture.GetTemporary(source.width / renderTextureDivider, source.height / renderTextureDivider, 0);
         // coc		
-        this.tiltShiftMaterial.SetVector("_SimpleDofParams", new Vector4(this.start01, this.distance01, this.end01, this.curve));
-        this.tiltShiftMaterial.SetTexture("_Coc", cocTex);
-        if (this.enableForegroundBlur)
+        tiltShiftMaterial.SetVector("_SimpleDofParams", new Vector4(start01, distance01, end01, curve));
+        tiltShiftMaterial.SetTexture("_Coc", cocTex);
+        if (enableForegroundBlur)
         {
-            Graphics.Blit(source, cocTex, this.tiltShiftMaterial, 0);
+            Graphics.Blit(source, cocTex, tiltShiftMaterial, 0);
             Graphics.Blit(cocTex, lrTex1); // downwards (only really needed if lrTex resolution is different)
             int fgBlurIter = 0;
-            while (fgBlurIter < this.foregroundBlurIterations)
+            while (fgBlurIter < foregroundBlurIterations)
             {
-                this.tiltShiftMaterial.SetVector("offsets", new Vector4(0f, (this.maxBlurSpread * 0.75f) * oneOverBaseSize, 0f, 0f));
-                Graphics.Blit(lrTex1, lrTex2, this.tiltShiftMaterial, 3);
-                this.tiltShiftMaterial.SetVector("offsets", new Vector4(((this.maxBlurSpread * 0.75f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-                Graphics.Blit(lrTex2, lrTex1, this.tiltShiftMaterial, 3);
+                tiltShiftMaterial.SetVector("offsets", new Vector4(0f, (maxBlurSpread * 0.75f) * oneOverBaseSize, 0f, 0f));
+                Graphics.Blit(lrTex1, lrTex2, tiltShiftMaterial, 3);
+                tiltShiftMaterial.SetVector("offsets", new Vector4(((maxBlurSpread * 0.75f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+                Graphics.Blit(lrTex2, lrTex1, tiltShiftMaterial, 3);
                 fgBlurIter++;
             }
-            Graphics.Blit(lrTex1, cocTex2, this.tiltShiftMaterial, 7); // upwards (only really needed if lrTex resolution is different)
-            this.tiltShiftMaterial.SetTexture("_Coc", cocTex2);
+            Graphics.Blit(lrTex1, cocTex2, tiltShiftMaterial, 7); // upwards (only really needed if lrTex resolution is different)
+            tiltShiftMaterial.SetTexture("_Coc", cocTex2);
         }
         else
         {
@@ -85,21 +84,21 @@ public partial class TiltShift : PostEffectsBase
             GL.Clear(false, true, Color.black);
         }
         // combine coc's
-        Graphics.Blit(source, cocTex, this.tiltShiftMaterial, 5);
-        this.tiltShiftMaterial.SetTexture("_Coc", cocTex);
+        Graphics.Blit(source, cocTex, tiltShiftMaterial, 5);
+        tiltShiftMaterial.SetTexture("_Coc", cocTex);
         // downsample & blur
         Graphics.Blit(source, lrTex2);
         int iter = 0;
-        while (iter < this.blurIterations)
+        while (iter < blurIterations)
         {
-            this.tiltShiftMaterial.SetVector("offsets", new Vector4(0f, (this.maxBlurSpread * 1f) * oneOverBaseSize, 0f, 0f));
-            Graphics.Blit(lrTex2, lrTex1, this.tiltShiftMaterial, 6);
-            this.tiltShiftMaterial.SetVector("offsets", new Vector4(((this.maxBlurSpread * 1f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
-            Graphics.Blit(lrTex1, lrTex2, this.tiltShiftMaterial, 6);
+            tiltShiftMaterial.SetVector("offsets", new Vector4(0f, (maxBlurSpread * 1f) * oneOverBaseSize, 0f, 0f));
+            Graphics.Blit(lrTex2, lrTex1, tiltShiftMaterial, 6);
+            tiltShiftMaterial.SetVector("offsets", new Vector4(((maxBlurSpread * 1f) / widthOverHeight) * oneOverBaseSize, 0f, 0f, 0f));
+            Graphics.Blit(lrTex1, lrTex2, tiltShiftMaterial, 6);
             iter++;
         }
-        this.tiltShiftMaterial.SetTexture("_Blurred", lrTex2);
-        Graphics.Blit(source, destination, this.tiltShiftMaterial, this.visualizeCoc ? 4 : 1);
+        tiltShiftMaterial.SetTexture("_Blurred", lrTex2);
+        Graphics.Blit(source, destination, tiltShiftMaterial, visualizeCoc ? 4 : 1);
         RenderTexture.ReleaseTemporary(cocTex);
         RenderTexture.ReleaseTemporary(cocTex2);
         RenderTexture.ReleaseTemporary(lrTex1);
@@ -108,16 +107,16 @@ public partial class TiltShift : PostEffectsBase
 
     public TiltShift()
     {
-        this.renderTextureDivider = 2;
-        this.blurIterations = 2;
-        this.enableForegroundBlur = true;
-        this.foregroundBlurIterations = 2;
-        this.maxBlurSpread = 1.5f;
-        this.focalPoint = 30f;
-        this.smoothness = 1.65f;
-        this.distance01 = 0.2f;
-        this.end01 = 1f;
-        this.curve = 1f;
+        renderTextureDivider = 2;
+        blurIterations = 2;
+        enableForegroundBlur = true;
+        foregroundBlurIterations = 2;
+        maxBlurSpread = 1.5f;
+        focalPoint = 30f;
+        smoothness = 1.65f;
+        distance01 = 0.2f;
+        end01 = 1f;
+        curve = 1f;
     }
 
 }

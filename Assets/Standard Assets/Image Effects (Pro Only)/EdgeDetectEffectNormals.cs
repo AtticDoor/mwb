@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum EdgeDetectMode
 {
@@ -22,45 +21,45 @@ public partial class EdgeDetectEffectNormals : PostEffectsBase
     private Material edgeDetectMaterial;
     public override bool CheckResources()
     {
-        this.CheckSupport(true);
-        this.edgeDetectMaterial = this.CheckShaderAndCreateMaterial(this.edgeDetectShader, this.edgeDetectMaterial);
-        if (!this.isSupported)
+        CheckSupport(true);
+        edgeDetectMaterial = CheckShaderAndCreateMaterial(edgeDetectShader, edgeDetectMaterial);
+        if (!isSupported)
         {
-            this.ReportAutoDisable();
+            ReportAutoDisable();
         }
-        return this.isSupported;
+        return isSupported;
     }
 
     [UnityEngine.ImageEffectOpaque]
     public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (this.CheckResources() == false)
+        if (CheckResources() == false)
         {
             Graphics.Blit(source, destination);
             return;
         }
-        Vector2 sensitivity = new Vector2(this.sensitivityDepth, this.sensitivityNormals);
+        Vector2 sensitivity = new Vector2(sensitivityDepth, sensitivityNormals);
         source.filterMode = FilterMode.Point;
-        this.edgeDetectMaterial.SetVector("sensitivity", new Vector4(sensitivity.x, sensitivity.y, 1f, sensitivity.y));
-        this.edgeDetectMaterial.SetFloat("_BgFade", this.edgesOnly);
-        Vector4 vecCol = this.edgesOnlyBgColor;
-        this.edgeDetectMaterial.SetVector("_BgColor", vecCol);
-        if (this.mode == EdgeDetectMode.Thin)
+        edgeDetectMaterial.SetVector("sensitivity", new Vector4(sensitivity.x, sensitivity.y, 1f, sensitivity.y));
+        edgeDetectMaterial.SetFloat("_BgFade", edgesOnly);
+        Vector4 vecCol = edgesOnlyBgColor;
+        edgeDetectMaterial.SetVector("_BgColor", vecCol);
+        if (mode == EdgeDetectMode.Thin)
         {
-            Graphics.Blit(source, destination, this.edgeDetectMaterial, 0);
+            Graphics.Blit(source, destination, edgeDetectMaterial, 0);
         }
         else
         {
-            Graphics.Blit(source, destination, this.edgeDetectMaterial, 1);
+            Graphics.Blit(source, destination, edgeDetectMaterial, 1);
         }
     }
 
     public EdgeDetectEffectNormals()
     {
-        this.mode = EdgeDetectMode.Thin;
-        this.sensitivityDepth = 1f;
-        this.sensitivityNormals = 1f;
-        this.edgesOnlyBgColor = Color.white;
+        mode = EdgeDetectMode.Thin;
+        sensitivityDepth = 1f;
+        sensitivityNormals = 1f;
+        edgesOnlyBgColor = Color.white;
     }
 
 }

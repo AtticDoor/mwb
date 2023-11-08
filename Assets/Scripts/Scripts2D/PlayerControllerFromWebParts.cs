@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerControllerFromWebParts : MonoBehaviour
 {
@@ -26,9 +25,9 @@ public class PlayerControllerFromWebParts : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
 
         //define the animator attached to the player
-        animator = this.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
-        walkSpeed = 1*transform.localScale.y; // player left right walk speed
+        walkSpeed = 1 * transform.localScale.y; // player left right walk speed
         runSpeed = 2 * transform.localScale.y;
 
         changeState(STATE_WALK); //fixes a startup bug to transition from walk to idle
@@ -38,29 +37,30 @@ public class PlayerControllerFromWebParts : MonoBehaviour
     public int JumpVelocity = 160;
 
     void Update()
-    {   if((Input.GetKeyUp("right")||(Input.GetKeyUp("right")))
-        ||(Input.GetKeyUp("left")||(Input.GetKeyUp("left"))))
+    {
+        if ((Input.GetKeyUp("right") || (Input.GetKeyUp("right")))
+        || (Input.GetKeyUp("left") || (Input.GetKeyUp("left"))))
             transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        if (Input.GetKeyDown("space") )
+        if (Input.GetKeyDown("space"))
         {
             if (_isGrounded)
             {
                 _isGrounded = false;
                 //simple jump code using unity physics
-      //          if ((_currentDirection == "right")  || (_currentDirection == "left"))
-                    transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//(_momentum) * 60, 
-                                                                                    0, JumpVelocity));//(_momentum+2) * 20));
+                //          if ((_currentDirection == "right")  || (_currentDirection == "left"))
+                transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//(_momentum) * 60, 
+                                                                                0, JumpVelocity));//(_momentum+2) * 20));
 
 
 
-                 //   rigidbody.MovePosition(rigidbody.position + Vector2.up * _momentum * momentumMultiplier *JumpVelocity * Time.fixedDeltaTime);
+                //   rigidbody.MovePosition(rigidbody.position + Vector2.up * _momentum * momentumMultiplier *JumpVelocity * Time.fixedDeltaTime);
 
 
 
 
-            //    else if (_currentDirection == "left")
-            //        transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//-_momentum * 60, 
-            //                                                                        0,(_momentum +2) * 20));
+                //    else if (_currentDirection == "left")
+                //        transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(//-_momentum * 60, 
+                //                                                                        0,(_momentum +2) * 20));
                 changeState(STATE_JUMP);
             }
         }
@@ -72,7 +72,7 @@ public class PlayerControllerFromWebParts : MonoBehaviour
 
     public int gravity = 20;
     public float runMultiplier = 1;
-    public Vector2 verticalSpeed = new Vector2(0.0f,0.0f);
+    public Vector2 verticalSpeed = new Vector2(0.0f, 0.0f);
 
 
     public float maxWalkVelocity = 10;
@@ -118,13 +118,13 @@ public class PlayerControllerFromWebParts : MonoBehaviour
             Vector2 temporaryVariable = rigidbody.velocity;
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                if (rigidbody.velocity.x < maxRunVelocity) 
+                if (rigidbody.velocity.x < maxRunVelocity)
                     temporaryVariable.x = _momentum * momentumMultiplier * runMultiplier * Time.fixedDeltaTime;
             }
 
             else
             {
-                if (rigidbody.velocity.x < maxWalkVelocity) 
+                if (rigidbody.velocity.x < maxWalkVelocity)
                     temporaryVariable.x = _momentum * momentumMultiplier * Time.fixedDeltaTime;
             }
             //rigidbody.velocity = temporaryVariable;// new Vector2(desti, verticalSpeed.y);// 100;// (Vector2.right.x * _momentum * momentumMultiplier * Time.fixedDeltaTime);
@@ -136,23 +136,23 @@ public class PlayerControllerFromWebParts : MonoBehaviour
 
             Debug.Log(rigidbody.velocity.x);
 
-                   /*
-            if (Input.GetKey(KeyCode.LeftShift))
-                rigidbody.MovePosition(rigidbody.position + verticalSpeed +Vector2.right * _momentum * momentumMultiplier * runMultiplier * Time.fixedDeltaTime);
-            else
-                rigidbody.MovePosition(rigidbody.position + verticalSpeed +Vector2.right * _momentum * momentumMultiplier * Time.fixedDeltaTime);
+            /*
+     if (Input.GetKey(KeyCode.LeftShift))
+         rigidbody.MovePosition(rigidbody.position + verticalSpeed +Vector2.right * _momentum * momentumMultiplier * runMultiplier * Time.fixedDeltaTime);
+     else
+         rigidbody.MovePosition(rigidbody.position + verticalSpeed +Vector2.right * _momentum * momentumMultiplier * Time.fixedDeltaTime);
 /*
-            _momentum = walkSpeed;
+     _momentum = walkSpeed;
 
-            //transform.Translate(-Vector3.left * walkSpeed * Time.deltaTime);
-        /*    _momentum = walkSpeed;
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                //transform.GetComponent<Rigidbody2D>().AddForce(Vector2.right * _momentum * momentumMultiplier*runMultiplier);
-                rigidbody.MovePosition(rigidbody.position + Vector2.right * _momentum * momentumMultiplier * Time.fixedDeltaTime);
-                _momentum = runSpeed + walkSpeed;
-            }
-         */
+     //transform.Translate(-Vector3.left * walkSpeed * Time.deltaTime);
+ /*    _momentum = walkSpeed;
+     if (Input.GetKey(KeyCode.LeftShift))
+     {
+         //transform.GetComponent<Rigidbody2D>().AddForce(Vector2.right * _momentum * momentumMultiplier*runMultiplier);
+         rigidbody.MovePosition(rigidbody.position + Vector2.right * _momentum * momentumMultiplier * Time.fixedDeltaTime);
+         _momentum = runSpeed + walkSpeed;
+     }
+  */
 
             if (_isGrounded)
             {
@@ -160,7 +160,7 @@ public class PlayerControllerFromWebParts : MonoBehaviour
                 changeDirection("right");
             }
         }
-        else 
+        else
                     if (Input.GetKey("left"))
         {
             if (!_isGrounded)
@@ -175,13 +175,13 @@ public class PlayerControllerFromWebParts : MonoBehaviour
             Vector2 temporaryVariable = rigidbody.velocity;
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                if (rigidbody.velocity.x < maxRunVelocity) 
+                if (rigidbody.velocity.x < maxRunVelocity)
                     temporaryVariable.x = -_momentum * momentumMultiplier * runMultiplier * Time.fixedDeltaTime;
             }
 
             else
             {
-                if (rigidbody.velocity.x < maxWalkVelocity) 
+                if (rigidbody.velocity.x < maxWalkVelocity)
                     temporaryVariable.x = -_momentum * momentumMultiplier * Time.fixedDeltaTime;
             }
             //rigidbody.velocity = temporaryVariable;// new Vector2(desti, verticalSpeed.y);// 100;// (Vector2.right.x * _momentum * momentumMultiplier * Time.fixedDeltaTime);
@@ -193,32 +193,32 @@ public class PlayerControllerFromWebParts : MonoBehaviour
             rigidbody.AddForce(temporaryVariable);//, ForceMode.VelocityChange);//.Velocity);
 
             Debug.Log(rigidbody.velocity.x);
-            
-           /* 
-            if (Input.GetKey("left"))
-        {
+
+            /* 
+             if (Input.GetKey("left"))
+         {
 
 
-            if (_isGrounded)
-                changeDirection("right");
+             if (_isGrounded)
+                 changeDirection("right");
 
-            //transform.GetComponent<Rigidbody2D>().AddForce(Vector2.right * _momentum * momentumMultiplier);
+             //transform.GetComponent<Rigidbody2D>().AddForce(Vector2.right * _momentum * momentumMultiplier);
 
 
 
-            _momentum = walkSpeed;
+             _momentum = walkSpeed;
 
-            Vector2 temporaryVariable = rigidbody.velocity;
-            if (Input.GetKey(KeyCode.LeftShift))
-                temporaryVariable.x = -_momentum * momentumMultiplier * runMultiplier * Time.fixedDeltaTime;
-            else
-            {
+             Vector2 temporaryVariable = rigidbody.velocity;
+             if (Input.GetKey(KeyCode.LeftShift))
+                 temporaryVariable.x = -_momentum * momentumMultiplier * runMultiplier * Time.fixedDeltaTime;
+             else
+             {
 
-                temporaryVariable.x = -_momentum * momentumMultiplier * Time.fixedDeltaTime;
-            }
-            rigidbody.velocity = temporaryVariable;// new Vector2(desti, verticalSpeed.y);// 100;// (Vector2.right.x * _momentum * momentumMultiplier * Time.fixedDeltaTime);
+                 temporaryVariable.x = -_momentum * momentumMultiplier * Time.fixedDeltaTime;
+             }
+             rigidbody.velocity = temporaryVariable;// new Vector2(desti, verticalSpeed.y);// 100;// (Vector2.right.x * _momentum * momentumMultiplier * Time.fixedDeltaTime);
 
-*/
+ */
             if (_isGrounded)
             {
                 changeState(STATE_WALK);
@@ -303,13 +303,13 @@ public class PlayerControllerFromWebParts : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D coll)
     {
-       if(coll.tag!="TV")
-        _isGrounded = true;
+        if (coll.tag != "TV")
+            _isGrounded = true;
     }
     void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.tag != "TV")
-        _isGrounded = false;
+            _isGrounded = false;
     }
 
     //--------------------------------------
@@ -317,24 +317,24 @@ public class PlayerControllerFromWebParts : MonoBehaviour
     //--------------------------------------
     void changeDirection(string direction)
     {
-       // float tempY = transform.localScale.y * -1;
-        Vector3 tempY = new Vector3( -1, 1,1);
-        
-       // transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
+        // float tempY = transform.localScale.y * -1;
+        Vector3 tempY = new Vector3(-1, 1, 1);
+
+        // transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
 
         if (_currentDirection != direction)
         {
             if (direction == "right")
             {
-             //   transform.localScale.y*=-1;//(0, 180, 0);
+                //   transform.localScale.y*=-1;//(0, 180, 0);
                 transform.localScale = Vector3.Scale(tempY, transform.localScale);
                 _currentDirection = "right";
             }
             else if (direction == "left")
             {
-              //  tempY = transform.localScale.y *= -1;
+                //  tempY = transform.localScale.y *= -1;
 
-              //  transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
+                //  transform.localScale.y = tempY;//transform.Rotate(0, -180, 0);
                 transform.localScale = Vector3.Scale(tempY, transform.localScale);
                 _currentDirection = "left";
             }

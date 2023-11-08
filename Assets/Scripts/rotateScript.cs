@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class rotateScript : MonoBehaviour
@@ -10,7 +9,7 @@ public partial class rotateScript : MonoBehaviour
 
     public virtual void Update()
     {
-        this.transform.Rotate(0, Time.deltaTime * 5, 0);
+        transform.Rotate(0, Time.deltaTime * 5, 0);
     }
 
 }

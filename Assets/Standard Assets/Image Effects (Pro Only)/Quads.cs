@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class Quads : MonoBehaviour
@@ -35,7 +34,7 @@ public partial class Quads : MonoBehaviour
             if (null != m)
             {
                 UnityEngine.Object.DestroyImmediate(m);
-             //TODO this line fails after js to C# conversion.  May need fixed; probably unused code tho.
+                //TODO this line fails after js to C# conversion.  May need fixed; probably unused code tho.
                 //   m = null;
 
             }

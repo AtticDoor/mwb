@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public partial class ElevatorScript : MonoBehaviour
@@ -13,11 +13,25 @@ public partial class ElevatorScript : MonoBehaviour
     public static bool static3;
     public string levelName;
     public GameObject DoorOpen;
+    private bool open = false;
     public virtual void Start()
     {
         ElevatorScript.static1 = false;
         ElevatorScript.static2 = false;
         ElevatorScript.static3 = false;
+
+        //temporary code - adds all tvs in scene to elevator list of tvs to open
+        if (Codes.Length == 0)
+        {
+
+            TVScript[] tests = FindObjectsOfType(typeof(TVScript)) as TVScript[];
+            foreach (var t in tests)
+            {
+                if (t.DoorVal >= 0)
+                    Codes = new List<int>(Codes) { t.DoorVal }.ToArray();
+            }
+
+        }
     }
 
     public static void DoorSwitchOn(int i)
@@ -38,15 +52,20 @@ public partial class ElevatorScript : MonoBehaviour
 
     public virtual void Update()
     {
+        if (Input.GetKeyDown("1"))  //hack just for testing 
+            OpenDoor();
+
+        if (open)
+            return;
         Plane1.SetActive(ElevatorScript.static1);
         Plane2.SetActive(ElevatorScript.static2);
         Plane3.SetActive(ElevatorScript.static3);
         if (!DoorOpen.active)
         {
             int i = 0;
-            while (i < this.Codes.Length)
+            while (i < Codes.Length)
             {
-                 //Debug.Log(ElevatorCodes.TVCleared(Codes[i])+"   "+Codes.length+" i:"+i+"  CodesI:"+Codes[i]+" ");
+                //Debug.Log(ElevatorCodes.TVCleared(Codes[i])+"   "+Codes.length+" i:"+i+"  CodesI:"+Codes[i]+" ");
                 if (!ElevatorCodes.TVCleared(Codes[i]))
                 {
                     return;
@@ -60,6 +79,6 @@ public partial class ElevatorScript : MonoBehaviour
     public virtual void OpenDoor()
     {
         DoorOpen.SetActive(true);
+        open = true;
     }
-
 }

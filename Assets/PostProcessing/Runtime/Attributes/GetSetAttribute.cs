@@ -7,7 +7,7 @@ namespace UnityEngine.PostProcessing
 
         public GetSetAttribute(string name)
         {
-            this.name = name;
+            name = name;
         }
     }
 }

@@ -16,11 +16,11 @@ public partial class TestDevelopmentMenusCRIPT : MonoBehaviour
     public virtual void OnGUI()
     {
         int i = 0;
-        while (i < this.list.Length)
+        while (i < list.Length)
         {
-            if (GUI.Button(new Rect((i / 10) * 230, (i % 10) * 30, 230, 20), "Scene" + this.list[i]))
+            if (GUI.Button(new Rect((i / 10) * 230, (i % 10) * 30, 230, 20), "Scene" + list[i]))
             {
-                SceneManager.LoadScene("Scene" + this.list[i]);
+                SceneManager.LoadScene("Scene" + list[i]);
             }
             i++;
         }

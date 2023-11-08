@@ -6,7 +6,7 @@ namespace UnityEngine.PostProcessing
 
         public MinAttribute(float min)
         {
-            this.min = min;
+            min = min;
         }
     }
 }

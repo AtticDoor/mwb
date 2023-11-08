@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 // Use this for initialization
@@ -20,7 +19,7 @@ public partial class FPSInputController : MonoBehaviour
     private CharacterMotor motor;
     public virtual void Awake()
     {
-        this.motor = (CharacterMotor) this.GetComponent(typeof(CharacterMotor));
+        motor = (CharacterMotor)GetComponent(typeof(CharacterMotor));
     }
 
     public virtual void Update()
@@ -34,8 +33,8 @@ public partial class FPSInputController : MonoBehaviour
             directionLength = directionLength * directionLength;
             directionVector = directionVector * directionLength;
         }
-        this.motor.inputMoveDirection = this.transform.rotation * directionVector;
-        this.motor.inputJump = Input.GetButton("Jump");
+        motor.inputMoveDirection = transform.rotation * directionVector;
+        motor.inputJump = Input.GetButton("Jump");
     }
 
 }
