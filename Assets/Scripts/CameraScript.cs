@@ -22,6 +22,12 @@ public partial class CameraScript : MonoBehaviour
     public virtual void Start()
     {
         Player = GameObject.Find("Player");
+
+
+#if !UNITY_ANDROID
+        Destroy(GameObject.Find("JumpButton"));
+        Destroy(GameObject.Find("JoystickLeft"));
+#endif
     }
 
     public bool editable;

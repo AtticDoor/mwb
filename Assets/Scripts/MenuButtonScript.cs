@@ -30,6 +30,8 @@ public partial class MenuButtonScript : MonoBehaviour
     public string gameType;
     public virtual void Update()
     {
+        if (Input.GetKey("escape"))
+            Application.Quit();
     }
 
     public virtual void OnMouseUp()
