@@ -14,7 +14,6 @@ public class enemyPingPong : EnemyScript
         right = RightBoundary.transform.position.x;
         transform.position = new Vector3(left, transform.position.y, transform.position.z);
         MovingRight = true;
-
     }
 
     private bool MovingRight;

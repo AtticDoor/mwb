@@ -137,14 +137,14 @@ public var jumpPoseAnimation : AnimationClip;
         Vector3 right = new Vector3(forward.z, 0, -forward.x);
         int v = 0;//Input.GetAxisRaw("Vertical");
         float h = Input.GetAxisRaw("Horizontal");
+        if (h==0)
+            h=SC_MobileControls.instance.GetJoystick("JoystickLeft").x;
 
-        if (h == 0)
-        {
-            if (InputMobile.MovingLeft)
-                h = -1;
-            if (InputMobile.MovingRight)
-                h = 1;
-        }
+        //Debug.Log(h);
+
+
+        Debug.Log(SC_MobileControls.instance.GetJoystick("JoystickLeft").y);
+
         // Are we moving backwards or looking backwards
         if (v < -0.2f)
         {
@@ -195,7 +195,7 @@ public var jumpPoseAnimation : AnimationClip;
             }
             // Pick speed modifier
             if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) 
-                || Input.GetButton("Run") || InputMobile.Running)
+                || Input.GetButton("Run") || SC_ClickTracker.running)
             {
                 targetSpeed = targetSpeed * runSpeed;
                 if (grounded)
@@ -328,7 +328,9 @@ public var jumpPoseAnimation : AnimationClip;
             // kill all inputs if not controllable.
             Input.ResetInputAxes();
         }
-        if (Input.GetButtonDown("Jump")||InputMobile.Jumping)
+        
+        if (Input.GetButton("Jump"))
+        //||  SC_MobileControls.instance.GetMobileButtonDown("JumpButton")) 
         {
             Debug.Log(Time.time - lastJumpTime);
             if (JumpCount < 2)

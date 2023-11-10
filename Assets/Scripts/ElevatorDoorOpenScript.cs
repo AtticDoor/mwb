@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 public partial class ElevatorDoorOpenScript : MonoBehaviour
 {
     public bool PlayerWithin;
+    public GameObject Tutor;
     public virtual void Update()
     {
-        if (PlayerWithin)
+        if (PlayerWithin || Input.GetKey("2"))
         {
-            if (Input.GetKey("up") || Input.GetKey("w") ||InputMobile.MovingUp)
+            if (Input.GetKey("up") || Input.GetKey("w") || Input.GetKey("2")
+                || SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
             {
                 ElevatorScript es = (ElevatorScript)transform.parent.GetComponent("ElevatorScript");
                 MainScript.lastLevel = MainScript.curLevel;
@@ -25,6 +27,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
         if (c.gameObject.tag == "Player")
         {
             PlayerWithin = true;
+            Tutor.SetActive(PlayerWithin);
         }
     }
 
@@ -33,6 +36,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
         if (c.gameObject.tag == "Player")
         {
             PlayerWithin = false;
+            Tutor.SetActive(PlayerWithin);
         }
     }
 

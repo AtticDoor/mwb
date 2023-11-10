@@ -33,7 +33,10 @@ public partial class CharacterControllerTest : MonoBehaviour
             moveDirection = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection = moveDirection * speed;
-            if (Input.GetButton("Jump"))
+            if (Input.GetButton("Jump")
+                ||
+                SC_MobileControls.instance.GetMobileButtonDown("JumpButton")) 
+
             {
                 moveDirection.y = jumpSpeed;
                 _animation.CrossFade(jumpPoseAnimation.name);

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public partial class EnemyScript : MonoBehaviour
+public  class EnemyScript : MonoBehaviour
 {
     public bool On;
     public GameObject[] ColoredAssets;
@@ -32,8 +32,11 @@ public partial class EnemyScript : MonoBehaviour
 
     public virtual void ExtraStart()
     {
-        On = true;
+       // Debug.Break();
+        //On = true;
     }
+
+
     public int KillType;
     public virtual void OnTriggerEnter(Collider c)
     {

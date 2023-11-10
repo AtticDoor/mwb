@@ -10,11 +10,14 @@ public partial class TVScript : MonoBehaviour
     public GameObject Code;
     private bool Completed;
     public float MeterStartPercent = 100f;
+    public GameObject tutor;
     public virtual void Update()
     {
         if (Completed) 
             return;
 
+        tutor.SetActive(PlayerWithin);
+        
         if (PlayerWithin)
         {
             //testing purposes, automatically clear the TV
@@ -29,11 +32,13 @@ public partial class TVScript : MonoBehaviour
             else if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))
                 ToggleBrainWash(true);
 
-            if(InputMobile.MovingUp)
+            if ( SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
                 ToggleBrainWash(false);
             else ToggleBrainWash(true);
 
-            if (Input.GetKey("up") || Input.GetKey("w")||InputMobile.MovingUp)
+
+            if (Input.GetKey("up") || Input.GetKey("w")
+            || SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
             {
                 if (Meter.transform.localScale.x > 0)
                 {
@@ -95,6 +100,7 @@ public partial class TVScript : MonoBehaviour
 
     public virtual void Complete()//ElevatorScript.DoorSwitchOn(DoorVal);
     {
+        tutor.SetActive(false);
         //TVScreen.renderer.material.mainTexture=Textures[0];//[DoorVal];
         TVScreen.GetComponent<Renderer>().material.mainTexture = BlackTexture;//[DoorVal];
         if (DoorVal > 72)
