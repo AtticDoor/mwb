@@ -10,7 +10,7 @@ public partial class GirlHeadMainScript : MonoBehaviour
     public int index;
     public virtual void Start()
     {
-        InvokeRepeating("CreateTear", 2, 1);
+        InvokeRepeating(nameof(CreateTear), 2, 1);
         RandomizeIndexes();
         positions = new Vector3[8];
         positions[0] = new Vector3(0.1438493f, 0.6631676f, -0.1060616f);
@@ -63,10 +63,9 @@ public partial class GirlHeadMainScript : MonoBehaviour
 
     public virtual void SwapTwo()
     {
-        int temp = 0;
         int a = Random.Range(0, 4);
         int b = Random.Range(0, 4);
-        temp = indexes[a];
+        int temp = indexes[a];
         indexes[a] = indexes[b];
         indexes[b] = temp;
         a = Random.Range(4, 8);

@@ -74,7 +74,7 @@ public partial class PlayerScript : MonoBehaviour
     public virtual void OnGUI()
     {
         GUI.depth = 1;
-        alpha = alpha + ((fadeDir * fadeSpeed) * Time.deltaTime);
+        alpha += ((fadeDir * fadeSpeed) * Time.deltaTime);
         alpha = Mathf.Clamp01(alpha);
 
         {
@@ -97,12 +97,6 @@ public partial class PlayerScript : MonoBehaviour
     public virtual void fadeOut()
     {
         fadeDir = 1;
-    }
-
-    public virtual void StartSSSS()
-    {
-        alpha = 1;
-        fadeIn();
     }
 
     public PlayerScript()
@@ -165,10 +159,5 @@ public partial class PlayerScript : MonoBehaviour
         GameObject.Find("Bip001 Pelvis").GetComponent<Renderer>().enabled = (false);
         yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
     }
-
-
-
-
 }

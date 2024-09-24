@@ -7,8 +7,6 @@ public class MapCameraScript : MonoBehaviour
 {
     private float startTime;
 
-
-
     public virtual void Awake()
     {
         if (MainScript.GameType == "B") //hack to make game type B playable

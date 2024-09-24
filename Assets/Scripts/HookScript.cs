@@ -3,14 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public partial class HookScript : MonoBehaviour
 {
-    public virtual void Start()
-    {
-    }
-
-    public virtual void Update()
-    {
-    }
-
     public virtual void OnTriggerEnter(Collider c)
     {
         if (c.transform.name == "ali")

@@ -22,11 +22,11 @@ public partial class RotateImageFace : MonoBehaviour
         framesPerSecond = Random.Range(1, 10);
         if (framesPerSecond < 5)
         {
-            UnityEngine.Object.Destroy((RotateImageFace)transform.GetComponent(typeof(RotateImageFace)));
+            Destroy((RotateImageFace)transform.GetComponent(typeof(RotateImageFace)));
         }
         else
         {
-            Invoke("PauseAnim", Random.Range(2, 10));
+            Invoke(nameof(PauseAnim), Random.Range(2, 10));
         }
     }
 
@@ -34,8 +34,8 @@ public partial class RotateImageFace : MonoBehaviour
     {
         animating = !animating;
         float duration = Random.Range(0.5f, 1);
-        Invoke("PauseAnim2", duration);
-        Invoke("PauseAnim", duration + Random.Range(2, 10));
+        Invoke(nameof(PauseAnim2), duration);
+        Invoke(nameof(PauseAnim), duration + Random.Range(2, 10));
     }
 
     public virtual void PauseAnim2()

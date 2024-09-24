@@ -19,17 +19,16 @@ public partial class splatterCore : MonoBehaviour
                 float scaler = Random.value;
 
                 {
-                    float _64 = splatter.transform.localScale.x * scaler;
-                    Vector3 _65 = splatter.transform.localScale;
-                    _65.x = _64;
-                    splatter.transform.localScale = _65;
+
+                    Vector3 newPos = splatter.transform.localScale;
+                    newPos.x = splatter.transform.localScale.x * scaler;
+                    splatter.transform.localScale = newPos;
                 }
 
                 {
-                    float _66 = splatter.transform.localScale.z * scaler;
-                    Vector3 _67 = splatter.transform.localScale;
-                    _67.z = _66;
-                    splatter.transform.localScale = _67;
+                    Vector3 newPos = splatter.transform.localScale;
+                    newPos.z = splatter.transform.localScale.z * scaler;
+                    splatter.transform.localScale = newPos;
                 }
                 int rater = Random.Range(0, 359);
                 splatter.transform.RotateAround(hit.point, hit.normal, rater);

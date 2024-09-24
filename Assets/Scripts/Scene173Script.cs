@@ -16,7 +16,7 @@ public partial class Scene173Script : MonoBehaviour
             index++;
         }
         index = 0;
-        InvokeRepeating("EnableSpike", 4, 2);
+        InvokeRepeating(nameof(EnableSpike), 4, 2);
     }
 
     public virtual void EnableSpike()
@@ -27,7 +27,7 @@ public partial class Scene173Script : MonoBehaviour
         if (index >= 10)
         {
             CancelInvoke();
-            InvokeRepeating("SlideshowSpike", 2, 2);
+            InvokeRepeating(nameof(SlideshowSpike), 2, 2);
             index = 0;
             lastIndex = 9;
         }

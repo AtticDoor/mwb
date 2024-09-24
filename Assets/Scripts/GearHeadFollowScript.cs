@@ -12,7 +12,7 @@ public partial class GearHeadFollowScript : MonoBehaviour
         //obtain the game object Transform
         enemyTransform = transform;
         getPlayerPosition();
-        InvokeRepeating("getPlayerPosition", 0, 3);
+        InvokeRepeating(nameof(getPlayerPosition), 0, 3);
     }
 
     public virtual void Update()

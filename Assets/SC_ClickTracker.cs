@@ -80,7 +80,7 @@ public class SC_ClickTracker : MonoBehaviour, IPointerDownHandler, IDragHandler,
     float LastClick;
     float LastRelease;
 
-    WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+    WaitForEndOfFrame waitForEndOfFrame = new();
 
     //Wait for next update then release the click event
     IEnumerator StopClickEvent()

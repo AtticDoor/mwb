@@ -11,8 +11,8 @@ public partial class BlimpEyeMovement : MonoBehaviour
     {
         //obtain the game object Transform
         enemyTransform = transform;
-        getPlayerPosition();
-        InvokeRepeating("getPlayerPosition", 0, 3);
+        GetPlayerPosition();
+        InvokeRepeating("GetPlayerPosition", 0, 3);
     }
 
     public virtual void Update()
@@ -27,49 +27,21 @@ public partial class BlimpEyeMovement : MonoBehaviour
         Vector3 Increment = (targetDirection * speed) * Time.deltaTime;
         Increment.z = 0;
         enemyTransform.position = enemyTransform.position + Increment;//targetDirection * speed * Time.deltaTime;
+
+        //move eye to follow player
+        Vector3 newPos = transform.localPosition;
         if (transform.localPosition.x > 0.1997f)
-        {
-
-            {
-                float _80 = 0.1997f;
-                Vector3 _81 = transform.localPosition;
-                _81.x = _80;
-                transform.localPosition = _81;
-            }
-        }
+            newPos.x = 0.1997f;
         if (transform.localPosition.x < -0.0478f)
-        {
-
-            {
-                float _82 = -0.0478f;
-                Vector3 _83 = transform.localPosition;
-                _83.x = _82;
-                transform.localPosition = _83;
-            }
-        }
+            newPos.x = -0.0478f;
         if (transform.localPosition.y > 0.31678f)
-        {
-
-            {
-                float _84 = 0.31678f;
-                Vector3 _85 = transform.localPosition;
-                _85.y = _84;
-                transform.localPosition = _85;
-            }
-        }
+            newPos.y = 0.31678f;
         if (transform.localPosition.y < 0.18445f)
-        {
-
-            {
-                float _86 = 0.18445f;
-                Vector3 _87 = transform.localPosition;
-                _87.y = _86;
-                transform.localPosition = _87;
-            }
-        }
+            newPos.y = 0.18445f;         
+        transform.localPosition = newPos;
     }
 
-    public virtual void getPlayerPosition()
+    public virtual void GetPlayerPosition()
     {
         target = GameObject.Find("Player").transform;
     }

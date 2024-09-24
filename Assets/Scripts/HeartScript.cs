@@ -8,8 +8,8 @@ public partial class HeartScript : MonoBehaviour
     public virtual void Start()
     {
         beatState = 0;
-        InvokeRepeating("Beat", 1, 1);
-        InvokeRepeating("StartSwirl", 1, 1);
+        InvokeRepeating(nameof(Beat), 1, 1);
+        InvokeRepeating(nameof(StartSwirl), 1, 1);
     }
 
     public virtual void Update()
@@ -29,27 +29,7 @@ public partial class HeartScript : MonoBehaviour
                 transform.localScale = transform.localScale * (1 - (Time.deltaTime * 0.5f));
                 if (transform.localScale.x < 3)
                 {
-
-                    {
-                        int _152 = 3;
-                        Vector3 _153 = transform.localScale;
-                        _153.x = _152;
-                        transform.localScale = _153;
-                    }
-
-                    {
-                        int _154 = 6;
-                        Vector3 _155 = transform.localScale;
-                        _155.y = _154;
-                        transform.localScale = _155;
-                    }
-
-                    {
-                        int _156 = 1;
-                        Vector3 _157 = transform.localScale;
-                        _157.z = _156;
-                        transform.localScale = _157;
-                    }
+                    transform.localScale = new Vector3(3,6,1);
                     beatState = 0;
                 }
             }
@@ -65,5 +45,4 @@ public partial class HeartScript : MonoBehaviour
     {
         beatState = 1;
     }
-
 }

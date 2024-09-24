@@ -38,22 +38,18 @@ public partial class SquidTentacleStretchAndSpin : MonoBehaviour
             }
             if (stretching)
             {
-
                 {
-                    float _180 = transform.localScale.z + (Time.deltaTime * stretchAmt);
-                    Vector3 _181 = transform.localScale;
-                    _181.z = _180;
-                    transform.localScale = _181;
+                    Vector3 newPos = transform.localScale;
+                    newPos.z = transform.localScale.z + (Time.deltaTime * stretchAmt); ;
+                    transform.localScale = newPos;
                 }
             }
             else
             {
-
                 {
-                    float _182 = transform.localScale.z - (Time.deltaTime * stretchAmt);
-                    Vector3 _183 = transform.localScale;
-                    _183.z = _182;
-                    transform.localScale = _183;
+                    Vector3 newPos = transform.localScale;
+                    newPos.z = transform.localScale.z - (Time.deltaTime * stretchAmt);
+                    transform.localScale = newPos;
                 }
             }
         }

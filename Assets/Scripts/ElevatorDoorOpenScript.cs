@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public partial class ElevatorDoorOpenScript : MonoBehaviour
 {
     public bool PlayerWithin;
-    public GameObject Tutor;
+    public GameObject Tutor; //tutorial image to display button to press for the player
     public virtual void Update()
     {
         if (PlayerWithin || Input.GetKey("2"))
@@ -27,7 +27,8 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
         if (c.gameObject.tag == "Player")
         {
             PlayerWithin = true;
-            Tutor.SetActive(PlayerWithin);
+            if(Tutor!=null)
+                Tutor.SetActive(PlayerWithin);
         }
     }
 
@@ -36,7 +37,8 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
         if (c.gameObject.tag == "Player")
         {
             PlayerWithin = false;
-            Tutor.SetActive(PlayerWithin);
+            if (Tutor != null)
+                Tutor.SetActive(PlayerWithin);
         }
     }
 

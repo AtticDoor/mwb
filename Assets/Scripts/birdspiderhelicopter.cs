@@ -12,26 +12,22 @@ public partial class birdspiderhelicopter : MonoBehaviour
     public bool flying;
     public virtual void Update()
     {
+        //flies up as player approaches
         if (flying)
         {
             transform.Rotate(new Vector3(0, Time.deltaTime * 4000, 0));
-
             {
-                float _76 = transform.position.y + (Time.deltaTime * 5);
-                Vector3 _77 = transform.position;
-                _77.y = _76;
-                transform.position = _77;
+                transform.position += new Vector3(0, (Time.deltaTime * 5), 0);
             }
         }
+        //if player is close, start to fly
         float distance = Player.transform.position.x - transform.position.x;
+     
         if (distance < 0)
-        {
-            distance = distance * -1;
-        }
+            distance *= -1;
+        
         if (distance < 1)
-        {
             flying = true;
-        }
     }
 
 }

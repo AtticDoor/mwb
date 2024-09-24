@@ -17,8 +17,8 @@ public partial class LeggedEnemyScript : MonoBehaviour
     private float right;
     public virtual void OnTriggerEnter(Collider c)
     {
-        //	Debug.Log("FDFDSFDSFSDFDSFSDFDSGDSGSDGDSGDSGDSGDSGDSGDGDSGSGDSGSDGG");
-        if (c.gameObject.tag == "Player")
+
+        if (c.gameObject.CompareTag("Player"))
         {
             KillPlayer(c.gameObject);
             //fadeOut();	
@@ -41,13 +41,10 @@ public partial class LeggedEnemyScript : MonoBehaviour
     public virtual void Start()
     {
         if (Stationary)
-        {
             pauseMotion = true;
-        }
+        
         if (Erratic)
-        {
-            Invoke("ErraticPause", Random.Range(0.5f, 4));
-        }
+            Invoke(nameof(ErraticPause), Random.Range(0.5f, 4));
     }
 
     private bool movingLeft;
@@ -64,7 +61,7 @@ public partial class LeggedEnemyScript : MonoBehaviour
             if (walkAndPause)
             {
                 pauseMotion = true;
-                Invoke("TogglePauseMotion", 1);
+                Invoke(nameof(TogglePauseMotion), 1);
             }
         }
         else
@@ -81,25 +78,8 @@ public partial class LeggedEnemyScript : MonoBehaviour
             else
             {
                 if (movingLeft)
-                {
-
-                    {
-                        float _160 = transform.position.x - (1.5f * Time.deltaTime);
-                        Vector3 _161 = transform.position;
-                        _161.x = _160;
-                        transform.position = _161;
-                    }
-                }
-                else
-                {
-
-                    {
-                        float _162 = transform.position.x + (1.5f * Time.deltaTime);
-                        Vector3 _163 = transform.position;
-                        _163.x = _162;
-                        transform.position = _163;
-                    }
-                }
+                     transform.position -= new Vector3(0, (1.5f * Time.deltaTime), 0);
+                else transform.position += new Vector3(0, (1.5f * Time.deltaTime), 0);    
             }
         }
     }
@@ -112,7 +92,6 @@ public partial class LeggedEnemyScript : MonoBehaviour
     public virtual void ErraticPause()
     {
         TogglePauseMotion();
-        Invoke("ErraticPause", Random.Range(0.5f, 4));
+        Invoke(nameof(ErraticPause), Random.Range(0.5f, 4));
     }
-
 }

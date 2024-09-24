@@ -11,31 +11,25 @@ public partial class beetleScript : MonoBehaviour
 
     public virtual void Update()
     {
-
         {
-            float _40 = transform.position.x + (0.5f * Time.deltaTime);
-            Vector3 _41 = transform.position;
-            _41.x = _40;
-            transform.position = _41;
+            Vector3 newPos = transform.position;
+            newPos.x = transform.position.x + (0.5f * Time.deltaTime);
+            transform.position = newPos;
         }
         if (MovingUp)
         {
-
             {
-                float _42 = transform.position.y + (0.4f * Time.deltaTime);
-                Vector3 _43 = transform.position;
-                _43.y = _42;
-                transform.position = _43;
+                Vector3 newPos = transform.position;
+                newPos.y = transform.position.y + (0.4f * Time.deltaTime);
+                transform.position = newPos;
             }
         }
         else
         {
-
             {
-                float _44 = transform.position.y + (-0.4f * Time.deltaTime);
-                Vector3 _45 = transform.position;
-                _45.y = _44;
-                transform.position = _45;
+                Vector3 newPos = transform.position;
+                newPos.y = transform.position.y + (-0.4f * Time.deltaTime);
+                transform.position = newPos;
             }
         }
     }
@@ -43,7 +37,7 @@ public partial class beetleScript : MonoBehaviour
     public virtual void MoveUp()
     {
         MovingUp = !MovingUp;
-        Invoke("MoveUp", Random.Range(0, 0.5f));
+        Invoke(nameof(MoveUp), Random.Range(0, 0.5f));
     }
 
 }

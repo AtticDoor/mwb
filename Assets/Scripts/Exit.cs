@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public partial class Exit : MonoBehaviour
 {
+    //Exit Level script
+
     public string levelName;
     public virtual void OnTriggerEnter(Collider c)
     {

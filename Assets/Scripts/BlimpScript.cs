@@ -14,14 +14,10 @@ public partial class BlimpScript : MonoBehaviour
         Player = GameObject.Find("Player").transform;
         EnableFire();
         StartPosition();
+        //blink the eye randomly
         if (Random.Range(0, 10) < 1)
-        {
             Invoke("BlinkClosed", 1);
-        }
-        else
-        {
-            Invoke("BlinkClosed", Random.Range(4, 10));
-        }
+        else Invoke("BlinkClosed", Random.Range(4, 10));
     }
 
     public virtual void BlinkClosed()
@@ -64,7 +60,7 @@ public partial class BlimpScript : MonoBehaviour
 
     public virtual void Fire()
     {
-        UnityEngine.Object.Instantiate(Bomb, transform.position, transform.rotation);
+        Instantiate(Bomb, transform.position, transform.rotation);
     }
 
     public virtual void EnableFire()
@@ -112,14 +108,12 @@ public partial class BlimpScript : MonoBehaviour
     public float StartY;
     public virtual void UpdateY()
     {
-        index = index + (Time.deltaTime / 3);
+        index += (Time.deltaTime / 3);
         float y = Mathf.Abs(amplitudeY * Mathf.Sin(omegaY * index));
-
         {
-            float _88 = StartY + y;//= new Vector3(0,y,0);
-            Vector3 _89 = transform.position;
-            _89.y = _88;
-            transform.position = _89;
+            transform.position = new Vector3(transform.position.x
+                                            , StartY + y
+                                            , transform.position.z);
         }
     }
 

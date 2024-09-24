@@ -29,29 +29,22 @@ public partial class MainScript : MonoBehaviour
         {
             return;
         }
-        float mousex = Input.mousePosition.x;
-        float mousey = Input.mousePosition.y;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
-        if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)))
+        float mouseX = Input.mousePosition.x;
+        float mouseY = Input.mousePosition.y;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouseX, mouseY, 0));
+        if (Input.GetMouseButtonDown(0) 
+        && (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)))
         {
             GameObject crate = UnityEngine.Object.Instantiate(Prefabs[MainScript.enemyIndex], ray.origin, Quaternion.identity);
 
-            {
-                int _164 = 0;
-                Vector3 _165 = crate.transform.position;
-                _165.z = _164;
-                crate.transform.position = _165;
-            }
+            //set crate z position to 0
+            crate.transform.position = new Vector3(crate.transform.position.x, crate.transform.position.y,0);
             MainScript.Selected = crate;
         }
         if (Input.GetKeyUp("space"))
-        {
             MainScript.enemyIndex++;
-        }
         if (MainScript.enemyIndex >= Prefabs.Length)
-        {
             MainScript.enemyIndex = 0;
-        }
     }
 
     public GameObject[] Prefabs;
@@ -59,25 +52,19 @@ public partial class MainScript : MonoBehaviour
     public static bool verticalCam;
     public virtual void OnGUI()
     {
-        int j = 0;
         GUI.depth = 0;
         GUI.Label(new Rect(0, 100, 100, 100), "Scene" + MainScript.curLevel);
         GUI.Label(new Rect(0, 100, 100, 100), "Scene" + MainScript.curLevel);
         if (!MainScript.EditMode)
-        {
             return;
-        }
+
         GUI.Label(new Rect(0, 0, 200, 100), "CREATE: " + Prefabs[MainScript.enemyIndex].transform.name);
         string SelectedName = "";
         if (MainScript.Selected != null)
-        {
             SelectedName = MainScript.Selected.transform.name;
-        }
+    
         GUI.Label(new Rect(0, 20, 200, 100), "Selected: " + SelectedName);
         if (GUI.Button(new Rect(0, 40, 200, 20), "Vertical Cam: " + MainScript.verticalCam))
-        {
             MainScript.verticalCam = !MainScript.verticalCam;
-        }
     }
-
 }

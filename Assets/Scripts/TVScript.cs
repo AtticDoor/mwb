@@ -16,20 +16,20 @@ public partial class TVScript : MonoBehaviour
         if (Completed) 
             return;
 
-        tutor.SetActive(PlayerWithin);
+        if (tutor!=null)
+            tutor.SetActive(PlayerWithin);
         
         if (PlayerWithin)
         {
             //testing purposes, automatically clear the TV
-            if (Input.GetKeyUp("q"))
+            if (Input.GetKeyUp(KeyCode.Q))
             {
                 Meter.transform.localScale = new Vector3(0, 0, 0);
                 Complete();
             }
-
-            if (Input.GetKeyDown("up") || Input.GetKeyDown("w"))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
                 ToggleBrainWash(false);
-            else if (Input.GetKeyUp("up") || Input.GetKeyUp("w"))
+            else if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W))
                 ToggleBrainWash(true);
 
             if ( SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
@@ -37,7 +37,7 @@ public partial class TVScript : MonoBehaviour
             else ToggleBrainWash(true);
 
 
-            if (Input.GetKey("up") || Input.GetKey("w")
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)
             || SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
             {
                 if (Meter.transform.localScale.x > 0)
@@ -60,7 +60,7 @@ public partial class TVScript : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.CompareTag("Player"))
         {
             PlayerWithin = true;
         }
@@ -68,7 +68,7 @@ public partial class TVScript : MonoBehaviour
 
     public virtual void OnTriggerExit(Collider c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.CompareTag("Player"))
         {
             PlayerWithin = false;
         }

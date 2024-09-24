@@ -41,7 +41,7 @@ public partial class CascadingPlatform : MonoBehaviour
     {
         if (fadingIn)
         {
-            FadeLevel = FadeLevel + Time.deltaTime;
+            FadeLevel += Time.deltaTime;
 
             {
                 float _128 = FadeLevel;
@@ -90,38 +90,6 @@ public partial class CascadingPlatform : MonoBehaviour
         }
     }
 
-    /*
-
-var phase:int;
-function UpdateXXXXXXXXXXXXX()
-{
-	if (phase>=5)
-	{
-		phase=1;
-		return;
-	}
-
-
-	if (dying)
-	{
-		transform.renderer.material.color.a*=1-Time.deltaTime;
-	}
-	else if(StartTime+delay<=Time.time)
-	{
-		DestroyPlatform();
-	}
-}
-
-function DestroyPlatform()
-{
-	dying=true;
-	yield WaitForSeconds(1);
-	collider.active=false;
-
-	Destroy(gameObject);
-}
-
-*/
     public CascadingPlatform()
     {
         lifeSpan = 3;

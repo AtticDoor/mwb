@@ -41,12 +41,9 @@ public class HumanBulbScript : EnemyScript
 
     public virtual void EnableColors(string color, bool t)
     {
-        GameObject[] Objects = null;
-        Objects = GameObject.FindGameObjectsWithTag(color);
+        GameObject[] Objects = GameObject.FindGameObjectsWithTag(color);
         foreach (GameObject o in Objects)
-        {
             ((EnemyScript)o.GetComponent(typeof(EnemyScript))).On = t;
-        }
     }
 
     public virtual IEnumerator AlertEnemies()
@@ -56,5 +53,4 @@ public class HumanBulbScript : EnemyScript
         transform.rotation = OEMRotation;
         Alert = false;
     }
-
 }

@@ -17,18 +17,16 @@ public partial class HeartSwirlScript : MonoBehaviour
         transform.localScale = transform.localScale + new Vector3(amt, amt, 0);
         if (transform.localScale.x > 5)
         {
-
+            //fade away.  could also be done by lerpScript
             {
-                float _158 = GetComponent<Renderer>().material.color.a - (amt / 8);
-                Color _159 = GetComponent<Renderer>().material.color;
-                _159.a = _158;
-                GetComponent<Renderer>().material.color = _159;
+                float newAlpha = GetComponent<Renderer>().material.color.a - (amt / 8);
+                Color newColor = GetComponent<Renderer>().material.color;
+                newColor.a = newAlpha;
+                GetComponent<Renderer>().material.color = newColor;
             }
         }
         if (GetComponent<Renderer>().material.color.a < 0)
-        {
-            UnityEngine.Object.Destroy(gameObject);
-        }
+            Destroy(gameObject);
     }
 
 }

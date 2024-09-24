@@ -15,15 +15,12 @@ public partial class CentipedeDevourPlatform : MonoBehaviour
     private bool dying;
     public virtual void Update()
     {
-        if (dying)
+        if (dying) //fadeout
         {
-
-            {
-                float _138 = transform.GetComponent<Renderer>().material.color.a * (1 - Time.deltaTime);
-                Color _139 = transform.GetComponent<Renderer>().material.color;
-                _139.a = _138;
-                transform.GetComponent<Renderer>().material.color = _139;
-            }
+            float alphaColor = transform.GetComponent<Renderer>().material.color.a * (1 - Time.deltaTime);
+            Color newColor = transform.GetComponent<Renderer>().material.color;
+            newColor.a = alphaColor;
+            transform.GetComponent<Renderer>().material.color = newColor;
         }
     }
 

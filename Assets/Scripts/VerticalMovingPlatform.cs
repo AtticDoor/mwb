@@ -3,24 +3,16 @@ using UnityEngine;
 [System.Serializable]
 public partial class VerticalMovingPlatform : MonoBehaviour
 {
-    public virtual void Start()
-    {
-    }
-
     public virtual void OnTriggerEnter(Collider hit)
     {
-        if (hit.tag == "Player")
-        {
+        if (hit.CompareTag("Player"))
             hit.transform.parent = transform;
-        }
     }
 
     public virtual void OnTriggerExit(Collider hit)
     {
-        if (hit.tag == "Player")
-        {
+        if (hit.CompareTag("Player"))
             hit.transform.parent = null;
-        }
     }
 
     public virtual void Update()

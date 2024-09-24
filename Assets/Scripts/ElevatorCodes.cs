@@ -9,9 +9,7 @@ public partial class ElevatorCodes : MonoBehaviour
     public static void ClearCode()
     {
         if (!ElevatorCodes.initialized)
-        {
             ElevatorCodes.InitCodes();
-        }
     }
 
     public static void InitCodes()
@@ -24,18 +22,14 @@ public partial class ElevatorCodes : MonoBehaviour
     public static void ClearTV(int num)
     {
         if (!ElevatorCodes.initialized)
-        {
             ElevatorCodes.InitCodes();
-        }
         ElevatorCodes.TVsDisabled[num] = true;
     }
 
     public static bool TVCleared(int num)
     {
         if (!ElevatorCodes.initialized)
-        {
             ElevatorCodes.InitCodes();
-        }
         return ElevatorCodes.TVsDisabled[num];
     }
 

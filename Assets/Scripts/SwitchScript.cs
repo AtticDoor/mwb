@@ -11,21 +11,19 @@ public class SwitchScript : EnemyScript
 
     public override void OnTriggerEnter(Collider c)
     {
-        if (c.transform.tag == "Player")
+        if (c.transform.CompareTag("Player"))
         {
             GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
-            this.On = !this.On;
+            On = !On;
             EnableColors(On);
         }
     }
 
     public virtual void EnableColors(bool t)
     {
-        GameObject[] Objects = null;
-        Objects = GameObject.FindGameObjectsWithTag(gameObject.tag);
+        GameObject[] Objects = GameObject.FindGameObjectsWithTag(gameObject.tag);
         foreach (GameObject o in Objects)
         {
-            //Debug.Log(o.transform.name);
             ((EnemyScript)o.GetComponent(typeof(EnemyScript))).On = t;
         }
     }

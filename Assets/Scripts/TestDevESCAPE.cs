@@ -6,12 +6,12 @@ public partial class TestDevESCAPE : MonoBehaviour
 {
     public virtual void Start()
     {
-        UnityEngine.Object.DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     public virtual void Update()
     {
-        if (Input.GetKeyUp("escape"))
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
             SceneManager.LoadScene("TestDevelopmentMenu");
         }

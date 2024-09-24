@@ -200,8 +200,8 @@ public partial class ThirdPersonCamera : MonoBehaviour
         }
         else
         {
-            extraLookAngle = extraLookAngle - centerToTopAngle;
-            cameraTransform.rotation = cameraTransform.rotation * Quaternion.Euler(-extraLookAngle, 0, 0);
+            extraLookAngle -= centerToTopAngle;
+            cameraTransform.rotation *= Quaternion.Euler(-extraLookAngle, 0, 0);
         }
     }
 

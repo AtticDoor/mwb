@@ -26,7 +26,6 @@ public partial class aliScript : MonoBehaviour
         }
         else
         {
-
             {
                 float _74 = transform.position.y + (Time.deltaTime * 2);
                 Vector3 _75 = transform.position;

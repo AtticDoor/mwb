@@ -3,19 +3,11 @@ using UnityEngine;
 [System.Serializable]
 public partial class BlimpBombScript : MonoBehaviour
 {
-    public virtual void Start()
-    {
-    }
 
     public virtual void Update()
     {
-
-        {
-            float _78 = transform.position.y - (Time.deltaTime * 2);
-            Vector3 _79 = transform.position;
-            _79.y = _78;
-            transform.position = _79;
-        }
+        //bombs fall once instantiated
+        transform.position += new Vector3(0, -(Time.deltaTime * 2), 0);
     }
 
 }

@@ -14,10 +14,9 @@ public partial class SquidScript : MonoBehaviour
     {
 
         {
-            float _174 = transform.position.y + (Speed * Time.deltaTime);
-            Vector3 _175 = transform.position;
-            _175.y = _174;
-            transform.position = _175;
+            Vector3 newPos = transform.position;
+            newPos.y = transform.position.y + (Speed * Time.deltaTime);
+            transform.position = newPos;
         }
         if (MovingDown)
         {
@@ -26,10 +25,9 @@ public partial class SquidScript : MonoBehaviour
                 InitSpeed();
 
                 {
-                    int _176 = 90;
-                    Vector3 _177 = transform.position;
-                    _177.y = _176;
-                    transform.position = _177;
+                    Vector3 newPos = transform.position;
+                    newPos.y = 90;
+                    transform.position = newPos;
                 }
             }
         }
@@ -40,10 +38,9 @@ public partial class SquidScript : MonoBehaviour
                 InitSpeed();
 
                 {
-                    int _178 = -18;
-                    Vector3 _179 = transform.position;
-                    _179.y = _178;
-                    transform.position = _179;
+                    Vector3 newPos = transform.position;
+                    newPos.y = -18;
+                    transform.position = newPos;
                 }
             }
         }
@@ -54,7 +51,7 @@ public partial class SquidScript : MonoBehaviour
         Speed = Random.Range(0, 1f) * 3;
         if (MovingDown)
         {
-            Speed = Speed * -1;
+            Speed *= -1;
         }
     }
 

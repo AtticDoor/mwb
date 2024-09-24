@@ -18,40 +18,32 @@ public partial class ThwompBiteScript : MonoBehaviour
     {
         if (closing)
         {
-
             {
-                float _184 = Bot.transform.position.y + (Time.deltaTime * 6);
-                Vector3 _185 = Bot.transform.position;
-                _185.y = _184;
-                Bot.transform.position = _185;
+                Vector3 newPos = Bot.transform.position;
+                newPos.y = Bot.transform.position.y + (Time.deltaTime * 6);
+                Bot.transform.position = newPos;
             }
 
             {
-                float _186 = Top.transform.position.y - (Time.deltaTime * 6);
-                Vector3 _187 = Top.transform.position;
-                _187.y = _186;
-                Top.transform.position = _187;
+                Vector3 newPos = Top.transform.position;
+                newPos.y = Top.transform.position.y - (Time.deltaTime * 6);
+                Top.transform.position = newPos;
             }
             if (Top.transform.position.y < TopClosedY)
-            {
                 closing = false;
-            }
         }
         else
         {
-
             {
-                float _188 = Bot.transform.position.y - (Time.deltaTime * 3);
-                Vector3 _189 = Bot.transform.position;
-                _189.y = _188;
-                Bot.transform.position = _189;
+                Vector3 newPos = Bot.transform.position;
+                newPos.y = Bot.transform.position.y - (Time.deltaTime * 3);
+                Bot.transform.position = newPos;
             }
 
             {
-                float _190 = Top.transform.position.y + (Time.deltaTime * 3);
-                Vector3 _191 = Top.transform.position;
-                _191.y = _190;
-                Top.transform.position = _191;
+                Vector3 newPos = Top.transform.position;
+                newPos.y = Top.transform.position.y + (Time.deltaTime * 3);
+                Top.transform.position = newPos;
             }
             if (Top.transform.position.y > 10)
             {

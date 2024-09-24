@@ -14,6 +14,9 @@ public enum CharacterState
 [UnityEngine.RequireComponent(typeof(CharacterController))]
 public partial class ThirdPersonController : MonoBehaviour
 {
+
+
+
     public AnimationClip idleAnimation;
     public AnimationClip walkAnimation;
     public AnimationClip runAnimation;
@@ -143,7 +146,7 @@ public var jumpPoseAnimation : AnimationClip;
         //Debug.Log(h);
 
 
-        Debug.Log(SC_MobileControls.instance.GetJoystick("JoystickLeft").y);
+        //Debug.Log(SC_MobileControls.instance.GetJoystick("JoystickLeft").y);
 
         // Are we moving backwards or looking backwards
         if (v < -0.2f)

@@ -8,6 +8,11 @@ public class enemyPingPong : EnemyScript
     private float left;
     private float right;
     public float speed;
+
+    //enemyPingPong moves left and right
+    //between two GameObject triggers named LeftBoundary/RightBoundary
+
+
     public override void ExtraStart()
     {
         left = LeftBoundary.transform.position.x;
@@ -38,7 +43,7 @@ public class enemyPingPong : EnemyScript
         }
         //don't do anything if the current time is less than the delay ending
         if (Time.time > DelayEndTime)
-        { 
+        {
             if (MovingRight)
                 transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
             else transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);

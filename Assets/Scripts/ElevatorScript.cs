@@ -23,31 +23,20 @@ public partial class ElevatorScript : MonoBehaviour
         //temporary code - adds all tvs in scene to elevator list of tvs to open
         if (Codes.Length == 0)
         {
-
             TVScript[] tests = FindObjectsOfType(typeof(TVScript)) as TVScript[];
             foreach (var t in tests)
             {
                 if (t.DoorVal >= 0)
                     Codes = new List<int>(Codes) { t.DoorVal }.ToArray();
             }
-
         }
     }
 
     public static void DoorSwitchOn(int i)
     {
-        if (i == 1)
-        {
-            ElevatorScript.static1 = true;
-        }
-        if (i == 2)
-        {
-            ElevatorScript.static2 = true;
-        }
-        if (i == 3)
-        {
-            ElevatorScript.static3 = true;
-        }
+        if (i == 1) ElevatorScript.static1 = true;
+        if (i == 2) ElevatorScript.static2 = true;
+        if (i == 3) ElevatorScript.static3 = true;
     }
 
     public virtual void Update()
@@ -55,21 +44,19 @@ public partial class ElevatorScript : MonoBehaviour
         if (Input.GetKeyDown("1"))  //hack just for testing 
             OpenDoor();
 
+        //test if the door codes are all cleared.  If so, Open the door
         if (open)
             return;
         Plane1.SetActive(ElevatorScript.static1);
         Plane2.SetActive(ElevatorScript.static2);
         Plane3.SetActive(ElevatorScript.static3);
-        if (!DoorOpen.active)
+        if (!DoorOpen.activeSelf)
         {
             int i = 0;
             while (i < Codes.Length)
             {
-                //Debug.Log(ElevatorCodes.TVCleared(Codes[i])+"   "+Codes.length+" i:"+i+"  CodesI:"+Codes[i]+" ");
                 if (!ElevatorCodes.TVCleared(Codes[i]))
-                {
                     return;
-                }
                 i++;
             }
         }

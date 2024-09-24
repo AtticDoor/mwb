@@ -4,7 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class CentipedMotionScript : EnemyScript
 {
-    //#pragma strict
     public Transform[] MovementList;
     public float[] delayBetweenMovesThenSpeed;
     public GameObject AnimatedObject;
@@ -38,7 +37,7 @@ public class CentipedMotionScript : EnemyScript
             {
                 yield return null;
             }//while ((PO!=null)&&(PO.Paused)){ yield; }
-            i = i + 2;
+            i += 2;
         }
     }
 
