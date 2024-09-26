@@ -140,8 +140,8 @@ public var jumpPoseAnimation : AnimationClip;
         Vector3 right = new Vector3(forward.z, 0, -forward.x);
         int v = 0;//Input.GetAxisRaw("Vertical");
         float h = Input.GetAxisRaw("Horizontal");
-        if (h==0)
-            h=SC_MobileControls.instance.GetJoystick("JoystickLeft").x;
+        if (h==0  && SC_MobileControls.instance!=null)
+            h = SC_MobileControls.instance.GetJoystick("JoystickLeft").x;
 
         //Debug.Log(h);
 
@@ -218,7 +218,7 @@ public var jumpPoseAnimation : AnimationClip;
                 }
                 else
                 {
-                    targetSpeed = targetSpeed * walkSpeed;
+                    targetSpeed *= walkSpeed;
                     if (grounded)
                     {
                         _characterState = CharacterState.Walking;

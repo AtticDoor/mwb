@@ -11,6 +11,26 @@ public partial class TVScript : MonoBehaviour
     private bool Completed;
     public float MeterStartPercent = 100f;
     public GameObject tutor;
+
+    public Texture staticImage;
+    public Texture2D brainWashImage;
+    public Texture2D BlackTexture;
+
+    public AnimatedTexture at;
+
+    public virtual void Start()
+    {
+        Meter.transform.localScale = new Vector3(Meter.transform.localScale.x * MeterStartPercent / 100, Meter.transform.localScale.y, 1);
+        transform.tag = "TV";
+        staticImage = TVScreen.GetComponent<Renderer>().material.mainTexture;
+        at = (AnimatedTexture)TVScreen.GetComponent("AnimatedTexture");
+        if (ElevatorCodes.TVCleared(DoorVal))
+        {
+            Complete();
+        }
+    }
+
+
     public virtual void Update()
     {
         if (Completed) 
@@ -32,13 +52,14 @@ public partial class TVScript : MonoBehaviour
             else if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W))
                 ToggleBrainWash(true);
 
-            if ( SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
+            /*if ((SC_MobileControls.instance != null) &&
+            /*if* / ( SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f))
                 ToggleBrainWash(false);
             else ToggleBrainWash(true);
+            */
 
-
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)
-            || SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+            //  || ((SC_MobileControls.instance != null) && (SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)))
             {
                 if (Meter.transform.localScale.x > 0)
                 {
@@ -73,35 +94,16 @@ public partial class TVScript : MonoBehaviour
             PlayerWithin = false;
         }
     }
-
-    public AnimatedTexture at;
-    public virtual void Start()
+    public virtual void ToggleBrainWash(bool EndingBrainWash)
     {
-        Meter.transform.localScale = new Vector3(Meter.transform.localScale.x * MeterStartPercent / 100 , Meter.transform.localScale.y, 1);
-        transform.tag = "TV";
-        staticImage = TVScreen.GetComponent<Renderer>().material.mainTexture;
-        at = (AnimatedTexture)TVScreen.GetComponent("AnimatedTexture");
-        if (ElevatorCodes.TVCleared(DoorVal))
-        {
-            Complete();
-        }
-    }
-
-    public Texture staticImage;
-    public Texture2D brainWashImage;
-    public Texture2D BlackTexture;
-    public virtual void ToggleBrainWash(bool b)
-    {
-        if (b)
+        if (EndingBrainWash)
             TVScreen.GetComponent<Renderer>().material.mainTexture = staticImage;
-        else
-            TVScreen.GetComponent<Renderer>().material.mainTexture = brainWashImage;
+        else TVScreen.GetComponent<Renderer>().material.mainTexture = brainWashImage;
     }
 
-    public virtual void Complete()//ElevatorScript.DoorSwitchOn(DoorVal);
+    public virtual void Complete()
     {
         tutor.SetActive(false);
-        //TVScreen.renderer.material.mainTexture=Textures[0];//[DoorVal];
         TVScreen.GetComponent<Renderer>().material.mainTexture = BlackTexture;//[DoorVal];
         if (DoorVal > 72)
         {

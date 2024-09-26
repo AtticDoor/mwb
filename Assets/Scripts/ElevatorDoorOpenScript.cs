@@ -11,7 +11,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
         if (PlayerWithin || Input.GetKey("2"))
         {
             if (Input.GetKey("up") || Input.GetKey("w") || Input.GetKey("2")
-                || SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f)
+            || ((SC_MobileControls.instance != null) && SC_MobileControls.instance.GetJoystick("JoystickLeft").y > .1f))
             {
                 ElevatorScript es = (ElevatorScript)transform.parent.GetComponent("ElevatorScript");
                 MainScript.lastLevel = MainScript.curLevel;
@@ -24,7 +24,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.CompareTag("Player"))
         {
             PlayerWithin = true;
             if(Tutor!=null)
@@ -34,7 +34,7 @@ public partial class ElevatorDoorOpenScript : MonoBehaviour
 
     public virtual void OnTriggerExit(Collider c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.CompareTag("Player"))
         {
             PlayerWithin = false;
             if (Tutor != null)

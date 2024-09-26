@@ -29,7 +29,7 @@ public partial class TimerGUI : MonoBehaviour
     public TextMeshProUGUI txt; 
     public static int minutes;
     public static int seconds;
-    public virtual void OnGUIJUNK()
+    public virtual void OnGUI()
     {
         TimerGUI.minutes = Mathf.FloorToInt(MainScript.timer / 60f);
         TimerGUI.seconds = Mathf.FloorToInt(MainScript.timer - (TimerGUI.minutes * 60));
